@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 <!--  	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>-->
 
-	<!-- Change me! 
+	<!-- Change me!
 
          The next five properties should probably be customized for
          your project.  If you don't know what to use for groupId,
@@ -17,13 +17,13 @@
 	<groupId>edu.bamberg.wiai.seda</groupId>
 	<artifactId>modelling.plugin</artifactId>
 	<version>0.8.0-SNAPSHOT</version>
-	<name>Modelling Plugin</name> 
-	<description>A Conceptual Modelling Plugin</description> 
+	<name>Modelling Plugin</name>
+	<description>A Conceptual Modelling Plugin</description>
 
 
 	<packaging>bundle</packaging>
 
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>edu.stanford.protege</groupId>
@@ -33,9 +33,9 @@
 <dependency>
   <groupId>com.oracle</groupId>
   <artifactId>javafx</artifactId>
-  <version>8.0.151</version>
+  <version>2.2.3</version>
   <scope>system</scope>
-  <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+	<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
 </dependency>
         <dependency>
 			<groupId>edu.stanford.protege</groupId>
@@ -49,7 +49,7 @@
 			<version>4.3.0</version>
         </dependency>
 	</dependencies>
-	
+
 
 	<build>
 		<plugins>
@@ -73,7 +73,7 @@
 						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
 						<Import-Package>
-							org.apache.log4j.*;version="1.2.16", 
+							org.apache.log4j.*;version="1.2.16",
 							org.protege.editor.core.*;version="4.3.0",
 							org.protege.editor.owl.*;version="4.3.0",
 							*
@@ -85,9 +85,9 @@
 						<execution>
 							<id>bundle-manifest</id>
 							<phase>install</phase>
-							<goals>    
+							<goals>
 								<goal>manifest</goal>
-							</goals>   
+							</goals>
 						</execution>
 					</executions>
 				</configuration>
