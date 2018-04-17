@@ -81,6 +81,15 @@
 						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
 						<Private-Package>skeleton</Private-Package>
 					</instructions>
+					<executions>
+						<execution>
+							<id>bundle-manifest</id>
+							<phase>install</phase>
+							<goals>
+								<goal>manifest</goal>
+							</goals>
+						</execution>
+					</executions>
 				</configuration>
             </plugin>
             <plugin>
