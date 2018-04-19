@@ -30,23 +30,24 @@
 			<artifactId>org.protege.common</artifactId>
 			<version>4.3.0</version>
 		</dependency>
-		<dependency>
-		  <groupId>com.oracle</groupId>
-		  <artifactId>javafx</artifactId>
-		  <version>2.2.3</version>
-		  <scope>system</scope>
-			<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
-		</dependency>
-    <dependency>
+<dependency>
+  <groupId>com.oracle</groupId>
+  <artifactId>javafx</artifactId>
+  <version>2.2.3</version>
+  <scope>system</scope>
+	<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+</dependency>
+        <dependency>
 			<groupId>edu.stanford.protege</groupId>
 			<artifactId>org.protege.editor.core.application</artifactId>
 			<version>4.3.0</version>
-    </dependency>
-    <dependency>
+        </dependency>
+
+        <dependency>
 			<groupId>edu.stanford.protege</groupId>
-      <artifactId>org.protege.editor.owl</artifactId>
+            <artifactId>org.protege.editor.owl</artifactId>
 			<version>4.3.0</version>
-    </dependency>
+        </dependency>
 	</dependencies>
 
 
@@ -55,7 +56,7 @@
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.7.0</version>
+              <version>3.0</version>
               <configuration>
                 <source>1.8</source>
                 <target>1.8</target>
