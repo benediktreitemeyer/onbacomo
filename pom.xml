@@ -31,11 +31,9 @@
 			<version>4.3.0</version>
 		</dependency>
 		<dependency>
-		  <groupId>com.oracle</groupId>
-		  <artifactId>javafx</artifactId>
-		  <version>2.2.3</version>
-		  <scope>system</scope>
-			<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+		    <groupId>org.diirt.javafx</groupId>
+		    <artifactId>javafx</artifactId>
+		    <version>3.1.7</version>
 		</dependency>
     <dependency>
 			<groupId>edu.stanford.protege</groupId>
