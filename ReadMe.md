@@ -2,7 +2,7 @@
 
 ## Building
 1. Download the [Java-JDK Verison 9.0.4](http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html).
-2. If you get your JDK from another source, add your JDK directory to the windows **PATH** Windows environment variable.
+2. If you get your JDK from another source, add your JDK directory to the **PATH** Windows environment variable.
 3. Install Maven.
     1. Make sure JDK is installed, and **JAVA_HOME** variable is added as Windows environment variable.
     2. Visit [Maven official website](https://maven.apache.org/download.cgi#), download the Maven zip file, for example : apache-maven-3.2.2-bin.zip. Unzip it to the folder where you want to install Maven.
