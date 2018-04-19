@@ -37,17 +37,16 @@
 		  <scope>system</scope>
 			<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
 		</dependency>
-        <dependency>
+    <dependency>
 			<groupId>edu.stanford.protege</groupId>
 			<artifactId>org.protege.editor.core.application</artifactId>
 			<version>4.3.0</version>
-        </dependency>
-
-        <dependency>
+    </dependency>
+    <dependency>
 			<groupId>edu.stanford.protege</groupId>
-            <artifactId>org.protege.editor.owl</artifactId>
+      <artifactId>org.protege.editor.owl</artifactId>
 			<version>4.3.0</version>
-        </dependency>
+    </dependency>
 	</dependencies>
 
 

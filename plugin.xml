@@ -3,7 +3,7 @@
 <plugin>
 
       <!-- Views -->
-		
+
 		<!-- Toolbar -->
      <extension id="toolbar.view"
                point="org.protege.editor.core.application.ViewComponent">
@@ -31,11 +31,11 @@
     
     <!--Tab -->
    	<extension id="ExampleWorkspaceTab2" point="org.protege.editor.core.application.WorkspaceTab">
-		<label value="OnbaCoMo"/>
-		<class value="view.protege.tab.Tab"/>
-		<index value="Q"/>
-		<editorKitId value="OWLEditorKit"/>
-		<defaultViewConfigFileName value="viewconfig.xml"/>
-		<protegeDefaultTab value="true"/>
+				<label value="OnbaCoMo"/>
+				<class value="view.protege.tab.Tab"/>
+				<index value="Q"/>
+				<editorKitId value="OWLEditorKit"/>
+				<defaultViewConfigFileName value="viewconfig.xml"/>
+				<protegeDefaultTab value="true"/>
    </extension>
 </plugin>
