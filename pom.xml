@@ -71,9 +71,9 @@
 						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
 						<Import-Package>
-							org.apache.log4j.*;version="1.2.16",
-							org.protege.editor.core.*;version="4.3.0",
-							org.protege.editor.owl.*;version="4.3.0",
+							org.apache.log4j.*;version="[1.2,2)",
+							org.protege.editor.core.*;version="4.3",
+							org.protege.editor.owl.*;version="4.3",
 							*
 						</Import-Package>
 						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
