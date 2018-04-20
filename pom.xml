@@ -30,22 +30,22 @@
 			<artifactId>org.protege.common</artifactId>
 			<version>4.3.0</version>
 		</dependency>
+    <dependency>
+			<groupId>edu.stanford.protege</groupId>
+			<artifactId>org.protege.editor.core.application</artifactId>
+			<version>4.3.0</version>
+    </dependency>
+    <dependency>
+			<groupId>edu.stanford.protege</groupId>
+      <artifactId>org.protege.editor.owl</artifactId>
+			<version>4.3.0</version>
+    </dependency>
+		<!-- https://mvnrepository.com/artifact/org.wildfly.swarm/javafx -->
 		<dependency>
 		    <groupId>org.wildfly.swarm</groupId>
 		    <artifactId>javafx</artifactId>
 		    <version>2018.4.1</version>
 		</dependency>
-        <dependency>
-			<groupId>edu.stanford.protege</groupId>
-			<artifactId>org.protege.editor.core.application</artifactId>
-			<version>4.3.0</version>
-        </dependency>
-
-        <dependency>
-			<groupId>edu.stanford.protege</groupId>
-            <artifactId>org.protege.editor.owl</artifactId>
-			<version>4.3.0</version>
-        </dependency>
 	</dependencies>
 
 
