@@ -1,4 +1,6 @@
+@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
   <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,10 +30,124 @@
         <scope>system</scope>
         <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
       </dependency>
+=======
+
+  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+      <modelVersion>4.0.0</modelVersion>
+
+
+
+      <!--    <parent>
+
+@@ -25,77 +26,78 @@
+
+
+
+
+    <dependencies>
+
+      <dependency>
+
+        <groupId>edu.stanford.protege</groupId>
+
+        <artifactId>org.protege.common</artifactId>
+
+        <version>4.3.0</version>
+
+      </dependency>
+
+      <dependency>
+
+        <groupId>com.oracle</groupId>
+
+        <artifactId>javafx</artifactId>
+
+        <version>2.2.3</version>
+
+        <scope>system</scope>
+
+        <systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+
+      </dependency>
+
+      <dependency>
+
+        <groupId>edu.stanford.protege</groupId>
+
+        <artifactId>org.protege.editor.core.application</artifactId>
+
+        <version>4.3.0</version>
+
+      </dependency>
+
+        <dependency>
+
+            <groupId>edu.stanford.protege</groupId>
+
+            <artifactId>org.protege.common</artifactId>
+
+            <version>4.3.0</version>
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>com.oracle</groupId>
+
+            <artifactId>javafx</artifactId>
+
+            <version>2.2.3</version>
+
+            <scope>system</scope>
+
+            <systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>edu.stanford.protege</groupId>
+
+            <artifactId>org.protege.editor.core.application</artifactId>
+
+            <version>4.3.0</version>
+
+        </dependency>
+
+
+
+      <dependency>
+
+        <groupId>edu.stanford.protege</groupId>
+
+        <artifactId>org.protege.editor.owl</artifactId>
+
+        <version>4.3.0</version>
+
+      </dependency>
+
+        <dependency>
+
+            <groupId>edu.stanford.protege</groupId>
+
+            <artifactId>org.protege.editor.owl</artifactId>
+
+            <version>4.3.0</version>
+
+        </dependency>
+
+>>>>>>> Test
     </dependencies>
 
 
+
+
+
     <build>
+<<<<<<< HEAD
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -72,3 +188,295 @@
       </plugins>
     </build>
   </project>
+=======
+
+      <plugins>
+
+        <plugin>
+
+          <groupId>org.apache.maven.plugins</groupId>
+
+          <artifactId>maven-compiler-plugin</artifactId>
+
+          <version>3.0</version>
+
+          <configuration>
+
+            <source>1.8</source>
+
+            <target>1.8</target>
+
+          </configuration>
+
+        </plugin>
+
+        <plugin>
+
+          <groupId>org.apache.felix</groupId>
+
+          <artifactId>maven-bundle-plugin</artifactId>
+
+          <version>2.3.7</version>
+
+          <extensions>true</extensions>
+
+          <configuration>
+
+            <instructions>
+
+              <Bundle-ClassPath>.</Bundle-ClassPath>
+
+              <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+
+              <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+
+              <Import-Package>
+
+                org.apache.log4j.*;version="1.2.16", org.protege.editor.core.*;version="4.3.0", org.protege.editor.owl.*;version="4.3.0", *
+
+              </Import-Package>
+
+              <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+
+              <Private-Package>skeleton</Private-Package>
+
+            </instructions>
+
+            <executions>
+
+              <execution>
+
+                <id>bundle-manifest</id>
+
+                <phase>install</phase>
+
+                <goals>
+
+                  <goal>manifest</goal>
+
+                </goals>
+
+              </execution>
+
+            </executions>
+
+          </configuration>
+
+        </plugin>
+
+        <plugin>
+
+          <artifactId>maven-eclipse-plugin</artifactId>
+
+          <version>2.9</version>
+
+          <configuration>
+
+            <pde>true</pde>
+
+          </configuration>
+
+        </plugin>
+
+      </plugins>
+
+        <plugins>
+
+            <plugin>
+
+                <groupId>org.apache.maven.plugins</groupId>
+
+                <artifactId>maven-compiler-plugin</artifactId>
+
+                <version>3.0</version>
+
+                <configuration>
+
+                    <source>1.8</source>
+
+                    <target>1.8</target>
+
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+
+                <groupId>org.apache.felix</groupId>
+
+                <artifactId>maven-bundle-plugin</artifactId>
+
+                <version>2.3.7</version>
+
+                <extensions>true</extensions>
+
+                <configuration>
+
+                    <instructions>
+
+                        <Bundle-ClassPath>.</Bundle-ClassPath>
+
+                        <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+
+                        <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+
+                        <Import-Package>
+
+                            org.apache.log4j.*;version="1.2.16", org.protege.editor.core.*;version="4.3.0",
+
+                            org.protege.editor.owl.*;version="4.3.0", *
+
+                        </Import-Package>
+
+                        <Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
+
+                        <Private-Package>skeleton</Private-Package>
+
+                    </instructions>
+
+                    <executions>
+
+                        <execution>
+
+                            <id>bundle-manifest</id>
+
+                            <phase>install</phase>
+
+                            <goals>
+
+                                <goal>manifest</goal>
+
+                            </goals>
+
+                        </execution>
+
+                    </executions>
+
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+
+                <artifactId>maven-eclipse-plugin</artifactId>
+
+                <version>2.9</version>
+
+                <configuration>
+
+                    <pde>true</pde>
+
+commit:ddcf57
+WIP on master
+
+Moritz März
+authored20.4.2018 @ 12:36
+parent:5ba27c
+21 modified
+Name
+
+Path
+
+Tree
+
+View all files
+plugin.xml
+pom.xml
+src/main/java/controller/onbacomo
+/EditorKitManager.java
+src/main/java/controller/onbacomo
+/IndividualsTreeManager.java
+src/main/java/controller/onbacomo
+/PaneManager.java
+src/main/java/controller/onbacomo
+/createGraphRepObjects.java
+src/main/java/controller/onbacomo
+/createModelObjects.java
+src/main/java/controller/onbacomo
+/toolbar.java
+src/main/java/model/onbacomo/modelobjects
+/arrow.java
+src/main/java/model/onbacomo/modelobjects
+/circle.java
+src/main/java/model/onbacomo/modelobjects
+/rectangle.java
+src/main/java/model/onbacomo/objects
+/classGraphRep.java
+src/main/java/model/onbacomo/objects
+/relationClassGraphRep.java
+src/main/java/model/onbacomo/trees
+/classTree.java
+src/main/java/view/onbacomo/dialog
+/createJDialog.java
+src/main/java/view/onbacomo/dialog
+/ontologyChooser.java
+File History: pom.xml
+index on master: 5ba27cd Prettify POM
+vor 8 Minuten by Moritz März
+ddcf57
+Prettify POM
+vor 4 Stunden by Moritz März
+5ba27c
+edit pom for javafx
+vor 8 Tagen by Moritz März
+6dbebd
+Upload
+vor 10 Tagen by benediktreitemeyer
+ea0bf0
+Initial version of template plugin. This can be used by developers
+31.8.2013 by Timothy Redmond
+65241d
+ADDED pom.xml
+End of History
+Diff View
+File View
+
+Show blame details
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+ <modelVersion>4.0.0</modelVersion>
+
+<!--   <parent>
+  <groupId>org.sonatype.oss</groupId>
+  <artifactId>oss-parent</artifactId>
+  <version>7</version>
+ </parent>-->
+
+      <!-- Change me!
+
+         The next five properties should probably be customized for
+         your project.  If you don't know what to use for groupId,
+         don't worry, you can deal with that when you are ready for maven.
+      -->
+      <groupId>edu.bamberg.wiai.seda</groupId>
+      <artifactId>modelling.plugin</artifactId>
+      <version>0.8.0-SNAPSHOT</version>
+      <name>Modelling Plugin</name>
+      <description>A Conceptual Modelling Plugin</description>
+
+
+      <packaging>bundle</packaging>
+
+
+      <dependencies>
+        <dependency>
+          <groupId>edu.stanford.protege</groupId>
+          <artifactId>org.protege.common</artifactId>
+          <version>4.3.0</version>
+        </dependency>
+        <dependency>
+          <groupId>com.oracle</groupId>
+          <artifactId>javafx</artifactId>
+          <version>8.0.151</version>
+          <scope>system</scope>
+          <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
+        </dependency>
+        <dependency>
+          <groupId>edu.stanford.protege</groupId>
+          <artifactId>org.protege.editor.core.application</artifactId>
+          <version>4.3.0</version>
+        </dependency>
+
+        <dependency>
+          <groupId>edu.stanford.protege</groupId>
+>>>>>>> Test
