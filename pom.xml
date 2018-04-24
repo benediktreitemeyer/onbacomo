@@ -21,9 +21,9 @@
         <version>5.0.0</version>
       </dependency>
       <dependency>
-        <groupId>org.wildfly.swarm</groupId>
-        <artifactId>javafx</artifactId>
-        <version>2018.4.1</version>
+          <groupId>eu.agrosense.client</groupId>
+          <artifactId>lib-javafx</artifactId>
+          <version>2.2.9-NB72</version>
       </dependency>
     </dependencies>
 
@@ -59,7 +59,7 @@
               <Bundle-ClassPath>.</Bundle-ClassPath>
               <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
               <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
-              <Export-Package>lib/jfxrt.jar</Export-Package>
+              <!-- <Export-Package>lib/jfxrt.jar</Export-Package> -->
               <Import-Package>
                 org.protege.editor.owl.*;version="5.0.0",
                 <!-- equivalent to [4.3,infinity) -->
@@ -76,7 +76,7 @@
           </configuration>
         </plugin>
       </plugins>
-      
+
     </build>
 
   </project>
