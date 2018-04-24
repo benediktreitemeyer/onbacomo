@@ -21,9 +21,11 @@
         <version>5.0.0</version>
       </dependency>
       <dependency>
-          <groupId>eu.agrosense.client</groupId>
-          <artifactId>lib-javafx</artifactId>
-          <version>2.2.9-NB72</version>
+        <groupId>com.oracle</groupId>
+        <artifactId>javafx</artifactId>
+        <version>2.2.3</version>
+        <scope>system</scope>
+        <systemPath>${pom.basedir}/lib/jfxrt.jar</systemPath>
       </dependency>
     </dependencies>
 
