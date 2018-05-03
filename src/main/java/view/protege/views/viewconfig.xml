@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <VSNode splits="0.20520833333333333 0.05677083333333334 0.7380208333333333">
+        <CNode>
+            <Component label="OnbaCoMo Annotated Individuals">
+                <Property id="pluginId" value="AnnotatedIndividuals.view"/>
+            </Component>
+        </CNode>
+        <CNode>
+            <Component label="OnbaCoMo Toolbar">
+                <Property id="pluginId" value="toolbar.view"/>
+            </Component>
+        </CNode>
+        <CNode>
+            <Component label="OnbaCoMo Canvas">
+                <Property id="pluginId" value="canvas.view"/>
+            </Component>
+        </CNode>
+    </VSNode>
+</layout>
