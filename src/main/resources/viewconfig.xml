@@ -8,12 +8,12 @@
         </CNode>
         <CNode>
             <Component label="Ontology Modelling Tool Toolbar">
-                <Property id="pluginId" value="toolbar.view"/>
+                <Property id="pluginId" value="Toolbar.view"/>
             </Component>
         </CNode>
         <CNode>
             <Component label="Ontology Modelling Tool Canvas">
-                <Property id="pluginId" value="canvas.view"/>
+                <Property id="pluginId" value="CanvasView"/>
             </Component>
         </CNode>
     </VSNode>

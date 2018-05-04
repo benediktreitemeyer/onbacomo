@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.onbacomo.objects.classGraphRep;
 import model.onbacomo.objects.relationClassGraphRep;
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.entity.OWLEntityCreationException;
@@ -20,6 +19,8 @@ import org.protege.editor.owl.model.entity.OWLEntityFactory;
 import org.protege.editor.owl.model.hierarchy.OWLObjectHierarchyProvider;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.semanticweb.owlapi.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,33 +38,23 @@ import java.util.List;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
-//import org.semanticweb.owlapi.model.OWLOntologyID;
-
 
 public class ToolbarView extends AbstractOWLViewComponent {
+
     private static final long serialVersionUID = 1505057428784011280L;
-    public TreeItem<String> helpRoot;
+    private final Logger logger = LoggerFactory.getLogger(ToolbarView.class);
+
+    public TreeItem<String> rootItem, opRootItem;
     private IRI ontIRI;
-    private OWLOntology ont;
-    OWLOntologyManager manager;
-    private OWLEntityFactory ef;
-    private OWLDataFactory daFac;
-    private OWLModelManager oMan;
-    private OWLObjectHierarchyProvider<OWLAnnotationProperty> ohp;
-    JFileChooser fileChooser;
-    private String classIRI;
-    private TreeView<String> tree;
-    private TreeView<String> opTree;
-    private TreeItem<String> rootItem;
-    private TreeItem<String> opRootItem;
+    private OWLEditorKit eKit;
+    private String classIRI, path, location;
+    private TreeView<String> tree, opTree;
     private final Image classIcon = new Image(getClass().getResourceAsStream("/classIcon.gif"));
     private final Image propertyIcon = new Image(getClass().getResourceAsStream("/objectPropertyIcon.png"));
-    private String path;
-    private String location;
-    private OWLEditorKit eKit;
     private File fXMLFile;
     private Document doc;
-    private final Logger logger = Logger.getLogger(ToolbarView.class);
+
+
     /**
      * Listener for Ontology Changes, if Ontology is changed = new initilisation (maybe new method, when loading of toolbar from annotations is implemented)
      */
@@ -82,12 +73,12 @@ public class ToolbarView extends AbstractOWLViewComponent {
     public void initialiseOWLView() throws Exception {
         logger.info("Initializing toolbar view");
         getIRI();
-        ont = getOWLEditorKit().getModelManager().getActiveOntology();
+        OWLOntology ont = getOWLEditorKit().getModelManager().getActiveOntology();
         eKit = getOWLEditorKit();
-        ef = getOWLEditorKit().getModelManager().getOWLEntityFactory();
-        oMan = getOWLModelManager();
-        daFac = getOWLEditorKit().getModelManager().getActiveOntology().getOWLOntologyManager().getOWLDataFactory();
-        ohp = getOWLModelManager().getOWLHierarchyManager().getOWLAnnotationPropertyHierarchyProvider();
+        OWLEntityFactory ef = getOWLEditorKit().getModelManager().getOWLEntityFactory();
+        OWLModelManager oMan = getOWLModelManager();
+        OWLDataFactory daFac = getOWLEditorKit().getModelManager().getActiveOntology().getOWLOntologyManager().getOWLDataFactory();
+        OWLObjectHierarchyProvider<OWLAnnotationProperty> ohp = getOWLModelManager().getOWLHierarchyManager().getOWLAnnotationPropertyHierarchyProvider();
         eKit.getOWLModelManager().addOntologyChangeListener(ontChangeListener);
     }
 
@@ -101,7 +92,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 //			classIRI = a.getIRI().toString();
 //			String [] segs = classIRI.split(Pattern.quote("#"));
 //			classIRI = segs[0];
-            classIRI = "onbacomo/bpmn";
+            classIRI = "model/onbacomo/bpmn";
             count++;
         }
 
@@ -136,7 +127,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             OWLDataFactory factory = ontology.getOWLOntologyManager().getOWLDataFactory();
             OWLClass parent = factory.getOWLThing();
             OWLEntityFactory ef = getOWLEditorKit().getModelManager().getOWLEntityFactory();
-            OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("OnbaCoMo", IRI.create("onbacomo/bpmn")); //zweiter Wert war vorher null
+            OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("OnbaCoMo", IRI.create("model/onbacomo/bpmn")); //zweiter Wert war vorher null
             //OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("ModellingTool", null);
 
             if (set != null) {
@@ -183,12 +174,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
             toolbar bar = new toolbar();
             bar.initToolbarPanelEmpty(jfxPanel);
         });
-    }
-
-    public void checkRootElement() {
-        int count = 0;
-        SwingUtilities.invokeLater(() -> initToolbarGUIEmpty());
-
     }
 
     private void startImport() {
@@ -303,6 +288,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
     }
 
+    //TODO: Diese Methode wird nie benutzt
     public void createGraphRepObjects() {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -363,6 +349,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
     }
 
+    //TODO: Diese Methode wird nie benutzt
     public File getFile() {
         return fXMLFile;
     }

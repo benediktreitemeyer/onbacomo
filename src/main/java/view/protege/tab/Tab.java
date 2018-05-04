@@ -1,13 +1,14 @@
 package view.protege.tab;
 
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Tab extends OWLWorkspaceViewsTab {
-    private static final Logger log = Logger.getLogger(Tab.class);
+    private static final Logger log = LoggerFactory.getLogger(Tab.class);
     private static final long serialVersionUID = -4896884982262745722L;
 
-    public void ExampleWorkspaceTab() {
+    public Tab() {
         setToolTipText("OnbaCoMo");
     }
 

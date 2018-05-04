@@ -1,19 +1,59 @@
-# Building and installation of OnbaCoMo
+# protege-plugin-examples
 
-## Building
-1. Download the [Java-JDK Verison 9.0.4](http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html).
-2. If you get your JDK from another source, add your JDK directory to the **PATH** Windows environment variable.
-3. Install Maven.
-    1. Make sure JDK is installed, and **JAVA_HOME** variable is added as Windows environment variable.
-    2. Visit [Maven official website](https://maven.apache.org/download.cgi#), download the Maven zip file, for example : apache-maven-3.2.2-bin.zip. Unzip it to the folder where you want to install Maven.
-    3. Add both **M2_HOME** and **MAVEN_HOME** variables in the Windows environment, and point it to your Maven folder.
-    4. Update **PATH** variable, append Maven bin folder – **%M2_HOME%\bin**, so that you can run the Maven’s command everywhere.
-    5. Done, to verify it, run `mvn –version` in the command prompt.
-4. [Download the maven-project](https://github.com/benediktreitemeyer/onbacomo) from GitHub.
-5. Open the console and go to your project folder. Type `mvn clean install` to generate the plugin-JAR into your target folder.
-6. Download and install Protege from the [official website](https://protege.stanford.edu/products.php#desktop-protege).
+This repository contains example code for developing a tab, view, or menu plug-in for the Protege Desktop ontology editor (*versions 5.0.0 and higher*).  The Maven POM file in the top-level directory demonstrates one possible method for packaging plug-in code into the required OSGi bundle format using the [Maven Bundle Plugin](http://felix.apache.org/site/apache-felix-maven-bundle-plugin-bnd.html).
 
-## Installation
-- Download the [javafx-osgi-8-0.jar](https://github.com/edvin/javafx-osgi) and put it into your protege bundels folder.
-- Copy the generated JAR-file from the target folder of your maven project into your protege plugins folder.
-- On the menu-bar go to Window->Tabs and enable the OnbaCoMo-tab.
+#### Prerequisites
+
+To build and run the examples, you must have the following items installed:
+
++ Apache's [Maven](http://maven.apache.org/index.html).
++ A tool for checking out a [Git](http://git-scm.com/) repository.
++ A Protege distribution (5.0.0 or higher).  The Protege 5.2.0 release is [available](http://protege.stanford.edu/products.php#desktop-protege) from the main Protege website. 
+
+#### Build and install example plug-ins
+
+1. Get a copy of the example code:
+
+        git clone https://github.com/protegeproject/protege-plugin-examples.git protege-plugin-examples
+    
+2. Change into the protege-plugin-examples directory.
+
+3. Type mvn clean package.  On build completion, the "target" directory will contain a protege.plugin.examples-${version}.jar file.
+
+4. Copy the JAR file from the target directory to the "plugins" subdirectory of your Protege distribution.
+ 
+#### View example plug-ins in Protege
+
+Launch your Protege distribution.  Select About from the Help menu to verify successful installation:
+
+![Protege Desktop About box](http://jvendetti.github.io/img/protege/protege%20about%20box.png)
+
+The examples bundle contains:
+
++ Two custom tabs - "Example Tab" and "Example Tab (2)".  Enable either tab via the Window | Tabs menu.
++ One custom view - "Example view component".  If you enabled the Example Tab in the previous step, the Example view component will be visible on the right-hand side.  Alternatively, you can enable the view via Window | Views | Ontology views.
++ Several custom menu items.  Expand the Tools menu to see the custom menu items.
++ A custom top-level menu - "Example Menu".  The custom top-level menu appears in the main menu bar between the Server and Tools menus.  Select Example Menu to see several submenu items.
+ 
+#### Example plug-in screenshots
+
+Example Tab and Example view component:
+
+![](http://jvendetti.github.io/img/protege/example-view-component.png)
+
+Example Tab (2):
+
+![](http://jvendetti.github.io/img/protege/example-tab.png)
+
+Example menu items:
+
+![](http://jvendetti.github.io/img/protege/example-menu-items.png)
+
+Example menu:
+
+![](http://jvendetti.github.io/img/protege/example-menu.png)
+
+#### Questions
+
+If you have questions about developing Protege plug-ins, please navigate to the main Protege website and subscribe to the [Protege Developer Support mailing list](http://protege.stanford.edu/support.php#mailingListSupport).  After subscribing, send messages to protege-dev at lists.stanford.edu.
+

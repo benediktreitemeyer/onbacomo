@@ -12,8 +12,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,19 +22,22 @@ import java.awt.*;
 public class CanvasView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011281L;
+    private static final Logger logger = LoggerFactory.getLogger(CanvasView.class);
+
+
     private JFXPanel jfxPanel;
-    private final Logger logger = Logger.getLogger(CanvasView.class);
 
     @Override
     public void initialiseOWLView() {
         logger.info("Initializing Canvas view");
         EditorKitManager.getInstance().setEditorKit(getOWLEditorKit());
-        SwingUtilities.invokeLater(() -> initGUI());
+        SwingUtilities.invokeLater(this::initGUI);
     }
 
     private void initGUI() {
         setLayout(new BorderLayout());
         jfxPanel = new JFXPanel();
+        //TODO: Gibt es einen bestimmten Grund für Manfred oder ist das eher ein Platzhalter ?
         jfxPanel.setName("Manfred");
         jfxPanel.setBorder(BorderFactory.createTitledBorder("Canvas"));
         add(jfxPanel, BorderLayout.CENTER);

@@ -1,11 +1,12 @@
+# Maven
+target/
+
+# IntelliJ
+.idea
+*.iml
+
+# Eclipse
 .classpath
 .project
 .settings/
-build.properties
 META-INF/
-target/
-
-
-*.xml___jb_old___
-
-*.xml___jb_tmp___
