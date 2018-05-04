@@ -15,7 +15,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import java.awt.BorderLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
