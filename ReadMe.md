@@ -14,5 +14,6 @@
 6. Download and install Protege from the [official website](https://protege.stanford.edu/products.php#desktop-protege).
 
 ## Installation
+- Download the [javafx-osgi-8-0.jar](https://github.com/edvin/javafx-osgi) and put it into your protege bundels folder.
 - Copy the generated JAR-file from the target folder of your maven project into your protege plugins folder.
 - On the menu-bar go to Window->Tabs and enable the OnbaCoMo-tab.
