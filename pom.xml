@@ -1,80 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>edu.bamberg.wiai.seda</groupId>
-	<artifactId>modelling.plugin</artifactId>
-	<version>0.8.0-SNAPSHOT</version>
-	<name>Modelling Plugin</name>
-	<description>A Conceptual Modelling Plugin</description>
+    <groupId>edu.bamberg.wiai.seda</groupId>
+    <artifactId>modelling.plugin</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+    <!-- gucken ob nötig -->
+    <name>Modelling Plugin</name>
+    <description>A Conceptual Modelling Plugin</description>
 
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<packaging>bundle</packaging>
-
-
-	<dependencies>
-		<dependency>
-			<groupId>edu.stanford.protege</groupId>
-			<artifactId>org.protege.common</artifactId>
-			<version>4.3.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>javafx</artifactId>
-			<version>2.2.3</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>edu.stanford.protege</groupId>
-			<artifactId>org.protege.editor.core.application</artifactId>
-			<version>4.3.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>edu.stanford.protege</groupId>
-			<artifactId>org.protege.editor.owl</artifactId>
-			<version>4.3.0</version>
-		</dependency>
-	</dependencies>
+    <dependencies>
+      <dependency>
+        <groupId>edu.stanford.protege</groupId>
+        <artifactId>protege-editor-owl</artifactId>
+        <version>5.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>javafx</artifactId>
+        <version>2.2.3</version>
+        <scope>system</scope>
+        <systemPath>${pom.basedir}/lib/jfxrt.jar</systemPath>
+      </dependency>
+    </dependencies>
 
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-ClassPath>.</Bundle-ClassPath>
-						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
-						<Import-Package>
-							org.apache.log4j.*;version="1.2.16", org.protege.editor.core.*;version="4.3.0", org.protege.editor.owl.*;version="4.3.0", *
-						</Import-Package>
-						<Include-Resource>plugin.xml, {maven-resources}</Include-Resource>
-						<Private-Package>skeleton</Private-Package>
-					</instructions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<pde>true</pde>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-</project>
+    <build>
+
+      <resources>
+        <resource>
+          <!-- Use resource filtering to replace references to the artifactId in the plugin.xml file -->
+          <directory>src/main/resources</directory>
+          <filtering>true</filtering>
+        </resource>
+      </resources>
+
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
+          <configuration>
+            <source>10</source>
+            <target>10</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>3.5.0</version>
+          <extensions>true</extensions>
+          <configuration>
+            <instructions>
+              <Bundle-Activator>org.protege.editor.owl.ProtegeOWL</Bundle-Activator>
+              <Bundle-ClassPath>.</Bundle-ClassPath>
+              <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+              <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
+              <!-- <Export-Package>lib/jfxrt.jar</Export-Package> -->
+              <Import-Package>
+                org.protege.editor.owl.*;version="5.0.0",
+                <!-- equivalent to [4.3,infinity) -->
+                *
+              </Import-Package>
+            </instructions>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.9</version>
+          <configuration>
+            <pde>true</pde>
+          </configuration>
+        </plugin>
+      </plugins>
+
+    </build>
+
+  </project>
