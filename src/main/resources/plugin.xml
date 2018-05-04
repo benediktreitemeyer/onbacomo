@@ -4,21 +4,37 @@
 <plugin>
 
 	<!-- Tabs -->
-	
-	<extension id="ExampleWorkspaceTab" point="org.protege.editor.core.application.WorkspaceTab">
-		<label value="Example Tab"/>
-		<class value="org.protege.editor.owl.ui.OWLWorkspaceViewsTab"/>
-		<index value="X"/>
+	<extension id="OnbaCoMoTab" point="org.protege.editor.core.application.WorkspaceTab">
+		<label value="OnbaCoMo"/>
+		<class value="view.protege.tab.Tab"/>
+		<index value="x"/>
 		<editorKitId value="OWLEditorKit"/>
-		<defaultViewConfigFileName value="viewconfig-exampletab.xml"/>
+		<defaultViewConfigFileName value="viewconfig.xml"/>
+		<protegeDefaultTab value="true"/>
    </extension>
 
-	<extension id="ExampleWorkspaceTab2" point="org.protege.editor.core.application.WorkspaceTab">
-		<label value="Example Tab (2)"/>
-		<class value="edu.stanford.bmir.protege.examples.tab.ExampleWorkspaceTab2"/>
-		<index value="Y"/>
-		<editorKitId value="OWLEditorKit"/>
-		<defaultViewConfigFileName value="viewconfig-exampletab2.xml"/>
-   </extension>
-    
+	<!-- Toolbar -->
+	<extension id="toolbar.view"
+			   point="org.protege.editor.core.application.ViewComponent">
+		<label value="Toolbar"/>
+		<class value="view.protege.views.ToolbarView"/>
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory"/>
+	</extension>
+	<!-- Canvas -->
+	<extension id="canvas.view"
+			   point="org.protege.editor.core.application.ViewComponent">
+		<label value="Canvas"/>
+		<class value="view.protege.views.CanvasView"/>
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory"/>
+	</extension>
+	<!-- Annotated Individuals -->
+	<extension id="AnnotatedIndividuals.view"
+			   point="org.protege.editor.core.application.ViewComponent">
+		<label value="Annotated Individuals"/>
+		<class value="view.protege.views.AnnotatedIndividualsView"/>
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory"/>
+	</extension>
 </plugin>
