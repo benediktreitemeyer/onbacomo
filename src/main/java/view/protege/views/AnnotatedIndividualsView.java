@@ -10,12 +10,14 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import org.apache.log4j.Logger;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import java.awt.BorderLayout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,28 +25,34 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
+
     private static final long serialVersionUID = 1505057428784011282L;
+    private final Logger logger = LoggerFactory.getLogger(AnnotatedIndividualsView.class);
+
+    private ArrayList<String> tasks, endEvents, startEvents;
     private TreeView<String> tree;
-    private final ArrayList<String> tasks = new ArrayList<>();
-    private final ArrayList<String> endEvents = new ArrayList<>();
-    private final ArrayList<String> startEvents = new ArrayList<>();
     private TreeItem<String> rootItem;
     private JFXPanel panel;
     private Group root;
     private Scene scene;
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
-    private final Logger logger = Logger.getLogger(AnnotatedIndividualsView.class);
+
     private final OWLOntologyChangeListener ontChangeListener = changes -> {
         try {
             tasks.clear();
             endEvents.clear();
             startEvents.clear();
             update();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     };
+
+    public AnnotatedIndividualsView() {
+        tasks = new ArrayList<>();
+        endEvents = new ArrayList<>();
+        startEvents = new ArrayList<>();
+    }
 
     private void update() {
         rootItem.getChildren().clear();
@@ -72,7 +80,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         TreeItem<String> task = new TreeItem<>("Tasks");
         if (tasks != null) {
             for (String task1 : tasks) {
-                TreeItem<String> leaf = new TreeItem<String>(task1, new ImageView(instanceIcon));
+                TreeItem<String> leaf = new TreeItem<>(task1, new ImageView(instanceIcon));
                 task.getChildren().add(leaf);
             }
         }
@@ -80,7 +88,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         TreeItem<String> endEvent = new TreeItem<>("EndEvents");
         if (endEvents != null) {
             for (String endEvent1 : endEvents) {
-                TreeItem<String> leaf = new TreeItem<String>(endEvent1, new ImageView(instanceIcon));
+                TreeItem<String> leaf = new TreeItem<>(endEvent1, new ImageView(instanceIcon));
                 endEvent.getChildren().add(leaf);
             }
         }
@@ -88,7 +96,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         TreeItem<String> startEvent = new TreeItem<>("StartEvents");
         if (startEvents != null) {
             for (String startEvent1 : startEvents) {
-                TreeItem<String> leaf = new TreeItem<String>(startEvent1, new ImageView(instanceIcon));
+                TreeItem<String> leaf = new TreeItem<>(startEvent1, new ImageView(instanceIcon));
                 startEvent.getChildren().add(leaf);
             }
         }
@@ -106,7 +114,6 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
     }
 
     private void start() {
-
         SwingUtilities.invokeLater(() -> initAIGUI());
     }
 
@@ -188,8 +195,5 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         getOWLEditorKit().getOWLModelManager().removeOntologyChangeListener(ontChangeListener);
     }
 
-    public TreeView<String> getTree() {
-        return tree;
-    }
 }
 
