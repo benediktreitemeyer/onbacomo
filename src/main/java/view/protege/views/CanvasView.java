@@ -23,13 +23,15 @@ public class CanvasView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011281L;
     private static final Logger logger = LoggerFactory.getLogger(CanvasView.class);
+
+
     private JFXPanel jfxPanel;
 
     @Override
     public void initialiseOWLView() {
         logger.info("Initializing Canvas view");
         EditorKitManager.getInstance().setEditorKit(getOWLEditorKit());
-        SwingUtilities.invokeLater(() -> initGUI());
+        SwingUtilities.invokeLater(this::initGUI);
     }
 
     private void initGUI() {
