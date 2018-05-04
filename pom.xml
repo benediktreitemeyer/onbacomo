@@ -6,7 +6,6 @@
     <artifactId>modelling.plugin</artifactId>
     <version>0.8.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
-    <!-- gucken ob nötig -->
     <name>Modelling Plugin</name>
     <description>A Conceptual Modelling Plugin</description>
 
@@ -61,10 +60,8 @@
               <Bundle-ClassPath>.</Bundle-ClassPath>
               <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
               <Bundle-Vendor>The Protege Development Team</Bundle-Vendor>
-              <!-- <Export-Package>lib/jfxrt.jar</Export-Package> -->
               <Import-Package>
                 org.protege.editor.owl.*;version="5.0.0",
-                <!-- equivalent to [4.3,infinity) -->
                 *
               </Import-Package>
             </instructions>
