@@ -1,4 +1,4 @@
-package onbacomo;
+package controller.onbacomo;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;

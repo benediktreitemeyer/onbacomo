@@ -101,7 +101,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 //			classIRI = a.getIRI().toString();
 //			String [] segs = classIRI.split(Pattern.quote("#"));
 //			classIRI = segs[0];
-            classIRI = "onbacomo/bpmn";
+            classIRI = "model/onbacomo/bpmn";
             count++;
         }
 
@@ -136,7 +136,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             OWLDataFactory factory = ontology.getOWLOntologyManager().getOWLDataFactory();
             OWLClass parent = factory.getOWLThing();
             OWLEntityFactory ef = getOWLEditorKit().getModelManager().getOWLEntityFactory();
-            OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("OnbaCoMo", IRI.create("onbacomo/bpmn")); //zweiter Wert war vorher null
+            OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("OnbaCoMo", IRI.create("model/onbacomo/bpmn")); //zweiter Wert war vorher null
             //OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("ModellingTool", null);
 
             if (set != null) {

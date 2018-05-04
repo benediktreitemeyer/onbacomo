@@ -1,4 +1,4 @@
-package onbacomo.trees;
+package model.onbacomo.trees;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;

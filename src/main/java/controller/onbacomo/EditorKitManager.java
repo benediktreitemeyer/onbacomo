@@ -1,4 +1,4 @@
-package onbacomo;
+package controller.onbacomo;
 
 import org.protege.editor.owl.OWLEditorKit;
 
