@@ -65,10 +65,26 @@ public class createGraphRepObjects {
                     if (parent.getNodeName().equals("owl:ObjectProperty")) {
                         String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
                         String name = getName[1];
-
+                        //TODO: was genau wird hier gemacht ?
                         for (String seg : segs) {
                             rcgr.name = name;
                             String[] getValue = seg.split(Pattern.quote(":"));
+                            switch (getValue[0]){
+                                case "Shape":
+                                    break;
+                                case "Color":
+                                    break;
+                                case "Direction":
+                                    rcgr.direction = getValue[1];
+                                    break;
+                                case "StartClass":
+                                    startClasses = getValue[1].split(Pattern.quote(","));//Startklassen
+                                    break;
+                                case "EndClass":
+                                    endClasses = getValue[1].split(Pattern.quote(","));//Endklassen
+                                    break;
+                            }
+                            /*
                             if (getValue[0].equals("Shape")) {
                             }
 
@@ -87,6 +103,7 @@ public class createGraphRepObjects {
                             if (getValue[0].equals("EndClass")) {
                                 endClasses = getValue[1].split(Pattern.quote(","));//Endklassen
                             }
+                            */
                         }
                     }
                 }
