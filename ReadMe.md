@@ -10,7 +10,7 @@
     4. Update **PATH** variable, append Maven bin folder – **%M2_HOME%\bin**, so that you can run the Maven’s command everywhere. 
     5. Done, to verify it, run `mvn –version` in the command prompt. 
 4. [Download the maven-project](https://github.com/benediktreitemeyer/onbacomo) from GitHub. 
-5. Open the console and go to your project folder. Type `mvn clean install` to generate the plugin-JAR into your target folder. 
+5. Open the console and go to your project folder. Type `mvn clean package` to generate the plugin-JAR into your target folder. 
 6. Download and install Protege from the [official website](https://protege.stanford.edu/products.php#desktop-protege). 
  
 ## Installation 

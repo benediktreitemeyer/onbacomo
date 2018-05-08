@@ -4,11 +4,11 @@ import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class Tab extends OWLWorkspaceViewsTab {
+public class Tab extends OWLWorkspaceViewsTab {
     private static final Logger log = LoggerFactory.getLogger(Tab.class);
     private static final long serialVersionUID = -4896884982262745722L;
 
-    private Tab() {
+    public Tab() {
         setToolTipText("OnbaCoMo");
     }
 

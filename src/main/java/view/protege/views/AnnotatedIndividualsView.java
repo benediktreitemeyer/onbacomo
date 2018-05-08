@@ -23,14 +23,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-class AnnotatedIndividualsView extends AbstractOWLViewComponent {
+public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011282L;
     private final Logger logger = LoggerFactory.getLogger(AnnotatedIndividualsView.class);
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
-    private final ArrayList<String> tasks;
-    private final ArrayList<String> endEvents;
-    private final ArrayList<String> startEvents;
+    private ArrayList<String> tasks, endEvents, startEvents;
     private TreeView<String> tree;
     private TreeItem<String> rootItem;
     private final OWLOntologyChangeListener ontChangeListener = changes -> {
@@ -44,7 +42,7 @@ class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         }
     };
 
-    private AnnotatedIndividualsView() {
+    public AnnotatedIndividualsView() {
         tasks = new ArrayList<>();
         endEvents = new ArrayList<>();
         startEvents = new ArrayList<>();
