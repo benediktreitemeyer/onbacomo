@@ -23,12 +23,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
+class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011282L;
     private final Logger logger = LoggerFactory.getLogger(AnnotatedIndividualsView.class);
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
-    private ArrayList<String> tasks, endEvents, startEvents;
+    private final ArrayList<String> tasks;
+    private final ArrayList<String> endEvents;
+    private final ArrayList<String> startEvents;
     private TreeView<String> tree;
     private TreeItem<String> rootItem;
     private final OWLOntologyChangeListener ontChangeListener = changes -> {
@@ -41,11 +43,8 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
             e.printStackTrace();
         }
     };
-    private JFXPanel panel;
-    private Group root;
-    private Scene scene;
 
-    public AnnotatedIndividualsView() {
+    private AnnotatedIndividualsView() {
         tasks = new ArrayList<>();
         endEvents = new ArrayList<>();
         startEvents = new ArrayList<>();
@@ -111,7 +110,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
     }
 
     private void start() {
-        SwingUtilities.invokeLater(() -> initAIGUI());
+        SwingUtilities.invokeLater(this::initAIGUI);
     }
 
     private void initAIGUI() {
@@ -123,9 +122,9 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private void initAIPanel(JFXPanel jfxPanel) {
         createTree();
-        panel = jfxPanel;
-        root = new Group();
-        scene = new Scene(root, 500, 500, Color.WHITE);
+        JFXPanel panel = jfxPanel;
+        Group root = new Group();
+        Scene scene = new Scene(root, 500, 500, Color.WHITE);
         panel.setScene(scene);
         root.getChildren().add(tree);
         add(panel, BorderLayout.CENTER);
@@ -160,7 +159,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         TreeItem<String> task = new TreeItem<>("Tasks");
         if (tasks != null) {
             for (String task1 : tasks) {
-                TreeItem<String> leaf = new TreeItem<String>(task1, new ImageView(instanceIcon));
+                TreeItem<String> leaf = new TreeItem<>(task1, new ImageView(instanceIcon));
                 task.getChildren().add(leaf);
             }
         }
@@ -168,7 +167,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         TreeItem<String> endEvent = new TreeItem<>("EndEvents");
         if (endEvents != null) {
             for (String endEvent1 : endEvents) {
-                TreeItem<String> leaf = new TreeItem<String>(endEvent1, new ImageView(instanceIcon));
+                TreeItem<String> leaf = new TreeItem<>(endEvent1, new ImageView(instanceIcon));
                 endEvent.getChildren().add(leaf);
             }
         }
@@ -176,7 +175,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         TreeItem<String> startEvent = new TreeItem<>("StartEvents");
         if (startEvents != null) {
             for (String startEvent1 : startEvents) {
-                TreeItem<String> leaf = new TreeItem<String>(startEvent1, new ImageView(instanceIcon));
+                TreeItem<String> leaf = new TreeItem<>(startEvent1, new ImageView(instanceIcon));
                 startEvent.getChildren().add(leaf);
             }
         }

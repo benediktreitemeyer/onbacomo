@@ -37,13 +37,10 @@ public class toolbar {
     public String task;
     TreeItem<String> rootItem;
     OWLObjectList<OWLNamedIndividual> list;
-    private ArrayList<Rectangle> rectangleList;
     private double startX;
     private double startY;
     private double endX;
     private double endY;
-    private ArrayList<Circle> circleList;
-    private String[] arrowList;
     private String startElement;
     private String endElement;
     private Line ls;
@@ -132,7 +129,7 @@ public class toolbar {
         vbox.setSpacing(8);
         tree = newTree;
         opTree = propertyTree;
-        rectangleList = new ArrayList<>();
+        ArrayList<Rectangle> rectangleList = new ArrayList<>();
         rectangleList = cmo.getRectangleList();
 
         for (Rectangle aRectangleList : rectangleList) {
@@ -229,7 +226,7 @@ public class toolbar {
             vbox.getChildren().add(rectangle);
             vbox.getChildren().add(separator);
         }
-        circleList = new ArrayList<>();
+        ArrayList<Circle> circleList = new ArrayList<>();
         circleList = cmo.getCircleList();
 
         for (Circle circle : circleList) {
@@ -419,7 +416,7 @@ public class toolbar {
             vbox.getChildren().add(circle);
             vbox.getChildren().add(separator);
         }
-        arrowList = new String[cmo.arrowList.length];
+        String[] arrowList = new String[cmo.arrowList.length];
         arrowList = cmo.arrowList;
 
         for (String anArrowList : arrowList) {
@@ -729,7 +726,7 @@ public class toolbar {
                 OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
                 OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
                 OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
-                List<OWLOntologyChange> changes = new Vector<OWLOntologyChange>();
+                List<OWLOntologyChange> changes = new Vector<>();
                 changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
                 ek.getOWLModelManager().applyChanges(changes);
 
@@ -742,7 +739,7 @@ public class toolbar {
                 OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
                 OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
                 OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
-                List<OWLOntologyChange> changes = new Vector<OWLOntologyChange>();
+                List<OWLOntologyChange> changes = new Vector<>();
                 changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
                 ek.getOWLModelManager().applyChanges(changes);
 
@@ -755,7 +752,7 @@ public class toolbar {
                 OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
                 OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
                 OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
-                List<OWLOntologyChange> changes = new Vector<OWLOntologyChange>();
+                List<OWLOntologyChange> changes = new Vector<>();
                 changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
                 ek.getOWLModelManager().applyChanges(changes);
                 break;

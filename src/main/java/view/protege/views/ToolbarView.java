@@ -45,10 +45,12 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private final Logger logger = LoggerFactory.getLogger(ToolbarView.class);
     private final Image classIcon = new Image(getClass().getResourceAsStream("/classIcon.gif"));
     private final Image propertyIcon = new Image(getClass().getResourceAsStream("/objectPropertyIcon.png"));
-    public TreeItem<String> rootItem, opRootItem;
+    private TreeItem<String> rootItem;
+    private TreeItem<String> opRootItem;
     private IRI ontIRI;
     private OWLEditorKit eKit;
-    private String classIRI, path, location;
+    private String classIRI;
+    private String location;
     /**
      * Listener for Ontology Changes, if Ontology is changed = new initilisation (maybe new method, when loading of toolbar from annotations is implemented)
      */
@@ -61,7 +63,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
     };
     private TreeView<String> tree, opTree;
     private File fXMLFile;
-    private Document doc;
 
     /**
      * Initialises the ToolbarView (method performed when starting the Plugin)
@@ -81,6 +82,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     /**
      * @throws OWLEntityCreationException
+     *          Throws a OWLEntityCreationException
      */
     private void getIRI() throws OWLEntityCreationException {
         int count = 0;
@@ -106,6 +108,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     /**
      * @throws OWLEntityCreationException
+     *          Throws a OWLEntityCreationException
      */
     private void checkForModellingToolClass() throws OWLEntityCreationException {
         int i = 0;
@@ -190,7 +193,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             String iri = "http://www.w3.org/2000/01/rdf-schema#label";
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(fXMLFile);
+            Document doc = dBuilder.parse(fXMLFile);
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("owl:AnnotationProperty");
 
@@ -263,6 +266,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             segs = annotations.split(Pattern.quote("\""));
             i = segs.length;
 
+            String path;
             if (i > 0) {
                 segs = annotations.split(Pattern.quote("#"));
                 i = segs.length;
