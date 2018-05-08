@@ -10,9 +10,9 @@ import view.onbacomo.dialog.selectClass;
 class classTree extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1L;
-    private TreeView<String> tree;
     private final TreeItem<String> rootItem = new TreeItem<>("owl:Thing");
     OWLOntology ont = getOWLEditorKit().getModelManager().getActiveOntology();
+    private TreeView<String> tree;
 
     public void createClassTree() {
         rootItem.setExpanded(true);

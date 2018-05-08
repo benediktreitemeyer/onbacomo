@@ -43,18 +43,12 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011280L;
     private final Logger logger = LoggerFactory.getLogger(ToolbarView.class);
-
+    private final Image classIcon = new Image(getClass().getResourceAsStream("/classIcon.gif"));
+    private final Image propertyIcon = new Image(getClass().getResourceAsStream("/objectPropertyIcon.png"));
     public TreeItem<String> rootItem, opRootItem;
     private IRI ontIRI;
     private OWLEditorKit eKit;
     private String classIRI, path, location;
-    private TreeView<String> tree, opTree;
-    private final Image classIcon = new Image(getClass().getResourceAsStream("/classIcon.gif"));
-    private final Image propertyIcon = new Image(getClass().getResourceAsStream("/objectPropertyIcon.png"));
-    private File fXMLFile;
-    private Document doc;
-
-
     /**
      * Listener for Ontology Changes, if Ontology is changed = new initilisation (maybe new method, when loading of toolbar from annotations is implemented)
      */
@@ -65,6 +59,9 @@ public class ToolbarView extends AbstractOWLViewComponent {
             e.printStackTrace();
         }
     };
+    private TreeView<String> tree, opTree;
+    private File fXMLFile;
+    private Document doc;
 
     /**
      * Initialises the ToolbarView (method performed when starting the Plugin)

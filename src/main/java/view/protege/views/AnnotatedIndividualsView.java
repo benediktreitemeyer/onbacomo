@@ -27,15 +27,10 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011282L;
     private final Logger logger = LoggerFactory.getLogger(AnnotatedIndividualsView.class);
-
+    private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
     private ArrayList<String> tasks, endEvents, startEvents;
     private TreeView<String> tree;
     private TreeItem<String> rootItem;
-    private JFXPanel panel;
-    private Group root;
-    private Scene scene;
-    private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
-
     private final OWLOntologyChangeListener ontChangeListener = changes -> {
         try {
             tasks.clear();
@@ -46,6 +41,9 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
             e.printStackTrace();
         }
     };
+    private JFXPanel panel;
+    private Group root;
+    private Scene scene;
 
     public AnnotatedIndividualsView() {
         tasks = new ArrayList<>();

@@ -11,12 +11,12 @@ import model.onbacomo.objects.relationClassGraphRep;
 import java.util.ArrayList;
 
 public class createModelObjects {
+    public String[] arrowList;
     private Rectangle rectangle;
     private Circle circle;
     private String[] objectList;
     private ArrayList<Rectangle> rectangleList;
     private ArrayList<Circle> circleList;
-    public String[] arrowList;
 
     public void createObjects(classGraphRep[] classList, relationClassGraphRep[] relationClassList) {
         rectangleList = new ArrayList<>();
