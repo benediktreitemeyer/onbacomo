@@ -4,7 +4,6 @@ import javafx.scene.control.TreeView;
 
 public class IndividualsTreeManager {
     private static IndividualsTreeManager instance;
-    private static TreeView<String> tree;
 
     private IndividualsTreeManager() {
 
@@ -17,11 +16,6 @@ public class IndividualsTreeManager {
         return instance;
     }
 
-    public TreeView<String> getTree() {
-        return tree;
-    }
-
     public void setTree(TreeView<String> tv) {
-        IndividualsTreeManager.tree = tv;
     }
 }

@@ -70,11 +70,9 @@ public class createGraphRepObjects {
                             rcgr.name = name;
                             String[] getValue = seg.split(Pattern.quote(":"));
                             if (getValue[0].equals("Shape")) {
-                                rcgr.shape = getValue[1];
                             }
 
                             if (getValue[0].equals("Color")) {
-                                rcgr.color = getValue[1];
 
                             }
 
@@ -109,12 +107,5 @@ public class createGraphRepObjects {
         return relationClassList;
     }
 
-    public String[] getStartClasses() {
-        return startClasses;
-    }
-
-    public String[] getEndClasses() {
-        return endClasses;
-    }
 }
 

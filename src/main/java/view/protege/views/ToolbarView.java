@@ -45,8 +45,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private final Logger logger = LoggerFactory.getLogger(ToolbarView.class);
     private final Image classIcon = new Image(getClass().getResourceAsStream("/classIcon.gif"));
     private final Image propertyIcon = new Image(getClass().getResourceAsStream("/objectPropertyIcon.png"));
-    private TreeItem<String> rootItem;
-    private TreeItem<String> opRootItem;
     private IRI ontIRI;
     private OWLEditorKit eKit;
     private String classIRI;
@@ -71,12 +69,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     public void initialiseOWLView() throws Exception {
         logger.info("Initializing toolbar view");
         getIRI();
-        OWLOntology ont = getOWLEditorKit().getModelManager().getActiveOntology();
         eKit = getOWLEditorKit();
-        OWLEntityFactory ef = getOWLEditorKit().getModelManager().getOWLEntityFactory();
-        OWLModelManager oMan = getOWLModelManager();
-        OWLDataFactory daFac = getOWLEditorKit().getModelManager().getActiveOntology().getOWLOntologyManager().getOWLDataFactory();
-        OWLObjectHierarchyProvider<OWLAnnotationProperty> ohp = getOWLModelManager().getOWLHierarchyManager().getOWLAnnotationPropertyHierarchyProvider();
         eKit.getOWLModelManager().addOntologyChangeListener(ontChangeListener);
     }
 
@@ -289,72 +282,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
     }
 
-    //TODO: Diese Methode wird nie benutzt
-    public void createGraphRepObjects() {
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXMLFile);
-            doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("onbacomo:graphrep");
-
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    String[] segs = eElement.getTextContent().split(Pattern.quote(";"));
-                    Node parent = eElement.getParentNode();
-                    Element pa = (Element) parent;
-                    classGraphRep[] classList;
-                    classList = new classGraphRep[10];
-                    if (parent.getNodeName().equals("owl:Class")) {
-                        String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
-                        String name = getName[1];
-                        for (int i = 1; i <= segs.length - 1; i++) {
-                            classGraphRep cgr = new classGraphRep();
-                            cgr.name = name;
-                            String[] getValue = segs[i].split(Pattern.quote(":"));
-                            if (getValue[0].equals("Shape")) {
-                                cgr.shape = getValue[1];
-                            }
-                            if (getValue[0].equals("Color")) {
-                                cgr.color = getValue[1];
-                            }
-                            classList[i] = cgr;
-                            classList[i].getName();
-                            JFrame frame = new JFrame();
-                            frame.setVisible(true);
-                            frame.setTitle("Farbe: " + classList[i].getName());
-                        }
-                    }
-                    if (parent.getNodeName().equals("owl:ObjectProperty")) {
-                        for (int i = 0; i <= segs.length - 1; i++) {
-                            String[] getValue = segs[i].split(Pattern.quote(":"));
-                            if (getValue[0].equals("StartClass")) {
-                                String[] getClass = getValue[1].split(Pattern.quote(","));//Startklassen
-                                for (int x = 0; x <= getClass.length - 1; x++) {
-                                }
-                            }
-                            if (getValue[0].equals("EndClass")) {
-                                String[] getClass = getValue[1].split(Pattern.quote(","));//Endklassen
-                                for (int x = 0; x <= getClass.length - 1; x++) {
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    //TODO: Diese Methode wird nie benutzt
-    public File getFile() {
-        return fXMLFile;
-    }
-
     private void createClassTree() {
 
         for (OWLOntology o : getOWLEditorKit().getModelManager().getActiveOntologies()) {
@@ -364,7 +291,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
         String iri = ontIRI.toString() + "#";
 
-        rootItem = new TreeItem<>("owl:Thing", new ImageView(classIcon));
+        TreeItem<String> rootItem = new TreeItem<>("owl:Thing", new ImageView(classIcon));
         rootItem.setExpanded(true);
         tree = new TreeView<>(rootItem);
         for (OWLClass a : getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature()) {
@@ -484,7 +411,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
         String iri = ontIRI.toString() + "#";
 
-        opRootItem = new TreeItem<>("owl:topObjectProperty", new ImageView(propertyIcon));
+        TreeItem<String> opRootItem = new TreeItem<>("owl:topObjectProperty", new ImageView(propertyIcon));
         opRootItem.setExpanded(true);
         opTree = new TreeView<>(opRootItem);
         for (OWLObjectProperty a : getOWLEditorKit().getModelManager().getActiveOntology().getObjectPropertiesInSignature()) {

@@ -120,12 +120,11 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private void initAIPanel(JFXPanel jfxPanel) {
         createTree();
-        JFXPanel panel = jfxPanel;
         Group root = new Group();
         Scene scene = new Scene(root, 500, 500, Color.WHITE);
-        panel.setScene(scene);
+        jfxPanel.setScene(scene);
         root.getChildren().add(tree);
-        add(panel, BorderLayout.CENTER);
+        add(jfxPanel, BorderLayout.CENTER);
     }
 
     private void createTree() {

@@ -72,18 +72,6 @@ public class createModelObjects {
 
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
-
-    public String[] getobjectList() {
-        return objectList;
-    }
-
-    public Circle getCircle() {
-        return circle;
-    }
-
     public ArrayList<Rectangle> getRectangleList() {
         return rectangleList;
     }
@@ -92,7 +80,4 @@ public class createModelObjects {
         return circleList;
     }
 
-    public String[] getArrowList() {
-        return arrowList;
-    }
 }

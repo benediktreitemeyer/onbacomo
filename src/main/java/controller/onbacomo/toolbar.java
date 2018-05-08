@@ -23,7 +23,6 @@ import javafx.stage.Stage;
 import model.onbacomo.modelobjects.arrow;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
-import org.protege.editor.owl.ui.list.OWLObjectList;
 import org.semanticweb.owlapi.model.*;
 
 import java.util.ArrayList;
@@ -34,9 +33,6 @@ import java.util.regex.Pattern;
 
 public class toolbar {
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
-    public String task;
-    TreeItem<String> rootItem;
-    OWLObjectList<OWLNamedIndividual> list;
     private double startX;
     private double startY;
     private double endX;
