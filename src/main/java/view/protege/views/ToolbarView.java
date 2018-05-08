@@ -371,6 +371,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             for (OWLClass parent : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getParents(a)) {
                 if (parent.isOWLThing()) {
                     String[] segs = a.toString().split(Pattern.quote(iri));
+                    //TODO: BUG: 1 (Beim Speichern von Protege kommt es zu einer IndexOutOfBounce Exception in Zeile 375)
                     segs = segs[1].split(Pattern.quote(">"));
                     TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
                     rootItem.getChildren().add(child);
