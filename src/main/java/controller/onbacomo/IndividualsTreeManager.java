@@ -16,6 +16,7 @@ public class IndividualsTreeManager {
         return instance;
     }
 
+    //TODO: Never used
     public void setTree(TreeView<String> tv) {
     }
 }

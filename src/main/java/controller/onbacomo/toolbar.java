@@ -33,30 +33,18 @@ import java.util.regex.Pattern;
 
 public class toolbar {
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
-    private double startX;
-    private double startY;
-    private double endX;
-    private double endY;
-    private String startElement;
-    private String endElement;
-    private Line ls;
-    private Line le;
+    private double startX, startY, endX, endY, orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
+    private String startElement, endElement, objectType;
+    private Line ls, le;
     private Polygon p;
     private Boolean edgeExists;
     private Rectangle rectangle;
-    private String objectType;
-    private TreeView<String> tree;
-    private TreeView<String> opTree;
-    private TreeView<String> StartElementTree;
-    private TreeView<String> EndElementTree;
+    private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
     private String taskMapping = "default";
     private String startEventMapping = "default";
     private String endEventMapping = "default";
     private String objectPropertyMapping = "default";
-    private double orgSceneX;
-    private double orgSceneY;
-    private double orgTranslateX;
-    private double orgTranslateY;
+
     private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
@@ -125,7 +113,7 @@ public class toolbar {
         vbox.setSpacing(8);
         tree = newTree;
         opTree = propertyTree;
-        ArrayList<Rectangle> rectangleList = new ArrayList<>();
+        ArrayList<Rectangle> rectangleList;
         rectangleList = cmo.getRectangleList();
 
         for (Rectangle aRectangleList : rectangleList) {
@@ -222,7 +210,7 @@ public class toolbar {
             vbox.getChildren().add(rectangle);
             vbox.getChildren().add(separator);
         }
-        ArrayList<Circle> circleList = new ArrayList<>();
+        ArrayList<Circle> circleList;
         circleList = cmo.getCircleList();
 
         for (Circle circle : circleList) {
@@ -415,6 +403,7 @@ public class toolbar {
         String[] arrowList = new String[cmo.arrowList.length];
         arrowList = cmo.arrowList;
 
+        //TODO: anArrowList is never used
         for (String anArrowList : arrowList) {
             arrow ar = new arrow();
             Line line = ar.getLine();

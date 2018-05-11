@@ -5,6 +5,7 @@ import javafx.scene.shape.Circle;
 
 public class circle {
 
+    //TODO: Warum nicht in den default Konstruktor ?
     public Circle createCircle() {
         Circle cir = new Circle();
         cir.setFill(Color.BLUE);

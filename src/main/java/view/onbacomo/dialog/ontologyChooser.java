@@ -10,6 +10,7 @@ public class ontologyChooser {
     private String location;
     private File fXMLFile;
 
+    //TODO: Warum nicht in den default Konstruktor ?
     public void createChooser() {
         JFileChooser chooser = new JFileChooser();
         chooser.setSize(700, 500);

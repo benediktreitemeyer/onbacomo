@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class rectangle {
+    //TODO: Warum nicht in den default Konstruktor ?
     public Rectangle createRectangle() {
         Rectangle rec = new Rectangle();
         rec.setX(50);

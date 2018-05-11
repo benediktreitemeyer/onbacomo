@@ -80,6 +80,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private void getIRI() throws OWLEntityCreationException {
         int count = 0;
 
+        //TODO: a is never used & Kommentare entfernen
         for (OWLClass a : getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature()) {
 //			classIRI = a.getIRI().toString();
 //			String [] segs = classIRI.split(Pattern.quote("#"));
@@ -203,6 +204,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
                     OWLEntityCreationSet<OWLAnnotationProperty> creationSet = ef.createOWLAnnotationProperty(annotation, IRI.create(classIRI));
                     OWLAnnotationProperty property = getOWLEditorKit().getModelManager().getActiveOntology().getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(iri));
 
+                    //TODO: Always false. Kann gelöscht werden
                     if (property == null) {
                         // Shouldn't really get here, because the
                         // action should be disabled
@@ -267,6 +269,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
                     segs = annotations.split(Pattern.quote("\""));
                     path = segs[1];
                     fXMLFile = new File(path);
+                    //TODO: path is never used
                     path = fXMLFile.getAbsolutePath();
                 } else {
                     String message = "Error";
@@ -277,6 +280,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             segs = annotations.split(Pattern.quote("\""));
             i = segs.length;
             if (i > 0) {
+                //TODO: path never used
                 path = segs[1];
             }
         }
