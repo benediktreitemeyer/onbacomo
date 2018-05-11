@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 public class createGraphRepObjects {
     private classGraphRep[] classList;
     private relationClassGraphRep[] relationClassList;
-    private String[] startClasses;
-    private String[] endClasses;
 
     public void createObjects(File fXMLFile) {
 
@@ -77,10 +75,10 @@ public class createGraphRepObjects {
                                     rcgr.direction = getValue[1];
                                     break;
                                 case "StartClass":
-                                    startClasses = getValue[1].split(Pattern.quote(","));//Startklassen
+                                    String[] startClasses = getValue[1].split(Pattern.quote(","));
                                     break;
                                 case "EndClass":
-                                    endClasses = getValue[1].split(Pattern.quote(","));//Endklassen
+                                    String[] endClasses = getValue[1].split(Pattern.quote(","));
                                     break;
                             }
                         }
