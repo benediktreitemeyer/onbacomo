@@ -47,17 +47,16 @@ public class createGraphRepObjects {
                         for (String seg : segs) {
                             cgr.name = name;
                             String[] getValue = seg.split(Pattern.quote(":"));
-
-                            if (getValue[0].equals("Shape")) {
-                                cgr.shape = getValue[1];
-                            }
-
-                            if (getValue[0].equals("Color")) {
-                                cgr.color = getValue[1];
-                            }
-
-                            if (getValue[0].equals("Stroke")) {
-                                cgr.strokeWidth = Double.parseDouble(getValue[1]);
+                            switch (getValue[0]) {
+                                case "Shape":
+                                    cgr.shape = getValue[1];
+                                    break;
+                                case "Color":
+                                    cgr.color = getValue[1];
+                                    break;
+                                case "Direction":
+                                    cgr.strokeWidth = Double.parseDouble(getValue[1]);
+                                    break;
                             }
                         }
                     }
@@ -84,26 +83,6 @@ public class createGraphRepObjects {
                                     endClasses = getValue[1].split(Pattern.quote(","));//Endklassen
                                     break;
                             }
-                            /*
-                            if (getValue[0].equals("Shape")) {
-                            }
-
-                            if (getValue[0].equals("Color")) {
-
-                            }
-
-                            if (getValue[0].equals("Direction")) {
-                                rcgr.direction = getValue[1];
-                            }
-
-                            if (getValue[0].equals("StartClass")) {
-                                startClasses = getValue[1].split(Pattern.quote(","));//Startklassen
-                            }
-
-                            if (getValue[0].equals("EndClass")) {
-                                endClasses = getValue[1].split(Pattern.quote(","));//Endklassen
-                            }
-                            */
                         }
                     }
                 }
