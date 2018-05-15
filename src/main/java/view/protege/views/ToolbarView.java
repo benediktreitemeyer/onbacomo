@@ -80,11 +80,8 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private void getIRI() throws OWLEntityCreationException {
         int count = 0;
 
-        //TODO: a is never used & Kommentare entfernen
+        //TODO: Initialisierungsprozess verbessern
         for (OWLClass a : getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature()) {
-//			classIRI = a.getIRI().toString();
-//			String [] segs = classIRI.split(Pattern.quote("#"));
-//			classIRI = segs[0];
             classIRI = "model/onbacomo/bpmn";
             count++;
         }
@@ -204,13 +201,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
                     OWLEntityCreationSet<OWLAnnotationProperty> creationSet = ef.createOWLAnnotationProperty(annotation, IRI.create(classIRI));
                     OWLAnnotationProperty property = getOWLEditorKit().getModelManager().getActiveOntology().getOWLOntologyManager().getOWLDataFactory().getOWLAnnotationProperty(IRI.create(iri));
 
-                    //TODO: Always false. Kann gelöscht werden
-                    if (property == null) {
-                        // Shouldn't really get here, because the
-                        // action should be disabled
-                        return;
-                    }
-
                     if (creationSet != null) {
                         List<OWLOntologyChange> changes = new ArrayList<>(creationSet.getOntologyChanges());
                         OWLModelManager mngr = getOWLModelManager();
@@ -269,19 +259,11 @@ public class ToolbarView extends AbstractOWLViewComponent {
                     segs = annotations.split(Pattern.quote("\""));
                     path = segs[1];
                     fXMLFile = new File(path);
-                    //TODO: path is never used
-                    path = fXMLFile.getAbsolutePath();
                 } else {
                     String message = "Error";
                     createJDialog error = new createJDialog();
                     error.errorMessage(message);
                 }
-            }
-            segs = annotations.split(Pattern.quote("\""));
-            i = segs.length;
-            if (i > 0) {
-                //TODO: path never used
-                path = segs[1];
             }
         }
     }
@@ -309,17 +291,17 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
 
         for (TreeItem<String> pa : rootItem.getChildren()) {
-            newName(pa, iri);
+            getOwlClassParents(pa, iri);
             for (TreeItem<String> pb : pa.getChildren()) {
-                newName(pb, iri);
+                getOwlClassParents(pb, iri);
                 for (TreeItem<String> pc : pb.getChildren()) {
-                    newName(pc, iri);
+                    getOwlClassParents(pc, iri);
                     for (TreeItem<String> pd : pc.getChildren()) {
-                        newName(pd, iri);
+                        getOwlClassParents(pd, iri);
                         for (TreeItem<String> pe : pd.getChildren()) {
-                            newName(pe, iri);
+                            getOwlClassParents(pe, iri);
                             for (TreeItem<String> pf : pe.getChildren()) {
-                                newName(pf, iri);
+                                getOwlClassParents(pf, iri);
                             }
                         }
                     }
@@ -329,8 +311,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     }
 
-    //TODO: Sinnvollen Namen einfügen
-    private void newName(TreeItem<String> treeItem, String iri){
+    private void getOwlClassParents(TreeItem<String> treeItem, String iri){
         String classIRI = iri + treeItem.getValue();
         OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
         for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
@@ -339,7 +320,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
     }
 
-    //TODO: Sinvollen Namen einfügen
     private void splitAndAdd(TreeItem<String> treeItem, String[] segs){
         segs = segs[1].split(Pattern.quote(">"));
         TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(propertyIcon));

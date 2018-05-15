@@ -400,8 +400,7 @@ public class toolbar {
             vbox.getChildren().add(circle);
             vbox.getChildren().add(separator);
         }
-        String[] arrowList = new String[cmo.arrowList.length];
-        arrowList = cmo.arrowList;
+        String[] arrowList = cmo.arrowList;
 
         //TODO: anArrowList is never used
         for (String anArrowList : arrowList) {
