@@ -62,7 +62,7 @@ public class createGraphRepObjects {
                     if (parent.getNodeName().equals("owl:ObjectProperty")) {
                         String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
                         String name = getName[1];
-                        //TODO: was genau wird hier gemacht ?
+                        //TODO: was genau wird hier gemacht ? Absichtlich nichts bei Shape und Color ?
                         for (String seg : segs) {
                             rcgr.name = name;
                             String[] getValue = seg.split(Pattern.quote(":"));

@@ -302,108 +302,48 @@ public class ToolbarView extends AbstractOWLViewComponent {
             for (OWLClass parent : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getParents(a)) {
                 if (parent.isOWLThing()) {
                     String[] segs = a.toString().split(Pattern.quote(iri));
-                    //TODO: BUG: 1 (Beim Speichern von Protege kommt es zu einer IndexOutOfBounce Exception in Zeile 375)
-                    segs = segs[1].split(Pattern.quote(">"));
-                    TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                    rootItem.getChildren().add(child);
+                    //TODO: BUG: 1 (Beim Speichern von Protege kommt es zu einer IndexOutOfBounce Exception)
+                    splitAndAdd(rootItem, segs);
                 }
             }
         }
 
         for (TreeItem<String> pa : rootItem.getChildren()) {
-            String classIRI = iri + pa.getValue();
-            OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
-            for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
-                String[] segs = children.toString().split(Pattern.quote(iri));
-                segs = segs[1].split(Pattern.quote(">"));
-                TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                pa.getChildren().add(child);
-            }
-        }
-        for (TreeItem<String> pa : rootItem.getChildren()) {
+            newName(pa, iri);
             for (TreeItem<String> pb : pa.getChildren()) {
-                String classIRI = iri + pb.getValue();
-                OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
-                for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
-                    String[] segs = children.toString().split(Pattern.quote(iri));
-                    segs = segs[1].split(Pattern.quote(">"));
-                    TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                    pb.getChildren().add(child);
-                }
-            }
-        }
-        for (TreeItem<String> pa : rootItem.getChildren()) {
-            for (TreeItem<String> pb : pa.getChildren()) {
+                newName(pb, iri);
                 for (TreeItem<String> pc : pb.getChildren()) {
-                    String classIRI = iri + pc.getValue();
-                    OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
-                    for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
-                        String[] segs = children.toString().split(Pattern.quote(iri));
-                        segs = segs[1].split(Pattern.quote(">"));
-                        TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                        pc.getChildren().add(child);
-                    }
-                }
-            }
-        }
-        for (TreeItem<String> pa : rootItem.getChildren()) {
-            for (TreeItem<String> pb : pa.getChildren()) {
-                for (TreeItem<String> pc : pb.getChildren()) {
+                    newName(pc, iri);
                     for (TreeItem<String> pd : pc.getChildren()) {
-                        String classIRI = iri + pd.getValue();
-                        OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
-                        for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
-                            String[] segs = children.toString().split(Pattern.quote(iri));
-                            segs = segs[1].split(Pattern.quote(">"));
-                            TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                            pd.getChildren().add(child);
-                        }
-                    }
-                }
-            }
-        }
-        for (TreeItem<String> pa : rootItem.getChildren()) {
-            for (TreeItem<String> pb : pa.getChildren()) {
-                for (TreeItem<String> pc : pb.getChildren()) {
-                    for (TreeItem<String> pd : pc.getChildren()) {
+                        newName(pd, iri);
                         for (TreeItem<String> pe : pd.getChildren()) {
-                            String classIRI = iri + pe.getValue();
-                            OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
-                            for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
-                                String[] segs = children.toString().split(Pattern.quote(iri));
-                                segs = segs[1].split(Pattern.quote(">"));
-                                TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                                pe.getChildren().add(child);
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-        for (TreeItem<String> pa : rootItem.getChildren()) {
-            for (TreeItem<String> pb : pa.getChildren()) {
-                for (TreeItem<String> pc : pb.getChildren()) {
-                    for (TreeItem<String> pd : pc.getChildren()) {
-                        for (TreeItem<String> pe : pd.getChildren()) {
+                            newName(pe, iri);
                             for (TreeItem<String> pf : pe.getChildren()) {
-                                String classIRI = iri + pf.getValue();
-                                OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
-                                for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
-                                    String[] segs = children.toString().split(Pattern.quote(iri));
-                                    segs = segs[1].split(Pattern.quote(">"));
-                                    TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
-                                    pf.getChildren().add(child);
-                                }
-
+                                newName(pf, iri);
                             }
-
                         }
                     }
                 }
             }
         }
 
+    }
+
+    //TODO: Sinnvollen Namen einfügen
+    private void newName(TreeItem<String> treeItem, String iri){
+        String classIRI = iri + treeItem.getValue();
+        OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
+        for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
+            String[] segs = children.toString().split(Pattern.quote(iri));
+            splitAndAdd(treeItem, segs);
+        }
+    }
+
+    //TODO: Sinvollen Namen einfügen
+    private void splitAndAdd(TreeItem<String> treeItem, String[] segs){
+        segs = segs[1].split(Pattern.quote(">"));
+        TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(propertyIcon));
+        treeItem.getChildren().add(child);
     }
 
     private void createObjectPropertyTree() {
@@ -422,9 +362,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             for (OWLObjectProperty parent : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLObjectPropertyHierarchyProvider().getParents(a)) {
                 if (parent.isOWLTopObjectProperty()) {
                     String[] segs = a.toString().split(Pattern.quote(iri));
-                    segs = segs[1].split(Pattern.quote(">"));
-                    TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(propertyIcon));
-                    opRootItem.getChildren().add(child);
+                    splitAndAdd(opRootItem, segs);
                 }
             }
         }
