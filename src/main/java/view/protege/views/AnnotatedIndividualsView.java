@@ -1,6 +1,5 @@
 package view.protege.views;
 
-import controller.onbacomo.IndividualsTreeManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;

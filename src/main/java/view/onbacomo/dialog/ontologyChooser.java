@@ -7,8 +7,8 @@ import java.awt.*;
 import java.io.File;
 
 public class ontologyChooser extends JFileChooser{
-    private String OntologyLocation;
-    private File fXMLFile;
+    private final String OntologyLocation;
+    private final File fXMLFile;
 
     public ontologyChooser() {
         this.setSize(700, 500);
