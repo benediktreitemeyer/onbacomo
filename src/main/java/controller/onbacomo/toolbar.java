@@ -619,7 +619,7 @@ public class toolbar {
             String classIRIs = ontIRIs + "#" + mapping;
             List<OWLOntologyChange> changes = new ArrayList<>();
             changes.addAll(set.getOntologyChanges());
-            changes.addAll(dofurtherCreateSteps());
+            changes.addAll(Collections.emptyList());
             ek.getOWLModelManager().applyChanges(changes);
             OWLNamedIndividual ind = set.getOWLEntity();
             IRI indIRI = ind.getIRI();
@@ -628,10 +628,6 @@ public class toolbar {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private List<OWLOntologyChange> dofurtherCreateSteps() {
-        return Collections.emptyList();
     }
 
     private void createObjectPropertyAssertion(String subject, String object) {
@@ -672,14 +668,13 @@ public class toolbar {
             ontIRI = IRI.create(segs[0]);
         }
 
-        String title;
+        String title = "#bpmn:subsequent";
         String dataType = "#bpmn:subsequent";
         String fullDataType = ontIRI + dataType;
         IRI dt = IRI.create(fullDataType);
         OWLDatatype d = ek.getModelManager().getOWLDataFactory().getOWLDatatype(dt);
         OWLLiteral l = ek.getModelManager().getOWLDataFactory().getOWLLiteral("", d);
 
-        title = "#bpmn:subsequent";
         String fullIRI = ontIRI + title;
         IRI anPropIRI = IRI.create(fullIRI);
         String opIRI = ontIRI + "#" + objectProperty;
@@ -693,7 +688,7 @@ public class toolbar {
 
     private void createAnnotation(IRI ind, OWLEditorKit ek, IRI partIRI) {
         String ontoIRI = partIRI.toString();
-        String title;
+        String title = "";
         String dataType = "#bpmn:element";
         String fullDataType = ontoIRI + dataType;
         IRI dt = IRI.create(fullDataType);
@@ -704,42 +699,25 @@ public class toolbar {
         switch (objectType) {
             case "StartEvent": {
                 title = "#bpmn:startevent";
-                String fullIRI = ontoIRI + title;
-                IRI anPropIRI = IRI.create(fullIRI);
-                OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
-                OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
-                OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
-                List<OWLOntologyChange> changes = new Vector<>();
-                changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
-                ek.getOWLModelManager().applyChanges(changes);
-
                 break;
             }
             case "EndEvent": {
                 title = "#bpmn:endevent";
-                String fullIRI = ontoIRI + title;
-                IRI anPropIRI = IRI.create(fullIRI);
-                OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
-                OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
-                OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
-                List<OWLOntologyChange> changes = new Vector<>();
-                changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
-                ek.getOWLModelManager().applyChanges(changes);
-
                 break;
             }
             case "Task": {
                 title = "#bpmn:task";
-                String fullIRI = ontoIRI + title;
-                IRI anPropIRI = IRI.create(fullIRI);
-                OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
-                OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
-                OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
-                List<OWLOntologyChange> changes = new Vector<>();
-                changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
-                ek.getOWLModelManager().applyChanges(changes);
                 break;
             }
         }
+
+        String fullIRI = ontoIRI + title;
+        IRI anPropIRI = IRI.create(fullIRI);
+        OWLAnnotationProperty prop = ek.getModelManager().getOWLDataFactory().getOWLAnnotationProperty(anPropIRI);
+        OWLAnnotation a = ek.getModelManager().getOWLDataFactory().getOWLAnnotation(prop, l);
+        OWLAxiom axiom = ek.getModelManager().getOWLDataFactory().getOWLAnnotationAssertionAxiom(ind, a);
+        List<OWLOntologyChange> changes = new Vector<>();
+        changes.add(new AddAxiom(ek.getModelManager().getActiveOntology(), axiom));
+        ek.getOWLModelManager().applyChanges(changes);
     }
 }
