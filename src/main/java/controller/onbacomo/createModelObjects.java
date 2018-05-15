@@ -3,8 +3,8 @@ package controller.onbacomo;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import model.onbacomo.modelobjects.circle;
-import model.onbacomo.modelobjects.rectangle;
+import model.onbacomo.modelobjects.BpmnCircle;
+import model.onbacomo.modelobjects.BpmnRectangle;
 import model.onbacomo.objects.classGraphRep;
 import model.onbacomo.objects.relationClassGraphRep;
 
@@ -12,25 +12,21 @@ import java.util.ArrayList;
 
 public class createModelObjects {
     public String[] arrowList;
-    private Rectangle rectangle;
-    private Circle circle;
-    private String[] objectList;
     private ArrayList<Rectangle> rectangleList;
     private ArrayList<Circle> circleList;
 
     public void createObjects(classGraphRep[] classList, relationClassGraphRep[] relationClassList) {
         rectangleList = new ArrayList<>();
         circleList = new ArrayList<>();
-        objectList = new String[classList.length];
+        String[] objectList = new String[classList.length];
         arrowList = new String[1];
 
         for (int i = 0; i < classList.length; i++) {
             if (classList[i].getName() != null) {
                 if (classList[i].getShape().equals("Rectangle")) {
-                    rectangle rec = new rectangle();
-                    rectangle = rec.createRectangle();
+                    BpmnRectangle rectangle = new BpmnRectangle();
                     rectangle.setId(classList[i].getName());
-                    objectList[i] = "rectangle";
+                    objectList[i] = "BpmnRectangle";
 
                     if (classList[i].getColor().equals("GREEN")) {
                         rectangle.setFill(Color.GREEN);
@@ -41,10 +37,9 @@ public class createModelObjects {
                 }
 
                 if (classList[i].getShape().equals("Circle")) {
-                    circle cir = new circle();
-                    circle = cir.createCircle();
+                    BpmnCircle circle = new BpmnCircle();
                     circle.setId(classList[i].getName());
-                    objectList[i] = "circle";
+                    objectList[i] = "BpmnCircle";
                     if (classList[i].getColor().equals("YELLOW")) {
                         circle.setFill(Color.YELLOW);
                     }

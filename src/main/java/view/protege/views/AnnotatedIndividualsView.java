@@ -177,7 +177,6 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
             }
         }
         tree = new TreeView<>(rootItem);
-        IndividualsTreeManager.getInstance().setTree(tree);
         rootItem.getChildren().add(task);
         rootItem.getChildren().add(startEvent);
         rootItem.getChildren().add(endEvent);

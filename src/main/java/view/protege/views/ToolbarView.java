@@ -169,8 +169,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     private void startImport() {
         ontologyChooser oc = new ontologyChooser();
-        oc.createChooser();
-        location = oc.getLocation();
+        location = oc.getOntologyLocation();
         fXMLFile = oc.getFile();
         importAnnotations();
         createPathAnnotationAxiom();

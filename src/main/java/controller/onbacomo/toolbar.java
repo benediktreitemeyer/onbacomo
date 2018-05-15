@@ -20,7 +20,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.onbacomo.modelobjects.arrow;
+import model.onbacomo.modelobjects.BpmnArrow;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -402,9 +402,8 @@ public class toolbar {
         }
         String[] arrowList = cmo.arrowList;
 
-        //TODO: anArrowList is never used
-        for (String anArrowList : arrowList) {
-            arrow ar = new arrow();
+        for (int i = 0; i < arrowList.length; i++) {
+            BpmnArrow ar = new BpmnArrow();
             Line line = ar.getLine();
             Polygon pol = ar.getArrow();
             Separator separator = new Separator();

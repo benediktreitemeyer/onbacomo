@@ -6,24 +6,23 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
-public class ontologyChooser {
-    private String location;
+public class ontologyChooser extends JFileChooser{
+    private String OntologyLocation;
     private File fXMLFile;
 
-    //TODO: Warum nicht in den default Konstruktor ?
-    public void createChooser() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setSize(700, 500);
-        chooser.setPreferredSize(new Dimension(700, 500));
+    public ontologyChooser() {
+        this.setSize(700, 500);
+        this.setPreferredSize(new Dimension(700, 500));
         FileFilter filter = new FileNameExtensionFilter(".owl", "owl");
-        chooser.addChoosableFileFilter(filter);
-        chooser.showOpenDialog(null);
-        location = chooser.getSelectedFile().getAbsolutePath();
-        fXMLFile = new File(location);
+        this.addChoosableFileFilter(filter);
+        this.showOpenDialog(null);
+        OntologyLocation = this.getSelectedFile().getAbsolutePath();
+        fXMLFile = new File(OntologyLocation);
     }
 
-    public String getLocation() {
-        return location;
+
+    public String getOntologyLocation() {
+        return OntologyLocation;
     }
 
     public File getFile() {
