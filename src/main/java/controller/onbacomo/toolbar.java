@@ -105,6 +105,7 @@ public class toolbar {
             };
     private IRI ontIRI;
 
+    //TODO: Methode viel zu groß. Muss vereinfacht werden
     public void initToolbarPanel(JFXPanel jfxPanel, createModelObjects cmo, TreeView<String> newTree, TreeView<String> propertyTree) {
         Group root = new Group();
         Scene scene = new Scene(root, 75, 500, Color.WHITE);
@@ -133,7 +134,7 @@ public class toolbar {
                     accept.setOnAction(e -> {
                         try {
                             if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                if (tree.getSelectionModel().getSelectedItem().getValue() == "owl:Thing") {
+                                if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
                                     warning.setText("owl:Thing can't be selected. Please select another class!");
                                 } else {
                                     primaryStage.close();
@@ -231,7 +232,7 @@ public class toolbar {
                         accept.setOnAction(e -> {
                             try {
                                 if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                    if (tree.getSelectionModel().getSelectedItem().getValue() == "owl:Thing") {
+                                    if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
                                         warning.setText("owl:Thing can't be selected. Please select another class!");
                                     } else {
                                         primaryStage.close();
@@ -318,7 +319,7 @@ public class toolbar {
                         accept.setOnAction(e -> {
                             try {
                                 if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                    if (tree.getSelectionModel().getSelectedItem().getValue() == "owl:Thing") {
+                                    if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
                                         warning.setText("owl:Thing can't be selected. Please select another class!");
                                     } else {
                                         primaryStage.close();
@@ -428,7 +429,7 @@ public class toolbar {
                     accept.setOnAction(e -> {
                         try {
                             if (opTree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                if (opTree.getSelectionModel().getSelectedItem().getValue() == "owl:topObjectProperty") {
+                                if (opTree.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
                                     warning.setText("owl:topObjectProperty can't be selected. Please select another object property!");
                                 } else {
                                     primaryStage.close();
@@ -477,14 +478,14 @@ public class toolbar {
                         try {
 
                             if (StartElementTree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                if (StartElementTree.getSelectionModel().getSelectedItem().getValue() == "Model Elements") {
+                                if (StartElementTree.getSelectionModel().getSelectedItem().getValue().equals("Model Elements")) {
                                     warningStartElement.setText("Model Elements can't be selected!");
                                     warningStartElement.setTextFill(Color.RED);
                                 } else {
                                     startElement = StartElementTree.getSelectionModel().getSelectedItem().getValue();
                                     warningStartElement.setTextFill(Color.RED);
                                     if (EndElementTree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                        if (EndElementTree.getSelectionModel().getSelectedItem().getValue() == "Model Elements") {
+                                        if (EndElementTree.getSelectionModel().getSelectedItem().getValue().equals("Model Elements")) {
                                             warningEndElement.setText("Model Elements can't be selected!");
                                             warningEndElement.setTextFill(Color.RED);
                                         } else {
