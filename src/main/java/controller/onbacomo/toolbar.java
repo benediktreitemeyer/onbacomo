@@ -411,9 +411,6 @@ public class toolbar {
             BpmnArrow ar = new BpmnArrow();
             Separator separator = new Separator();
             BorderPane roots = ar.getBpmnArrow();
-            roots.setPrefWidth(100.0);
-            roots.setPrefHeight(75.0);
-            roots.setCursor(Cursor.HAND);
             separator.setPrefWidth(75);
             roots.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (objectPropertyMapping.equals("default")) {
