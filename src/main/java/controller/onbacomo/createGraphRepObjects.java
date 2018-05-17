@@ -40,30 +40,28 @@ public class createGraphRepObjects {
 
                     if (parent.getNodeName().equals("owl:Class")) {
                         String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
-                        String name = getName[1];
 
                         for (String seg : segs) {
-                            cgr.name = name;
+                            cgr.setName(getName[1]);
                             String[] getValue = seg.split(Pattern.quote(":"));
                             switch (getValue[0]) {
                                 case "Shape":
-                                    cgr.shape = getValue[1];
+                                    cgr.setShape(getValue[1]);
                                     break;
                                 case "Color":
-                                    cgr.color = getValue[1];
+                                    cgr.setColor(getValue[1]);
                                     break;
                                 case "Direction":
-                                    cgr.strokeWidth = Double.parseDouble(getValue[1]);
+                                    cgr.setStrokeWidth(Double.parseDouble(getValue[1]));
                                     break;
                             }
                         }
                     }
 
                     if (parent.getNodeName().equals("owl:ObjectProperty")) {
-                        String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
-                        String name = getName[1];
+                        String[] name = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
                         for (String seg : segs) {
-                            rcgr.name = name;
+                            rcgr.setName(name[1]);
                             String[] getValue = seg.split(Pattern.quote(":"));
                             switch (getValue[0]){
                                 case "Shape":
@@ -71,7 +69,7 @@ public class createGraphRepObjects {
                                 case "Color":
                                     break;
                                 case "Direction":
-                                    rcgr.direction = getValue[1];
+                                    rcgr.setDirection(getValue[1]);
                                     break;
                                 case "StartClass":
                                     break;
@@ -93,7 +91,6 @@ public class createGraphRepObjects {
     public classGraphRep[] getClassList() {
         return classList;
     }
-
     public relationClassGraphRep[] getRelationClassList() {
         return relationClassList;
     }

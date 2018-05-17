@@ -32,18 +32,16 @@ import java.util.Vector;
 import java.util.regex.Pattern;
 
 public class toolbar {
+
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
     private double startX, startY, endX, endY, orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
-    private String startElement, endElement, objectType;
+    private String startElement, endElement, objectType, taskMapping, startEventMapping, endEventMapping, objectPropertyMapping;
     private Line ls, le;
     private Polygon p;
     private Boolean edgeExists;
     private Rectangle rectangle;
     private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
-    private String taskMapping = "default";
-    private String startEventMapping = "default";
-    private String endEventMapping = "default";
-    private String objectPropertyMapping = "default";
+    private IRI ontIRI;
 
     private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
         @Override
@@ -103,7 +101,13 @@ public class toolbar {
                     }
                 }
             };
-    private IRI ontIRI;
+
+    public toolbar() {
+        taskMapping = "default";
+        startEventMapping = "default";
+        endEventMapping = "default";
+        objectPropertyMapping = "default";
+    }
 
     //TODO: Methode viel zu groß. Muss vereinfacht werden
     public void initToolbarPanel(JFXPanel jfxPanel, createModelObjects cmo, TreeView<String> newTree, TreeView<String> propertyTree) {
@@ -405,16 +409,9 @@ public class toolbar {
 
         for (int i = 0; i < arrowList.length; i++) {
             BpmnArrow ar = new BpmnArrow();
-            Line line = ar.getLine();
-            Polygon pol = ar.getArrow();
             Separator separator = new Separator();
-            BorderPane roots = new BorderPane();
-            roots.setPrefWidth(100.0);
-            roots.setPrefHeight(75.0);
-            roots.setCursor(Cursor.HAND);
+            BorderPane roots = ar.getBpmnArrow();
             separator.setPrefWidth(75);
-            roots.getChildren().add(line);
-            roots.getChildren().add(pol);
             roots.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (objectPropertyMapping.equals("default")) {
                     HBox hbButtons = new HBox();

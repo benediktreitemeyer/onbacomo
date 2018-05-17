@@ -1,13 +1,17 @@
 package model.onbacomo.objects;
 
 public class relationClassGraphRep {
-    public String name;
-    public String direction;
+    private String name, direction;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
     public String getName() {
         return name;
     }
-
     public String getDirection() {
         return direction;
     }

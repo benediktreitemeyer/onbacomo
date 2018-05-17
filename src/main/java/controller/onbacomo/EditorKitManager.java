@@ -6,10 +6,6 @@ public class EditorKitManager {
     private static EditorKitManager instance;
     private static OWLEditorKit ek;
 
-    private EditorKitManager() {
-
-    }
-
     public synchronized static EditorKitManager getInstance() {
         if (instance == null) {
             instance = new EditorKitManager();
@@ -20,7 +16,6 @@ public class EditorKitManager {
     public OWLEditorKit getEditorKit() {
         return ek;
     }
-
     public void setEditorKit(OWLEditorKit oek) {
         EditorKitManager.ek = oek;
     }
