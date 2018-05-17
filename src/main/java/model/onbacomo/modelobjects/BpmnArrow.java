@@ -1,20 +1,24 @@
 package model.onbacomo.modelobjects;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 
-public class BpmnArrow extends Line {
+public class BpmnArrow{
     
-    // Im Konstrucktor initialisieren und zusammensetzen
-    
-    private final Line line = new Line(10.0, 10.0, 75.0, 10.0);
-    private final Polygon arrow = new Polygon(75.0, 15.0, 75.0, 5.0, 80.0, 10.0);
+    private final Line line;
+    private final Polygon arrow;
+    private BorderPane roots;
 
-    public Line getLine() {
-        return line;
+    public BpmnArrow() {
+        roots = new BorderPane();
+        line = new Line(10.0, 10.0, 75.0, 10.0);
+        arrow = new Polygon(75.0, 15.0, 75.0, 5.0, 80.0, 10.0);
+        roots.getChildren().add(line);
+        roots.getChildren().add(arrow);
     }
 
-    public Polygon getArrow() {
-        return arrow;
+    public BorderPane getBpmnArrow() {
+        return roots;
     }
 }
