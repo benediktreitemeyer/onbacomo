@@ -51,7 +51,7 @@ public class createGraphRepObjects {
                                 case "Color":
                                     cgr.setColor(getValue[1]);
                                     break;
-                                case "Direction":
+                                case "Stroke":
                                     cgr.setStrokeWidth(Double.parseDouble(getValue[1]));
                                     break;
                             }

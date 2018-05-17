@@ -27,7 +27,6 @@ public class createModelObjects {
                     BpmnRectangle rectangle = new BpmnRectangle();
                     rectangle.setId(classList[i].getName());
                     objectList[i] = "BpmnRectangle";
-
                     rectangle.setFill(Color.valueOf(classList[i].getColor()));
                     rectangleList.add(rectangle);
                 }
@@ -37,21 +36,13 @@ public class createModelObjects {
                     circle.setId(classList[i].getName());
                     objectList[i] = "BpmnCircle";
                     circle.setFill(Color.valueOf(classList[i].getColor()));
-
-                    if (classList[i].getStrokeWidth() == 5.0) {
-                        circle.setStrokeWidth(5.0);
-                    }
-
-                    if (classList[i].getStrokeWidth() == 1.0) {
-                        circle.setStrokeWidth(1.0);
-                    }
+                    circle.setStrokeWidth(classList[i].getStrokeWidth());
                     circleList.add(circle);
                 }
 
             }
         }
 
-        //TODO: Was sagt das ONE aus ? Hat es was mit dem Fehler zu tun, dass nur eine Relation gespeichert wird ?
         for (int i = 0; i < relationClassList.length; i++) {
             if (relationClassList[i].getName() != null) {
                 if (relationClassList[i].getDirection().equals("One")) {
