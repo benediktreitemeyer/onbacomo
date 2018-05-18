@@ -28,8 +28,8 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
     private final Logger logger = LoggerFactory.getLogger(AnnotatedIndividualsView.class);
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
     private ArrayList<String> tasks, endEvents, startEvents;
-    private TreeView<String> tree;
-    private TreeItem<String> rootItem;
+    private TreeView<String> tree, rootItem;
+
     private final OWLOntologyChangeListener ontChangeListener = changes -> {
         try {
             tasks.clear();

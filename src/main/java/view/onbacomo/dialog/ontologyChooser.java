@@ -24,7 +24,6 @@ public class ontologyChooser extends JFileChooser{
     public String getOntologyLocation() {
         return OntologyLocation;
     }
-
     public File getFile() {
         return fXMLFile;
     }
