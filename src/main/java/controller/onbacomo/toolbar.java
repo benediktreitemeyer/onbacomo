@@ -14,10 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.onbacomo.modelobjects.BpmnArrow;
@@ -128,10 +125,7 @@ public class toolbar {
                     showRectangleWithNameView(rectangle);
                 }
             });
-            Separator separator = new Separator();
-            separator.setPrefWidth(75);
-            vbox.getChildren().add(rectangle);
-            vbox.getChildren().add(separator);
+            addChildrenAndSeperator(vbox, rectangle);
         }
 
         // Cicle
@@ -159,10 +153,7 @@ public class toolbar {
                 });
             }
 
-            Separator separator = new Separator();
-            separator.setPrefWidth(75);
-            vbox.getChildren().add(circle);
-            vbox.getChildren().add(separator);
+            addChildrenAndSeperator(vbox, circle);
         }
 
         // Arrow
@@ -317,6 +308,13 @@ public class toolbar {
 
     }
 
+    private void addChildrenAndSeperator(VBox vbox, Shape shape) {
+        Separator separator = new Separator();
+        separator.setPrefWidth(75);
+        vbox.getChildren().add(shape);
+        vbox.getChildren().add(separator);
+    }
+
     private void showCicleWithNameView(String title, Circle circle, String mapping,String objecttype, String taskname) {
         Stage primaryStage = new Stage();
         primaryStage.setTitle(title);
@@ -377,7 +375,7 @@ public class toolbar {
         Button accept = new Button("Accept");
         Button decline = new Button("Cancel");
         VBox layout = new VBox();
-        accept.setOnAction(e -> acceptAction(startEventMapping, warning, primaryStage));
+        accept.setOnAction(e -> acceptAction(mapping, warning, primaryStage));
         decline.setOnAction(e -> primaryStage.close());
         hbButtons.setSpacing(10);
         hbButtons.getChildren().addAll(accept, decline);
