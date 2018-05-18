@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.onbacomo.modelobjects.BpmnArrow;
+import model.onbacomo.modelobjects.BpmnRectangle;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -115,85 +116,25 @@ public class toolbar {
         vbox.setSpacing(8);
         tree = newTree;
         opTree = propertyTree;
+
+        // Rectangle
         ArrayList<Rectangle> rectangleList = cmo.getRectangleList();
-
-        for (Rectangle aRectangleList : rectangleList) {
-            aRectangleList.setCursor(Cursor.HAND);
-            aRectangleList.setOnMouseClicked((EventHandler<Event>) t -> {
+        for (Rectangle rectangle : rectangleList) {
+            rectangle.setCursor(Cursor.HAND);
+            rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (taskMapping.equals("default")) {
-                    HBox hbButtons = new HBox();
-                    Label warning = new Label();
-                    Stage primaryStage = new Stage();
-                    primaryStage.setTitle("Task to OWL-Class mapping");
-                    StackPane root2 = new StackPane();
-                    Button accept = new Button("Accept");
-                    Button decline = new Button("Cancel");
-                    VBox layout = new VBox();
-                    warning.setTextFill(Color.RED);
-                    accept.setOnAction(e -> acceptAction(taskMapping, warning, primaryStage));
-                    decline.setOnAction(e -> primaryStage.close());
-                    hbButtons.setSpacing(10);
-                    hbButtons.getChildren().addAll(accept, decline);
-                    layout.getChildren().addAll(warning, tree, hbButtons);
-                    root2.getChildren().add(layout);
-                    primaryStage.setScene(new Scene(root2, 700, 500));
-                    primaryStage.show();
-
+                    showRectangleDefaultView();
                 } else {
-                    Stage primaryStage = new Stage();
-                    primaryStage.setTitle("Add Task");
-                    TextField textfield = new TextField();
-                    Label taskName = new Label("Please insert the Task name:");
-                    Label textcontent = new Label();
-                    HBox hbButtons = new HBox();
-                    StackPane root18 = new StackPane();
-                    Button accept = new Button("Accept");
-                    Button decline = new Button("Cancel");
-                    accept.setOnAction(e -> {
-                        if (textfield.getText().isEmpty()) {
-                            textcontent.setText("Please insert a name!");
-                            textcontent.setTextFill(Color.RED);
-
-                        } else {
-                            Rectangle rect = new Rectangle();
-                            rect.setStroke(aRectangleList.getStroke());
-                            rect.setFill(aRectangleList.getFill());
-                            rect.setHeight(aRectangleList.getHeight() * 1.5);
-                            rect.setWidth(aRectangleList.getWidth() * 1.5);
-                            rect.setArcWidth(aRectangleList.getArcWidth());
-                            rect.setArcHeight(aRectangleList.getArcHeight());
-                            Pane root17 = PaneManager.getInstance().getPane();
-                            Text text = new Text(textfield.getText());
-                            StackPane stack = new StackPane();
-                            stack.setCursor(Cursor.HAND);
-                            stack.setOnMousePressed(onMousePressedEventHandler);
-                            stack.setOnMouseDragged(onMouseDraggedEventHandler);
-                            stack.getChildren().addAll(rect, text);
-                            root17.getChildren().add(stack);
-                            stack.setId(aRectangleList.getId() + ":" + textfield.getText());
-                            objectType = "Task";
-                            createIndividual(textfield.getText(), taskMapping);
-                            primaryStage.close();
-                        }
-                    });
-
-                    decline.setOnAction(e -> primaryStage.close());
-
-                    VBox layout = new VBox();
-                    hbButtons.setSpacing(10);
-                    hbButtons.getChildren().addAll(accept, decline);
-                    layout.getChildren().addAll(taskName, textcontent, textfield, hbButtons);
-                    root18.getChildren().add(layout);
-                    primaryStage.setScene(new Scene(root18, 700, 200));
-                    primaryStage.show();
+                    showRectangleWithNameView(rectangle);
                 }
             });
             Separator separator = new Separator();
             separator.setPrefWidth(75);
-            vbox.getChildren().add(aRectangleList);
+            vbox.getChildren().add(rectangle);
             vbox.getChildren().add(separator);
         }
 
+        // Cicle
         ArrayList<Circle> circleList = cmo.getCircleList();
         for (Circle circle : circleList) {
             circle.setCursor(Cursor.HAND);
@@ -201,146 +142,19 @@ public class toolbar {
             if (circle.getId().equals("StartEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (startEventMapping.equals("default")) {
-                        HBox hbButtons = new HBox();
-                        Label warning = new Label();
-                        warning.setTextFill(Color.RED);
-                        Stage primaryStage = new Stage();
-                        primaryStage.setTitle("Start Event to OWL-Class mapping");
-                        StackPane root16 = new StackPane();
-                        Button accept = new Button("Accept");
-                        Button decline = new Button("Cancel");
-                        VBox layout = new VBox();
-                        accept.setOnAction(e -> acceptAction(startEventMapping, warning, primaryStage));
-
-                        decline.setOnAction(e -> primaryStage.close());
-                        hbButtons.setSpacing(10);
-                        hbButtons.getChildren().addAll(accept, decline);
-                        layout.getChildren().addAll(warning, tree, hbButtons);
-                        root16.getChildren().add(layout);
-                        primaryStage.setScene(new Scene(root16, 700, 500));
-                        primaryStage.show();
-
+                        showCicleDefaultView("Start Event to OWL-Class mapping", startEventMapping);
                     } else {
-                        Stage primaryStage = new Stage();
-                        primaryStage.setTitle("Add Start Event");
-                        TextField textfield = new TextField();
-                        Label taskName = new Label("Please insert the Start Event name:");
-                        Label textcontent = new Label();
-                        HBox hbButtons = new HBox();
-                        StackPane root16 = new StackPane();
-                        Button accept = new Button("Accept");
-                        Button decline = new Button("Cancel");
-                        accept.setOnAction(e -> {
-                            if (textfield.getText().isEmpty()) {
-                                textcontent.setText("Please insert a name!");
-                                textcontent.setTextFill(Color.RED);
-                            } else {
-                                Circle cir = new Circle();
-                                cir.setStroke(circle.getStroke());
-                                cir.setStrokeWidth(circle.getStrokeWidth());
-                                cir.setFill(circle.getFill());
-                                cir.setCenterY(circle.getCenterY());
-                                cir.setCenterX(circle.getCenterX());
-                                cir.setRadius(circle.getRadius());
-                                Pane root15 = PaneManager.getInstance().getPane();
-                                Text text = new Text(textfield.getText());
-                                StackPane stack = new StackPane();
-                                VBox vb = new VBox();
-                                vb.getChildren().addAll(cir, text);
-                                stack.setCursor(Cursor.HAND);
-                                stack.setOnMousePressed(onMousePressedEventHandler);
-                                stack.setOnMouseDragged(onMouseDraggedEventHandler);
-                                stack.getChildren().addAll(vb);
-                                root15.getChildren().add(stack);
-                                stack.setId(circle.getId() + ":" + textfield.getText());
-                                objectType = "StartEvent";
-                                createIndividual(textfield.getText(), startEventMapping);
-                                primaryStage.close();
-                            }
-                        });
+                        showCicleWithNameView("Add Start Event", circle, startEventMapping, "StartEvent", "Please insert the Start Event name:");
 
-                        decline.setOnAction(e -> primaryStage.close());
-
-                        VBox layout = new VBox();
-                        hbButtons.setSpacing(10);
-                        hbButtons.getChildren().addAll(accept, decline);
-                        layout.getChildren().addAll(taskName, textcontent, textfield, hbButtons);
-                        root16.getChildren().add(layout);
-                        primaryStage.setScene(new Scene(root16, 700, 200));
-                        primaryStage.show();
                     }
                 });
 
             } else if (circle.getId().equals("EndEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (endEventMapping.equals("default")) {
-                        HBox hbButtons = new HBox();
-                        Label warning = new Label();
-                        warning.setTextFill(Color.RED);
-                        Stage primaryStage = new Stage();
-                        primaryStage.setTitle("End Event to OWL-Class mapping");
-                        StackPane root14 = new StackPane();
-                        Button accept = new Button("Accept");
-                        Button decline = new Button("Cancel");
-                        VBox layout = new VBox();
-                        accept.setOnAction(e -> acceptAction(endEventMapping, warning, primaryStage));
-                        decline.setOnAction(e -> primaryStage.close());
-                        hbButtons.setSpacing(10);
-                        hbButtons.getChildren().addAll(accept, decline);
-                        layout.getChildren().addAll(warning, tree, hbButtons);
-                        root14.getChildren().add(layout);
-                        primaryStage.setScene(new Scene(root14, 700, 500));
-                        primaryStage.show();
-
+                        showCicleDefaultView("End Event to OWL-Class mapping", endEventMapping);
                     } else {
-                        Stage primaryStage = new Stage();
-                        primaryStage.setTitle("Add End Event");
-                        TextField textfield = new TextField();
-                        Label taskName = new Label("Please insert the End Event name:");
-                        Label textcontent = new Label();
-                        HBox hbButtons = new HBox();
-                        StackPane root14 = new StackPane();
-                        Button accept = new Button("Accept");
-                        Button decline = new Button("Cancel");
-                        accept.setOnAction(e -> {
-                            if (textfield.getText().isEmpty()) {
-                                textcontent.setText("Please insert a name!");
-                                textcontent.setTextFill(Color.RED);
-
-                            } else {
-                                Circle cir = new Circle();
-                                cir.setStroke(circle.getStroke());
-                                cir.setStrokeWidth(circle.getStrokeWidth());
-                                cir.setFill(circle.getFill());
-                                cir.setCenterY(circle.getCenterY());
-                                cir.setCenterX(circle.getCenterX());
-                                cir.setRadius(circle.getRadius());
-                                Pane root13 = PaneManager.getInstance().getPane();
-                                Text text = new Text(textfield.getText());
-                                StackPane stack = new StackPane();
-                                VBox vb = new VBox();
-                                vb.getChildren().addAll(cir, text);
-                                stack.setCursor(Cursor.HAND);
-                                stack.setOnMousePressed(onMousePressedEventHandler);
-                                stack.setOnMouseDragged(onMouseDraggedEventHandler);
-                                stack.getChildren().addAll(vb);
-                                stack.setId(circle.getId() + ":" + textfield.getText());
-                                root13.getChildren().add(stack);
-                                objectType = "EndEvent";
-                                createIndividual(textfield.getText(), endEventMapping);
-                                primaryStage.close();
-                            }
-                        });
-
-                        decline.setOnAction(e -> primaryStage.close());
-
-                        VBox layout = new VBox();
-                        hbButtons.setSpacing(10);
-                        hbButtons.getChildren().addAll(accept, decline);
-                        layout.getChildren().addAll(taskName, textcontent, textfield, hbButtons);
-                        root14.getChildren().add(layout);
-                        primaryStage.setScene(new Scene(root14, 700, 200));
-                        primaryStage.show();
+                        showCicleWithNameView("Add End Event", circle, endEventMapping, "EndEvent", "Please insert the End Event name:");
                     }
                 });
             }
@@ -351,6 +165,7 @@ public class toolbar {
             vbox.getChildren().add(separator);
         }
 
+        // Arrow
         String[] arrowList = cmo.arrowList;
         for (int i = 0; i < arrowList.length; i++) {
             BpmnArrow ar = new BpmnArrow();
@@ -500,6 +315,146 @@ public class toolbar {
         root.getChildren().add(vbox);
         jfxPanel.setScene(scene);
 
+    }
+
+    private void showCicleWithNameView(String title, Circle circle, String mapping,String objecttype, String taskname) {
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle(title);
+        TextField textfield = new TextField();
+        Label taskName = new Label(taskname);
+        Label textcontent = new Label();
+        HBox hbButtons = new HBox();
+        StackPane root16 = new StackPane();
+        Button accept = new Button("Accept");
+        Button decline = new Button("Cancel");
+        accept.setOnAction(e -> {
+            if (textfield.getText().isEmpty()) {
+                textcontent.setText("Please insert a name!");
+                textcontent.setTextFill(Color.RED);
+            } else {
+                Circle cir = new Circle();
+                cir.setStroke(circle.getStroke());
+                cir.setStrokeWidth(circle.getStrokeWidth());
+                cir.setFill(circle.getFill());
+                cir.setCenterY(circle.getCenterY());
+                cir.setCenterX(circle.getCenterX());
+                cir.setRadius(circle.getRadius());
+                Pane root15 = PaneManager.getInstance().getPane();
+                Text text = new Text(textfield.getText());
+                StackPane stack = new StackPane();
+                VBox vb = new VBox();
+                vb.getChildren().addAll(cir, text);
+                stack.setCursor(Cursor.HAND);
+                stack.setOnMousePressed(onMousePressedEventHandler);
+                stack.setOnMouseDragged(onMouseDraggedEventHandler);
+                stack.getChildren().addAll(vb);
+                root15.getChildren().add(stack);
+                stack.setId(circle.getId() + ":" + textfield.getText());
+                objectType = objecttype;
+                createIndividual(textfield.getText(), mapping);
+                primaryStage.close();
+            }
+        });
+
+        decline.setOnAction(e -> primaryStage.close());
+
+        VBox layout = new VBox();
+        hbButtons.setSpacing(10);
+        hbButtons.getChildren().addAll(accept, decline);
+        layout.getChildren().addAll(taskName, textcontent, textfield, hbButtons);
+        root16.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root16, 700, 200));
+        primaryStage.show();
+    }
+
+    private void showCicleDefaultView(String title,String mapping) {
+        HBox hbButtons = new HBox();
+        Label warning = new Label();
+        warning.setTextFill(Color.RED);
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle(title);
+        StackPane root16 = new StackPane();
+        Button accept = new Button("Accept");
+        Button decline = new Button("Cancel");
+        VBox layout = new VBox();
+        accept.setOnAction(e -> acceptAction(startEventMapping, warning, primaryStage));
+        decline.setOnAction(e -> primaryStage.close());
+        hbButtons.setSpacing(10);
+        hbButtons.getChildren().addAll(accept, decline);
+        layout.getChildren().addAll(warning, tree, hbButtons);
+        root16.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root16, 700, 500));
+        primaryStage.show();
+        }
+
+    private void showRectangleWithNameView(Rectangle aRectangleList) {
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Add Task");
+        TextField textfield = new TextField();
+        Label taskName = new Label("Please insert the Task name:");
+        Label textcontent = new Label();
+        HBox hbButtons = new HBox();
+        StackPane root18 = new StackPane();
+        Button accept = new Button("Accept");
+        Button decline = new Button("Cancel");
+
+        accept.setOnAction(e -> {
+            if (textfield.getText().isEmpty()) {
+                textcontent.setText("Please insert a name!");
+                textcontent.setTextFill(Color.RED);
+
+            } else {
+                BpmnRectangle rect = new BpmnRectangle();
+                rect.setStroke(aRectangleList.getStroke());
+                rect.setFill(aRectangleList.getFill());
+                rect.setHeight(aRectangleList.getHeight() * 1.5);
+                rect.setWidth(aRectangleList.getWidth() * 1.5);
+                rect.setArcWidth(aRectangleList.getArcWidth());
+                rect.setArcHeight(aRectangleList.getArcHeight());
+                Pane root = PaneManager.getInstance().getPane();
+                Text text = new Text(textfield.getText());
+                StackPane stack = new StackPane();
+                stack.setCursor(Cursor.HAND);
+                stack.setOnMousePressed(onMousePressedEventHandler);
+                stack.setOnMouseDragged(onMouseDraggedEventHandler);
+                stack.getChildren().addAll(rect, text);
+                root.getChildren().add(stack);
+                stack.setId(aRectangleList.getId() + ":" + textfield.getText());
+                objectType = "Task";
+                createIndividual(textfield.getText(), taskMapping);
+                primaryStage.close();
+            }
+        });
+
+        decline.setOnAction(e -> primaryStage.close());
+
+        VBox layout = new VBox();
+        hbButtons.setSpacing(10);
+        hbButtons.getChildren().addAll(accept, decline);
+        layout.getChildren().addAll(taskName, textcontent, textfield, hbButtons);
+        root18.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root18, 700, 200));
+        primaryStage.show();
+    }
+
+    private void showRectangleDefaultView() {
+        HBox hbButtons = new HBox();
+        Label warning = new Label();
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Task to OWL-Class mapping");
+        StackPane root = new StackPane();
+        Button accept = new Button("Accept");
+        Button decline = new Button("Cancel");
+        VBox layout = new VBox();
+        warning.setTextFill(Color.RED);
+        accept.setOnAction(e -> acceptAction(taskMapping, warning, primaryStage));
+        decline.setOnAction(e -> primaryStage.close());
+        hbButtons.setSpacing(10);
+        hbButtons.getChildren().addAll(accept, decline);
+        layout.getChildren().addAll(warning, tree, hbButtons);
+        root.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root, 700, 500));
+        primaryStage.show();
     }
 
     private void acceptAction(String s, Label warning, Stage primaryStage) {
