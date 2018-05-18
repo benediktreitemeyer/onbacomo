@@ -39,7 +39,6 @@ public class toolbar {
     private Line ls, le;
     private Polygon p;
     private Boolean edgeExists;
-    private Rectangle rectangle;
     private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
     private IRI ontIRI;
 
@@ -70,8 +69,7 @@ public class toolbar {
             }
         }
     };
-    private final EventHandler<MouseEvent> onMouseDraggedEventHandler =
-            new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
                 @Override
                 public void handle(MouseEvent t) {
@@ -109,7 +107,6 @@ public class toolbar {
         objectPropertyMapping = "default";
     }
 
-    //TODO: Methode viel zu groß. Muss vereinfacht werden
     public void initToolbarPanel(JFXPanel jfxPanel, createModelObjects cmo, TreeView<String> newTree, TreeView<String> propertyTree) {
         Group root = new Group();
         Scene scene = new Scene(root, 75, 500, Color.WHITE);
@@ -118,47 +115,28 @@ public class toolbar {
         vbox.setSpacing(8);
         tree = newTree;
         opTree = propertyTree;
-        ArrayList<Rectangle> rectangleList;
-        rectangleList = cmo.getRectangleList();
+        ArrayList<Rectangle> rectangleList = cmo.getRectangleList();
 
         for (Rectangle aRectangleList : rectangleList) {
-            rectangle = aRectangleList;
-            rectangle.setCursor(Cursor.HAND);
-            rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
+            aRectangleList.setCursor(Cursor.HAND);
+            aRectangleList.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (taskMapping.equals("default")) {
                     HBox hbButtons = new HBox();
                     Label warning = new Label();
                     Stage primaryStage = new Stage();
                     primaryStage.setTitle("Task to OWL-Class mapping");
-                    StackPane root18 = new StackPane();
+                    StackPane root2 = new StackPane();
                     Button accept = new Button("Accept");
                     Button decline = new Button("Cancel");
                     VBox layout = new VBox();
                     warning.setTextFill(Color.RED);
-                    accept.setOnAction(e -> {
-                        try {
-                            if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
-                                    warning.setText("owl:Thing can't be selected. Please select another class!");
-                                } else {
-                                    primaryStage.close();
-                                    taskMapping = tree.getSelectionModel().getSelectedItem().getValue();
-                                    tree.getSelectionModel().clearSelection();
-                                }
-                            }
-                        } catch (Exception ef) {
-                            warning.setText("Please select a Class!");
-
-                        }
-                    });
-
+                    accept.setOnAction(e -> acceptAction(taskMapping, warning, primaryStage));
                     decline.setOnAction(e -> primaryStage.close());
-
                     hbButtons.setSpacing(10);
                     hbButtons.getChildren().addAll(accept, decline);
                     layout.getChildren().addAll(warning, tree, hbButtons);
-                    root18.getChildren().add(layout);
-                    primaryStage.setScene(new Scene(root18, 700, 500));
+                    root2.getChildren().add(layout);
+                    primaryStage.setScene(new Scene(root2, 700, 500));
                     primaryStage.show();
 
                 } else {
@@ -178,12 +156,12 @@ public class toolbar {
 
                         } else {
                             Rectangle rect = new Rectangle();
-                            rect.setStroke(rectangle.getStroke());
-                            rect.setFill(rectangle.getFill());
-                            rect.setHeight(rectangle.getHeight() * 1.5);
-                            rect.setWidth(rectangle.getWidth() * 1.5);
-                            rect.setArcWidth(rectangle.getArcWidth());
-                            rect.setArcHeight(rectangle.getArcHeight());
+                            rect.setStroke(aRectangleList.getStroke());
+                            rect.setFill(aRectangleList.getFill());
+                            rect.setHeight(aRectangleList.getHeight() * 1.5);
+                            rect.setWidth(aRectangleList.getWidth() * 1.5);
+                            rect.setArcWidth(aRectangleList.getArcWidth());
+                            rect.setArcHeight(aRectangleList.getArcHeight());
                             Pane root17 = PaneManager.getInstance().getPane();
                             Text text = new Text(textfield.getText());
                             StackPane stack = new StackPane();
@@ -192,7 +170,7 @@ public class toolbar {
                             stack.setOnMouseDragged(onMouseDraggedEventHandler);
                             stack.getChildren().addAll(rect, text);
                             root17.getChildren().add(stack);
-                            stack.setId(rectangle.getId() + ":" + textfield.getText());
+                            stack.setId(aRectangleList.getId() + ":" + textfield.getText());
                             objectType = "Task";
                             createIndividual(textfield.getText(), taskMapping);
                             primaryStage.close();
@@ -212,12 +190,11 @@ public class toolbar {
             });
             Separator separator = new Separator();
             separator.setPrefWidth(75);
-            vbox.getChildren().add(rectangle);
+            vbox.getChildren().add(aRectangleList);
             vbox.getChildren().add(separator);
         }
-        ArrayList<Circle> circleList;
-        circleList = cmo.getCircleList();
 
+        ArrayList<Circle> circleList = cmo.getCircleList();
         for (Circle circle : circleList) {
             circle.setCursor(Cursor.HAND);
 
@@ -233,21 +210,7 @@ public class toolbar {
                         Button accept = new Button("Accept");
                         Button decline = new Button("Cancel");
                         VBox layout = new VBox();
-                        accept.setOnAction(e -> {
-                            try {
-                                if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                    if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
-                                        warning.setText("owl:Thing can't be selected. Please select another class!");
-                                    } else {
-                                        primaryStage.close();
-                                        startEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
-                                        tree.getSelectionModel().clearSelection();
-                                    }
-                                }
-                            } catch (Exception ef) {
-                                warning.setText("Please select a Class!");
-                            }
-                        });
+                        accept.setOnAction(e -> acceptAction(startEventMapping, warning, primaryStage));
 
                         decline.setOnAction(e -> primaryStage.close());
                         hbButtons.setSpacing(10);
@@ -320,26 +283,8 @@ public class toolbar {
                         Button accept = new Button("Accept");
                         Button decline = new Button("Cancel");
                         VBox layout = new VBox();
-                        accept.setOnAction(e -> {
-                            try {
-                                if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                    if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
-                                        warning.setText("owl:Thing can't be selected. Please select another class!");
-                                    } else {
-                                        primaryStage.close();
-                                        endEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
-                                        tree.getSelectionModel().clearSelection();
-                                    }
-                                }
-
-                            } catch (Exception ef) {
-                                warning.setText("Please select a Class!");
-
-                            }
-                        });
-
+                        accept.setOnAction(e -> acceptAction(endEventMapping, warning, primaryStage));
                         decline.setOnAction(e -> primaryStage.close());
-
                         hbButtons.setSpacing(10);
                         hbButtons.getChildren().addAll(accept, decline);
                         layout.getChildren().addAll(warning, tree, hbButtons);
@@ -405,8 +350,8 @@ public class toolbar {
             vbox.getChildren().add(circle);
             vbox.getChildren().add(separator);
         }
-        String[] arrowList = cmo.arrowList;
 
+        String[] arrowList = cmo.arrowList;
         for (int i = 0; i < arrowList.length; i++) {
             BpmnArrow ar = new BpmnArrow();
             Separator separator = new Separator();
@@ -557,6 +502,23 @@ public class toolbar {
 
     }
 
+    private void acceptAction(String s, Label warning, Stage primaryStage) {
+        try {
+            if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
+                if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
+                    warning.setText("owl:Thing can't be selected. Please select another class!");
+                } else {
+                    primaryStage.close();
+                    s = tree.getSelectionModel().getSelectedItem().getValue();
+                    tree.getSelectionModel().clearSelection();
+                }
+            }
+        } catch (Exception ef) {
+            warning.setText("Please select a Class!");
+
+        }
+    }
+
     private void createStartElementTree() {
         TreeItem<String> root = new TreeItem<>("Model Elements");
         root.setExpanded(true);
@@ -692,7 +654,6 @@ public class toolbar {
         IRI dt = IRI.create(fullDataType);
         OWLDatatype d = ek.getModelManager().getOWLDataFactory().getOWLDatatype(dt);
         OWLLiteral l = ek.getModelManager().getOWLDataFactory().getOWLLiteral("", d);
-
 
         switch (objectType) {
             case "StartEvent": {
