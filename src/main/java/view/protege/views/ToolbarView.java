@@ -47,8 +47,15 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private final Image propertyIcon = new Image(getClass().getResourceAsStream("/objectPropertyIcon.png"));
     private IRI ontIRI;
     private OWLEditorKit eKit;
-    private String classIRI;
-    private String location;
+    private String classIRI, location;
+    private TreeView<String> tree, opTree;
+    private File fXMLFile;
+
+
+    public ToolbarView() {
+        classIRI = "model/onbacomo/bpmn";
+    }
+
     /**
      * Listener for Ontology Changes, if Ontology is changed = new initilisation (maybe new method, when loading of toolbar from annotations is implemented)
      */
@@ -59,8 +66,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
             e.printStackTrace();
         }
     };
-    private TreeView<String> tree, opTree;
-    private File fXMLFile;
 
     /**
      * Initialises the ToolbarView (method performed when starting the Plugin)
@@ -75,23 +80,13 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     /**
      * @throws OWLEntityCreationException
-     *          Throws a OWLEntityCreationException
+     *          Throws an OWLEntityCreationException
      */
     private void getIRI() throws OWLEntityCreationException {
-        int count = 0;
-
-        //TODO: Initialisierungsprozess verbessern
-        for (OWLClass a : getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature()) {
-            classIRI = "model/onbacomo/bpmn";
-            count++;
-        }
-
-        if (count == 0) {
-            String dialogMessage = "Please add a Class or a load an existing Domain Ontology";
+        if (getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature().isEmpty()) {
             createJDialog dialog = new createJDialog();
-            dialog.errorMessage(dialogMessage);
+            dialog.errorMessage("Please add a Class or a load an existing Domain Ontology");
             initToolbarGUIEmpty();
-
         } else {
             checkForModellingToolClass();
         }
@@ -102,24 +97,22 @@ public class ToolbarView extends AbstractOWLViewComponent {
      *          Throws a OWLEntityCreationException
      */
     private void checkForModellingToolClass() throws OWLEntityCreationException {
-        int i = 0;
+        boolean onbacomoIRI = false;
         for (OWLClass a : getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature()) {
             if (a.getIRI().toString().equals(classIRI + "#OnbaCoMo")) {
                 checkModellingToolClassForPathAnnotation();
-                i++;
                 initToolbarGUI();
+                onbacomoIRI = true;
             }
         }
 
-        if (i < 1) {
+        if (!onbacomoIRI) {
             startImport();
-            OWLOntology ontology;
-            ontology = getOWLEditorKit().getModelManager().getActiveOntology();
+            OWLOntology ontology = getOWLEditorKit().getModelManager().getActiveOntology();
             OWLDataFactory factory = ontology.getOWLOntologyManager().getOWLDataFactory();
             OWLClass parent = factory.getOWLThing();
             OWLEntityFactory ef = getOWLEditorKit().getModelManager().getOWLEntityFactory();
-            OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("OnbaCoMo", IRI.create("model/onbacomo/bpmn")); //zweiter Wert war vorher null
-            //OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("ModellingTool", null);
+            OWLEntityCreationSet<OWLClass> set = ef.createOWLClass("OnbaCoMo", IRI.create(classIRI));
 
             if (set != null) {
                 List<OWLOntologyChange> changes = new ArrayList<>(set.getOntologyChanges());
@@ -142,10 +135,8 @@ public class ToolbarView extends AbstractOWLViewComponent {
         add(jfxPanel, BorderLayout.CENTER);
         createGraphRepObjects go = new createGraphRepObjects();
         go.createObjects(fXMLFile);
-        classGraphRep[] classList;
-        relationClassGraphRep[] relationClassList;
-        relationClassList = go.getRelationClassList();
-        classList = go.getClassList();
+        relationClassGraphRep[] relationClassList = go.getRelationClassList();
+        classGraphRep[] classList = go.getClassList();
         createModelObjects cmo = new createModelObjects();
         cmo.createObjects(classList, relationClassList);
 
@@ -241,34 +232,28 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     private void checkModellingToolClassForPathAnnotation() {
         String addClassIRI = "#OnbaCoMo";
-        int i;
-        String[] segs;
         IRI iri = IRI.create(classIRI + addClassIRI);
         for (OWLAnnotationAssertionAxiom b : getOWLEditorKit().getModelManager().getActiveOntology().getAnnotationAssertionAxioms(iri)) {
             OWLAnnotationValue lit = b.getValue();
             String annotations = lit.toString();
-            segs = annotations.split(Pattern.quote("\""));
-            i = segs.length;
+            String[] segs = annotations.split(Pattern.quote("\""));
 
             String path;
-            if (i > 0) {
+            if (segs.length > 0) {
                 segs = annotations.split(Pattern.quote("#"));
-                i = segs.length;
-                if (segs[i - 1].equals("onbacomo:path>")) {
+                if (segs[segs.length-1].equals("onbacomo:path>")) {
                     segs = annotations.split(Pattern.quote("\""));
                     path = segs[1];
                     fXMLFile = new File(path);
                 } else {
-                    String message = "Error";
                     createJDialog error = new createJDialog();
-                    error.errorMessage(message);
+                    error.errorMessage("Error");
                 }
             }
         }
     }
 
     private void createClassTree() {
-
         for (OWLOntology o : getOWLEditorKit().getModelManager().getActiveOntologies()) {
             String[] segs = o.getOntologyID().toString().split(Pattern.quote("<"));
             segs = segs[1].split(Pattern.quote(">"));
@@ -326,14 +311,12 @@ public class ToolbarView extends AbstractOWLViewComponent {
     }
 
     private void createObjectPropertyTree() {
-
         for (OWLOntology o : getOWLEditorKit().getModelManager().getActiveOntologies()) {
             String[] segs = o.getOntologyID().toString().split(Pattern.quote("<"));
             segs = segs[1].split(Pattern.quote(">"));
             ontIRI = IRI.create(segs[0]);
         }
         String iri = ontIRI.toString() + "#";
-
         TreeItem<String> opRootItem = new TreeItem<>("owl:topObjectProperty", new ImageView(propertyIcon));
         opRootItem.setExpanded(true);
         opTree = new TreeView<>(opRootItem);

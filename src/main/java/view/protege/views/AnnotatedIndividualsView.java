@@ -48,8 +48,12 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         startEvents = new ArrayList<>();
     }
 
-    private void update() {
-        rootItem.getChildren().clear();
+    private void update(){
+        //TODO: BUG: NullpointerException falls keine Onthologie ausgewählt und danach eine ausgeählt in Zeile: rootItem.getChildren().clear();
+        if (!rootItem.getChildren().isEmpty()) {
+            rootItem.getChildren().clear();
+        }
+
         splitAndAdd();
 
         TreeItem<String> task = new TreeItem<>("Tasks");
