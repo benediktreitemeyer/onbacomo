@@ -9,7 +9,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import model.onbacomo.classes.BpmnClass;
+import javafx.scene.shape.Shape;
 import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.OWLModelManager;
@@ -138,7 +138,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         go.createObjects(fXMLFile);
         //TODO: Listen sind an dieser Stelle Null
         LinkedList<BpmnRelation> relationList = go.getRelationList();
-        LinkedList<BpmnClass> classList = go.getClassList();
+        LinkedList<Shape> classList = go.getClassList();
         createModelObjects cmo = new createModelObjects();
         cmo.createObjects(classList, relationList);
 

@@ -1,27 +1,26 @@
 package model.onbacomo.classes;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
-public class BpmnCircle extends BpmnClass{
-    private final double centerX, centerY, radius;
+public class BpmnCircle extends Circle {
+    private String name;
 
     public BpmnCircle(){
         this.setFill(Color.BLUE);
-        this.centerX = 25.0;
-        this.centerY = 25.0;
-        this.radius = 25.0;
+        this.setCenterX(25.0);
+        this.setCenterY(25.0);
+        this.setRadius(25.0);
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(1.0);
         this.setId("Circle");
     }
 
-    public double getCenterX() {
-        return centerX;
+    public String getName() {
+        return name;
     }
-    public double getCenterY() {
-        return centerY;
-    }
-    public double getRadius() {
-        return radius;
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

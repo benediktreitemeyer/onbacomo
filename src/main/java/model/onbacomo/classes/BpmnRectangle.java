@@ -1,57 +1,28 @@
 package model.onbacomo.classes;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-public class BpmnRectangle extends BpmnClass{
-    private int x, y, arcWidth, arcHeight;
-    private double height, width;
+public class BpmnRectangle extends Rectangle {
+    private String name;
 
     public BpmnRectangle() {
-        this.x = 50;
-        this.y = 50;
-        this.width = 75;
-        this.height = 37.5;
+        this.setX(50);
+        this.setY(50);
+        this.setWidth(75);
+        this.setHeight(37.5);
         this.setFill(Color.BLUE);
-        this.arcWidth = 10;
-        this.arcHeight = 10;
+        this.setArcWidth(10);
+        this.setArcHeight(10);
         this.setStroke(Color.BLACK);
         this.setId("Rectangle");
     }
 
-    public int getX() {
-        return x;
+    public String getName() {
+        return name;
     }
-    public int getY() {
-        return y;
-    }
-    public int getArcWidth() {
-        return arcWidth;
-    }
-    public int getArcHeight() {
-        return arcHeight;
-    }
-    public double getWidth() {
-        return width;
-    }
-    public double getHeight() {
-        return height;
-    }
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-    public void setWidth(double width) {
-        this.width = width;
-    }
-    public void setArcWidth(int arcWidth) {
-        this.arcWidth = arcWidth;
-    }
-    public void setArcHeight(int arcHeight) {
-        this.arcHeight = arcHeight;
-    }
-    public void setHeight(double height) {
-        this.height = height;
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,11 +1,11 @@
 package model.onbacomo.relations;
 
 import javafx.scene.shape.Line;
-import model.onbacomo.BpmnObject;
+import javafx.scene.shape.Shape;
 
-public class BpmnRelation extends BpmnObject {
+public class BpmnRelation extends Shape {
     private Line line;
-    private String startClass, endClass, type, direction;
+    private String name, startClass, endClass, type, direction;
 
     public void setLine(Line line) {
         this.line = line;
@@ -21,6 +21,12 @@ public class BpmnRelation extends BpmnObject {
     }
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     public Line getLine() {
         return line;

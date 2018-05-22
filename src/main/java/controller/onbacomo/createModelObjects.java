@@ -1,7 +1,7 @@
 package controller.onbacomo;
 
+import javafx.scene.shape.Shape;
 import model.onbacomo.classes.BpmnCircle;
-import model.onbacomo.classes.BpmnClass;
 import model.onbacomo.classes.BpmnRectangle;
 import model.onbacomo.relations.BpmnArrow;
 import model.onbacomo.relations.BpmnRelation;
@@ -14,12 +14,12 @@ public class createModelObjects {
     private ArrayList<BpmnRectangle> rectangleList;
     private ArrayList<BpmnCircle> circleList;
 
-    public void createObjects(LinkedList<BpmnClass> classList, LinkedList<BpmnRelation> relationList) {
+    public void createObjects(LinkedList<Shape> classList, LinkedList<BpmnRelation> relationList) {
         rectangleList = new ArrayList<>();
         circleList = new ArrayList<>();
         arrowList = new ArrayList<>();
 
-        for (BpmnClass aClassList : classList) {
+        for (Shape aClassList : classList) {
             if (aClassList.getId().equals("Rectangle")) {
                 BpmnRectangle rectangle = new BpmnRectangle();
                 rectangleList.add(rectangle); }

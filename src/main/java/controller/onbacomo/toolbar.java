@@ -20,12 +20,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.onbacomo.BpmnObject;
 import model.onbacomo.classes.BpmnCircle;
 import model.onbacomo.classes.BpmnRectangle;
 import model.onbacomo.relations.BpmnArrow;
+import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -307,10 +308,17 @@ public class toolbar {
 
     }
 
-    private void addChildrenAndSeperator(VBox vbox, BpmnObject bpmnObject) {
+    private void addChildrenAndSeperator(VBox vbox, Shape shape) {
         Separator separator = new Separator();
         separator.setPrefWidth(75);
-        vbox.getChildren().add(bpmnObject);
+        vbox.getChildren().add(shape);
+        vbox.getChildren().add(separator);
+    }
+
+    private void addChildrenAndSeperator(VBox vbox, BpmnRelation bpmnRelation) {
+        Separator separator = new Separator();
+        separator.setPrefWidth(75);
+        vbox.getChildren().add(bpmnRelation);
         vbox.getChildren().add(separator);
     }
 
