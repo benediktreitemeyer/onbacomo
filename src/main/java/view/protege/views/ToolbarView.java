@@ -34,6 +34,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 import java.util.regex.Pattern;
@@ -135,8 +136,9 @@ public class ToolbarView extends AbstractOWLViewComponent {
         add(jfxPanel, BorderLayout.CENTER);
         createGraphRepObjects go = new createGraphRepObjects();
         go.createObjects(fXMLFile);
-        BpmnRelation[] relationList = go.getRelationList();
-        BpmnClass[] classList = go.getClassList();
+        //TODO: Listen sind an dieser Stelle Null
+        LinkedList<BpmnRelation> relationList = go.getRelationList();
+        LinkedList<BpmnClass> classList = go.getClassList();
         createModelObjects cmo = new createModelObjects();
         cmo.createObjects(classList, relationList);
 
