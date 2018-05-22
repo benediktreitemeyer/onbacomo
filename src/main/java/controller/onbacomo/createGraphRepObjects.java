@@ -105,21 +105,25 @@ public class createGraphRepObjects {
                                 case "Type":
                                     //
                                     System.out.println("Relation type: " + getValue[1]);
+                                    //
                                     bpmnRelation.setType(getValue[1]);
                                     break;
                                 case "Direction":
                                     //
                                     System.out.println("Relation direction: " + getValue[1]);
+                                    //
                                     bpmnRelation.setDirection(getValue[1]);
                                     break;
                                 case "StartClass":
                                     //
                                     System.out.println("Relation startClass: " + getValue[1]);
+                                    //
                                     bpmnRelation.setStartClass(getValue[1]);
                                     break;
                                 case "EndClass":
                                     //
                                     System.out.println("Relation endClass: " + getValue[1]);
+                                    //
                                     bpmnRelation.setEndClass(getValue[1]);
                                     break;
                             }
