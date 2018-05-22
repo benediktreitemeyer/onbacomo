@@ -132,7 +132,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
         add(jfxPanel, BorderLayout.CENTER);
         createGraphRepObjects go = new createGraphRepObjects();
         go.createObjects(fXMLFile);
-        //TODO: Listen sind an dieser Stelle Null
         LinkedList<BpmnRelation> relationList = go.getRelationList();
         LinkedList<Shape> classList = go.getClassList();
         createModelObjects cmo = new createModelObjects();

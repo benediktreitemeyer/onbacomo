@@ -52,12 +52,14 @@ public class createGraphRepObjects {
                                     if (getValue[1].equals("Circle")) {
                                         //
                                         System.out.println("Circle setID: " + getValue[1]);
+                                        //
                                         bpmnCircle.setId(getValue[1]);
                                         addCircle = true;
 
-                                    } else if (getValue[1].equals("rectangle")) {
+                                    } else if (getValue[1].equals("Rectangle")) {
                                         //
                                         System.out.println("Rectangle setID: " + getValue[1]);
+                                        //
                                         bpmnRectangle.setId(getValue[1]);
                                         addCircle = false;
                                     }
@@ -66,11 +68,13 @@ public class createGraphRepObjects {
                                     if (getValue[1].equals("ALICEBLUE")) {
                                         //
                                         System.out.println("Color: ALICEBLUE");
+                                        //
                                         bpmnCircle.setFill(Color.ALICEBLUE);
                                         bpmnRectangle.setFill(Color.ALICEBLUE);
                                     } else if (getValue[1].equals("YELLOW")) {
                                         //
                                         System.out.println("Color: YELLOW");
+                                        //
                                         bpmnCircle.setFill(Color.YELLOW);
                                         bpmnRectangle.setFill(Color.YELLOW);
                                     }
