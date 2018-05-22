@@ -120,7 +120,7 @@ public class toolbar {
             rectangle.setCursor(Cursor.HAND);
             rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (taskMapping.equals("default")) {
-                    showRectangleDefaultView("task");
+                    showRectangleDefaultView();
                 } else {
                     showRectangleWithNameView(rectangle);
                 }
@@ -434,7 +434,7 @@ public class toolbar {
         primaryStage.show();
     }
 
-    private void showRectangleDefaultView(String mapping) {
+    private void showRectangleDefaultView() {
         HBox hbButtons = new HBox();
         Label warning = new Label();
         Stage primaryStage = new Stage();
@@ -444,7 +444,7 @@ public class toolbar {
         Button decline = new Button("Cancel");
         VBox layout = new VBox();
         warning.setTextFill(Color.RED);
-        accept.setOnAction(e -> acceptAction(mapping, warning, primaryStage));
+        accept.setOnAction(e -> acceptAction("task", warning, primaryStage));
         decline.setOnAction(e -> primaryStage.close());
         hbButtons.setSpacing(10);
         hbButtons.getChildren().addAll(accept, decline);
@@ -461,14 +461,16 @@ public class toolbar {
                     warning.setText("owl:Thing can't be selected. Please select another class!");
                 } else {
                     primaryStage.close();
-                    if (mapping == "endEventMapping") {
-                        endEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
-                    } else
-                    if (mapping == "startEventMapping") {
-                        startEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
-                    } else
-                    if (mapping == "task") {
-                        taskMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                    switch (mapping) {
+                        case "endEventMapping":
+                            endEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                            break;
+                        case "startEventMapping":
+                            startEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                            break;
+                        case "task":
+                            taskMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                            break;
                     }
                     tree.getSelectionModel().clearSelection();
                 }

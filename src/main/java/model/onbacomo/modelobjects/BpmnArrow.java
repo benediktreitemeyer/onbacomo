@@ -4,8 +4,9 @@ import javafx.scene.Cursor;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 
-public class BpmnArrow{
+public class BpmnArrow extends Shape {
     
     private final Line line;
     private final Polygon arrow;
