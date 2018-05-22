@@ -74,6 +74,7 @@ public class createGraphRepObjects {
                                     break;
                             }
                         }
+
                         if (addCircle){
                             bpmnCircle.setName(name[1]);
                             classList.add(bpmnCircle);

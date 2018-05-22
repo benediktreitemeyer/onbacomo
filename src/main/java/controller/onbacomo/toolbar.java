@@ -124,7 +124,6 @@ public class toolbar {
 
         // Rectangle
         for (BpmnRectangle rectangle : cmo.getRectangleList()) {
-            rectangle.setCursor(Cursor.HAND);
             rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (taskMapping.equals("default")) {
                     showRectangleDefaultView();
@@ -137,8 +136,6 @@ public class toolbar {
 
         // Cicle
         for (BpmnCircle circle : cmo.getCircleList()) {
-            circle.setCursor(Cursor.HAND);
-
             if (circle.getId().equals("StartEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (startEventMapping.equals("default")) {
@@ -163,149 +160,146 @@ public class toolbar {
 
         // Arrow
         for (BpmnArrow arrow : cmo.getArrowList()) {
-            Separator separator = new Separator();
-            separator.setPrefWidth(75);
             arrow.getBpmnArrowPane().setOnMouseClicked((EventHandler<Event>) t -> {
                 if (objectPropertyMapping.equals("default")) {
-                    HBox hbButtons = new HBox();
-                    Label warning = new Label();
-                    Stage primaryStage = new Stage();
-                    primaryStage.setTitle("Edge to OWL-Object Property mapping");
-                    StackPane root12 = new StackPane();
-                    Button accept = new Button("Accept");
-                    Button decline = new Button("Cancel");
-                    VBox layout = new VBox();
-                    warning.setTextFill(Color.RED);
-                    accept.setOnAction(e -> {
-                        try {
-                            if (opTree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                if (opTree.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
-                                    warning.setText("owl:topObjectProperty can't be selected. Please select another object property!");
-                                } else {
-                                    primaryStage.close();
-                                    objectPropertyMapping = opTree.getSelectionModel().getSelectedItem().getValue();
-                                    createSubsequentAnnotation(objectPropertyMapping);
-                                    opTree.getSelectionModel().clearSelection();
-                                }
-                            }
-                        } catch (Exception ef) {
-                            warning.setText("Please select an object property!");
-
-                        }
-                    });
-
-                    decline.setOnAction(e -> primaryStage.close());
-
-                    hbButtons.setSpacing(10);
-                    hbButtons.getChildren().addAll(accept, decline);
-                    layout.getChildren().addAll(warning, opTree, hbButtons);
-                    root12.getChildren().add(layout);
-                    primaryStage.setScene(new Scene(root12, 700, 500));
-                    primaryStage.show();
+                    showArrowDefaultView();
                 } else {
-                    HBox hbBackground = new HBox();
-                    createStartElementTree();
-                    createEndElementTree();
-                    Stage primaryStage = new Stage();
-                    primaryStage.setTitle("Edge Creation");
-                    StackPane root12 = new StackPane();
-                    VBox layoutStartElement = new VBox();
-                    Button accept = new Button("Accept");
-                    Label selectStartElement = new Label("Select the start element:");
-                    Label warningStartElement = new Label();
-                    layoutStartElement.getChildren().addAll(selectStartElement, warningStartElement, StartElementTree, accept);
-                    VBox layoutEndElement = new VBox();
-                    Button decline = new Button("Cancel");
-                    Label selectEndElement = new Label("Select the end element:");
-                    Label warningEndElement = new Label();
-                    layoutEndElement.getChildren().addAll(selectEndElement, warningEndElement, EndElementTree, decline);
-                    hbBackground.setSpacing(10);
-                    hbBackground.getChildren().addAll(layoutStartElement, layoutEndElement);
-                    root12.getChildren().add(hbBackground);
-                    primaryStage.setScene(new Scene(root12, 550, 500));
-                    primaryStage.show();
-                    accept.setOnAction(e -> {
-                        try {
-
-                            if (StartElementTree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                if (StartElementTree.getSelectionModel().getSelectedItem().getValue().equals("Model Elements")) {
-                                    warningStartElement.setText("Model Elements can't be selected!");
-                                    warningStartElement.setTextFill(Color.RED);
-                                } else {
-                                    startElement = StartElementTree.getSelectionModel().getSelectedItem().getValue();
-                                    warningStartElement.setTextFill(Color.RED);
-                                    if (EndElementTree.getSelectionModel().getSelectedItem().getValue() != null) {
-                                        if (EndElementTree.getSelectionModel().getSelectedItem().getValue().equals("Model Elements")) {
-                                            warningEndElement.setText("Model Elements can't be selected!");
-                                            warningEndElement.setTextFill(Color.RED);
-                                        } else {
-                                            endElement = EndElementTree.getSelectionModel().getSelectedItem().getValue();
-                                            warningEndElement.setTextFill(Color.RED);
-                                            if (endElement.equals(startElement)) {
-                                                warningEndElement.setText("Select different Elements!");
-                                                warningEndElement.setTextFill(Color.RED);
-                                                warningStartElement.setText("Select different Elements!");
-                                                warningStartElement.setTextFill(Color.RED);
-                                            } else {
-                                                Pane root1 = PaneManager.getInstance().getPane();
-                                                edgeExists = false;
-                                                for (Node x : root1.getChildren()) {
-                                                    if (x.getId().startsWith("li:from:" + startElement) && x.getId().endsWith(endElement + ";")) {
-                                                        warningEndElement.setText("Select other Elements!");
-                                                        warningEndElement.setTextFill(Color.RED);
-                                                        warningStartElement.setText("Edge already exists:");
-                                                        warningStartElement.setTextFill(Color.RED);
-                                                        edgeExists = true;
-                                                    }
-                                                }
-                                                if (!edgeExists) {
-                                                    for (Node y : root1.getChildren()) {
-                                                        if (y.getId().endsWith(startElement)) {
-
-                                                            if (y.getId().startsWith("Task")) {
-                                                                startX = y.getTranslateX() + 75 * 1.5;
-                                                                startY = y.getTranslateY() + (37.5 * 1.5) / 2;
-                                                            } else {
-                                                                startX = y.getTranslateX() + 50;
-                                                                startY = y.getTranslateY() + (37.5 * 1.5) / 2;
-                                                            }
-                                                        }
-                                                        if (y.getId().endsWith(endElement)) {
-                                                            endX = y.getTranslateX();
-                                                            endY = y.getTranslateY() + (37.5 * 1.5) / 2;
-                                                        }
-                                                    }
-                                                    Polygon po = new Polygon(endX - 5, endY + 5, endX - 5, endY - 5, endX, endY);
-                                                    Line li = new Line(startX, startY, endX - 5, endY);
-                                                    li.setId("li:from:" + startElement + ";to:" + endElement + ";");
-                                                    po.setId("po:from:" + startElement + ";to:" + endElement + ";");
-                                                    root1.getChildren().addAll(li, po);
-                                                    createObjectPropertyAssertion(startElement, endElement);
-                                                    primaryStage.close();
-                                                }
-
-                                            }
-
-
-                                        }
-                                    }
-                                }
-                            }
-                        } catch (Exception ef) {
-                            warningStartElement.setText("Please select a Start Element!");
-                            warningStartElement.setTextFill(Color.RED);
-                            warningEndElement.setText("Please select an End Element!");
-                            warningEndElement.setTextFill(Color.RED);
-                        }
-                    });
-                    decline.setOnAction(e -> primaryStage.close());
+                    showArrowWithNameView();
                 }
             });
+
             addChildrenAndSeperator(vbox, arrow);
         }
         root.getChildren().add(vbox);
         jfxPanel.setScene(scene);
 
+    }
+
+    private void showArrowWithNameView() {
+        HBox hbBackground = new HBox();
+        createStartElementTree();
+        createEndElementTree();
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Edge Creation");
+        StackPane root = new StackPane();
+        VBox layoutStartElement = new VBox();
+        Button accept = new Button("Accept");
+        Label selectStartElement = new Label("Select the start element:");
+        Label warningStartElement = new Label();
+        layoutStartElement.getChildren().addAll(selectStartElement, warningStartElement, StartElementTree, accept);
+        VBox layoutEndElement = new VBox();
+        Button decline = new Button("Cancel");
+        Label selectEndElement = new Label("Select the end element:");
+        Label warningEndElement = new Label();
+        layoutEndElement.getChildren().addAll(selectEndElement, warningEndElement, EndElementTree, decline);
+        hbBackground.setSpacing(10);
+        hbBackground.getChildren().addAll(layoutStartElement, layoutEndElement);
+        root.getChildren().add(hbBackground);
+        primaryStage.setScene(new Scene(root, 550, 500));
+        primaryStage.show();
+        accept.setOnAction(e -> {
+            try {
+                if (StartElementTree.getSelectionModel().getSelectedItem().getValue() != null) {
+                    if (StartElementTree.getSelectionModel().getSelectedItem().getValue().equals("Model Elements")) {
+                        settextAndFillRed(warningStartElement, "Model Elements can't be selected!");
+                    } else {
+                        startElement = StartElementTree.getSelectionModel().getSelectedItem().getValue();
+                        warningStartElement.setTextFill(Color.RED);
+                        if (EndElementTree.getSelectionModel().getSelectedItem().getValue() != null) {
+                            if (EndElementTree.getSelectionModel().getSelectedItem().getValue().equals("Model Elements")) {
+                                settextAndFillRed(warningEndElement, "Model Elements can't be selected!");
+                            } else {
+                                endElement = EndElementTree.getSelectionModel().getSelectedItem().getValue();
+                                warningEndElement.setTextFill(Color.RED);
+                                if (endElement.equals(startElement)) {
+                                    settextAndFillRed(warningEndElement, "Select different Elements!");
+                                    settextAndFillRed(warningStartElement, "Select different Elements!");
+                                } else {
+                                    Pane root1 = PaneManager.getInstance().getPane();
+                                    edgeExists = false;
+                                    for (Node x : root1.getChildren()) {
+                                        if (x.getId().startsWith("li:from:" + startElement) && x.getId().endsWith(endElement + ";")) {
+                                            settextAndFillRed(warningEndElement, "Select different Elements!");
+                                            settextAndFillRed(warningStartElement, "Edge already exists:");
+                                            edgeExists = true;
+                                        }
+                                    }
+                                    if (!edgeExists) {
+                                        for (Node y : root1.getChildren()) {
+                                            if (y.getId().endsWith(startElement)) {
+                                                if (y.getId().startsWith("Task")) {
+                                                    startX = y.getTranslateX() + 75 * 1.5;
+                                                    startY = y.getTranslateY() + (37.5 * 1.5) / 2;
+                                                } else {
+                                                    startX = y.getTranslateX() + 50;
+                                                    startY = y.getTranslateY() + (37.5 * 1.5) / 2;
+                                                }
+                                            }
+                                            if (y.getId().endsWith(endElement)) {
+                                                endX = y.getTranslateX();
+                                                endY = y.getTranslateY() + (37.5 * 1.5) / 2;
+                                            }
+                                        }
+                                        Polygon po = new Polygon(endX - 5, endY + 5, endX - 5, endY - 5, endX, endY);
+                                        Line li = new Line(startX, startY, endX - 5, endY);
+                                        li.setId("li:from:" + startElement + ";to:" + endElement + ";");
+                                        po.setId("po:from:" + startElement + ";to:" + endElement + ";");
+                                        root1.getChildren().addAll(li, po);
+                                        createObjectPropertyAssertion(startElement, endElement);
+                                        primaryStage.close();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ef) {
+                settextAndFillRed(warningStartElement, "Please select a Start Element!");
+                settextAndFillRed(warningEndElement, "Please select an End Element!");
+            }
+        });
+        decline.setOnAction(e -> primaryStage.close());
+    }
+
+    private void settextAndFillRed(Label warningStartElement, String text) {
+        warningStartElement.setText("text");
+        warningStartElement.setTextFill(Color.RED);
+    }
+
+    private void showArrowDefaultView() {
+        HBox hbButtons = new HBox();
+        Label warning = new Label();
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("Edge to OWL-Object Property mapping");
+        StackPane root12 = new StackPane();
+        Button accept = new Button("Accept");
+        Button decline = new Button("Cancel");
+        VBox layout = new VBox();
+        warning.setTextFill(Color.RED);
+        accept.setOnAction(e -> {
+            try {
+                if (opTree.getSelectionModel().getSelectedItem().getValue() != null) {
+                    if (opTree.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
+                        warning.setText("owl:topObjectProperty can't be selected. Please select another object property!");
+                    } else {
+                        primaryStage.close();
+                        objectPropertyMapping = opTree.getSelectionModel().getSelectedItem().getValue();
+                        createSubsequentAnnotation(objectPropertyMapping);
+                        opTree.getSelectionModel().clearSelection();
+                    }
+                }
+            } catch (Exception ef) {
+                warning.setText("Please select an object property!");
+
+            }
+        });
+        decline.setOnAction(e -> primaryStage.close());
+        hbButtons.setSpacing(10);
+        hbButtons.getChildren().addAll(accept, decline);
+        layout.getChildren().addAll(warning, opTree, hbButtons);
+        root12.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root12, 700, 500));
+        primaryStage.show();
     }
 
     private void addChildrenAndSeperator(VBox vbox, Shape shape) {
@@ -315,12 +309,6 @@ public class toolbar {
         vbox.getChildren().add(separator);
     }
 
-    private void addChildrenAndSeperator(VBox vbox, BpmnRelation bpmnRelation) {
-        Separator separator = new Separator();
-        separator.setPrefWidth(75);
-        vbox.getChildren().add(bpmnRelation);
-        vbox.getChildren().add(separator);
-    }
 
     private void showCicleWithNameView(String title, BpmnCircle circle, String mapping,String objecttype, String taskname) {
         Stage primaryStage = new Stage();
@@ -390,7 +378,7 @@ public class toolbar {
         root.getChildren().add(layout);
         primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.show();
-        }
+    }
 
     private void showRectangleWithNameView(BpmnRectangle aRectangleList) {
         Stage primaryStage = new Stage();

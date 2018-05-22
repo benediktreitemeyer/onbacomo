@@ -1,5 +1,6 @@
 package model.onbacomo.classes;
 
+import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -14,6 +15,7 @@ public class BpmnCircle extends Circle {
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(1.0);
         this.setId("Circle");
+        this.setCursor(Cursor.HAND);
     }
 
     public String getName() {

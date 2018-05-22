@@ -1,5 +1,6 @@
 package model.onbacomo.classes;
 
+import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -16,6 +17,7 @@ public class BpmnRectangle extends Rectangle {
         this.setArcHeight(10);
         this.setStroke(Color.BLACK);
         this.setId("Rectangle");
+        this.setCursor(Cursor.HAND);
     }
 
     public String getName() {
