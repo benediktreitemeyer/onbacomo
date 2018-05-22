@@ -120,7 +120,7 @@ public class toolbar {
             rectangle.setCursor(Cursor.HAND);
             rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (taskMapping.equals("default")) {
-                    showRectangleDefaultView();
+                    showRectangleDefaultView("task");
                 } else {
                     showRectangleWithNameView(rectangle);
                 }
@@ -136,17 +136,16 @@ public class toolbar {
             if (circle.getId().equals("StartEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (startEventMapping.equals("default")) {
-                        showCicleDefaultView("Start Event to OWL-Class mapping", startEventMapping);
+                        showCicleDefaultView("Start Event to OWL-Class mapping", "startEventMapping");
                     } else {
                         showCicleWithNameView("Add Start Event", circle, startEventMapping, "StartEvent", "Please insert the Start Event name:");
-
                     }
                 });
 
             } else if (circle.getId().equals("EndEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (endEventMapping.equals("default")) {
-                        showCicleDefaultView("End Event to OWL-Class mapping", endEventMapping);
+                        showCicleDefaultView("End Event to OWL-Class mapping", "endEventMapping");
                     } else {
                         showCicleWithNameView("Add End Event", circle, endEventMapping, "EndEvent", "Please insert the End Event name:");
                     }
@@ -435,7 +434,7 @@ public class toolbar {
         primaryStage.show();
     }
 
-    private void showRectangleDefaultView() {
+    private void showRectangleDefaultView(String mapping) {
         HBox hbButtons = new HBox();
         Label warning = new Label();
         Stage primaryStage = new Stage();
@@ -445,7 +444,7 @@ public class toolbar {
         Button decline = new Button("Cancel");
         VBox layout = new VBox();
         warning.setTextFill(Color.RED);
-        accept.setOnAction(e -> acceptAction(taskMapping, warning, primaryStage));
+        accept.setOnAction(e -> acceptAction(mapping, warning, primaryStage));
         decline.setOnAction(e -> primaryStage.close());
         hbButtons.setSpacing(10);
         hbButtons.getChildren().addAll(accept, decline);
@@ -455,14 +454,22 @@ public class toolbar {
         primaryStage.show();
     }
 
-    private void acceptAction(String s, Label warning, Stage primaryStage) {
+    private void acceptAction(String mapping, Label warning, Stage primaryStage) {
         try {
             if (tree.getSelectionModel().getSelectedItem().getValue() != null) {
                 if (tree.getSelectionModel().getSelectedItem().getValue().equals("owl:Thing")) {
                     warning.setText("owl:Thing can't be selected. Please select another class!");
                 } else {
                     primaryStage.close();
-                    s = tree.getSelectionModel().getSelectedItem().getValue();
+                    if (mapping == "endEventMapping") {
+                        endEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                    } else
+                    if (mapping == "startEventMapping") {
+                        startEventMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                    } else
+                    if (mapping == "task") {
+                        taskMapping = tree.getSelectionModel().getSelectedItem().getValue();
+                    }
                     tree.getSelectionModel().clearSelection();
                 }
             }
