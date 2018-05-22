@@ -12,10 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -26,6 +23,7 @@ import javafx.stage.Stage;
 import model.onbacomo.classes.BpmnCircle;
 import model.onbacomo.classes.BpmnRectangle;
 import model.onbacomo.relations.BpmnArrow;
+import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -166,7 +164,7 @@ public class toolbar {
                 }
             });
 
-            addChildrenAndSeperator(vbox, arrow);
+            addChildrenAndSeperator(vbox, arrow.getBpmnArrowPane());
         }
         root.getChildren().add(vbox);
         jfxPanel.setScene(scene);
@@ -304,6 +302,12 @@ public class toolbar {
         Separator separator = new Separator();
         separator.setPrefWidth(75);
         vbox.getChildren().add(shape);
+        vbox.getChildren().add(separator);
+    }
+    private void addChildrenAndSeperator(VBox vbox, BorderPane borderPane) {
+        Separator separator = new Separator();
+        separator.setPrefWidth(75);
+        vbox.getChildren().add(borderPane);
         vbox.getChildren().add(separator);
     }
 
