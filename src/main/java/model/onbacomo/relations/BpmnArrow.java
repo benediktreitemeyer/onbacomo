@@ -1,29 +1,31 @@
-package model.onbacomo.modelobjects;
+package model.onbacomo.relations;
 
 import javafx.scene.Cursor;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
 
-public class BpmnArrow extends Shape {
-    
-    private final Line line;
+public class BpmnArrow extends BpmnRelation {
+
     private final Polygon arrow;
     private BorderPane roots;
 
-    public BpmnArrow() {
+    public BpmnArrow(String startClass, String endClass, String direction) {
         roots = new BorderPane();
-        line = new Line(10.0, 10.0, 75.0, 10.0);
+        this.setLine(new Line(10.0, 10.0, 75.0, 10.0));
         arrow = new Polygon(75.0, 15.0, 75.0, 5.0, 80.0, 10.0);
-        roots.getChildren().add(line);
+        roots.getChildren().add(this.getLine());
         roots.getChildren().add(arrow);
         roots.setPrefWidth(100.0);
         roots.setPrefHeight(75.0);
         roots.setCursor(Cursor.HAND);
+        this.setType("Arrow");
+        this.setStartClass(startClass);
+        this.setEndClass(endClass);
+        this.setDirection(direction);
     }
 
-    public BorderPane getBpmnArrow() {
+    public BorderPane getBpmnArrowPane() {
         return roots;
     }
 }

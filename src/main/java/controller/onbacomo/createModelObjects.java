@@ -1,63 +1,50 @@
 package controller.onbacomo;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import model.onbacomo.modelobjects.BpmnCircle;
-import model.onbacomo.modelobjects.BpmnRectangle;
-import model.onbacomo.objects.classGraphRep;
-import model.onbacomo.objects.relationClassGraphRep;
+import model.onbacomo.classes.BpmnCircle;
+import model.onbacomo.classes.BpmnClass;
+import model.onbacomo.classes.BpmnRectangle;
+import model.onbacomo.relations.BpmnArrow;
+import model.onbacomo.relations.BpmnRelation;
 
 import java.util.ArrayList;
 
 public class createModelObjects {
-    public String[] arrowList;
-    private ArrayList<Rectangle> rectangleList;
-    private ArrayList<Circle> circleList;
+    private ArrayList<BpmnArrow> arrowList;
+    private ArrayList<BpmnRectangle> rectangleList;
+    private ArrayList<BpmnCircle> circleList;
 
-    public void createObjects(classGraphRep[] classList, relationClassGraphRep[] relationClassList) {
+    public void createObjects(BpmnClass[] classList, BpmnRelation[] relationList) {
         rectangleList = new ArrayList<>();
         circleList = new ArrayList<>();
-        String[] objectList = new String[classList.length];
-        arrowList = new String[1];
+        arrowList = new ArrayList<>();
 
-        for (int i = 0; i < classList.length; i++) {
-            if (classList[i].getName() != null) {
-                if (classList[i].getShape().equals("Rectangle")) {
+        for (BpmnClass aClassList : classList) {
+                if (aClassList.getId().equals("Rectangle")) {
                     BpmnRectangle rectangle = new BpmnRectangle();
-                    rectangle.setId(classList[i].getName());
-                    objectList[i] = "BpmnRectangle";
-                    rectangle.setFill(Color.valueOf(classList[i].getColor()));
                     rectangleList.add(rectangle);
                 }
 
-                if (classList[i].getShape().equals("Circle")) {
+                if (aClassList.getId().equals("Circle")) {
                     BpmnCircle circle = new BpmnCircle();
-                    circle.setId(classList[i].getName());
-                    objectList[i] = "BpmnCircle";
-                    circle.setFill(Color.valueOf(classList[i].getColor()));
-                    circle.setStrokeWidth(classList[i].getStrokeWidth());
                     circleList.add(circle);
                 }
-
-            }
         }
 
-        for (int i = 0; i < relationClassList.length; i++) {
-            if (relationClassList[i].getName() != null) {
-                if (relationClassList[i].getDirection().equals("One")) {
-                    String className = relationClassList[i].getName();
-                    arrowList[i] = className;
-                }
+        for (BpmnRelation aRelationList : relationList) {
+            if (aRelationList.getType().equals("Arrow")) {
+                BpmnArrow arrow = new BpmnArrow(aRelationList.getStartClass(), aRelationList.getEndClass(), aRelationList.getDirection());
+                arrowList.add(arrow);
             }
         }
-
     }
 
-    public ArrayList<Rectangle> getRectangleList() {
+    public ArrayList<BpmnArrow> getArrowList() {
+        return arrowList;
+    }
+    public ArrayList<BpmnRectangle> getRectangleList() {
         return rectangleList;
     }
-    public ArrayList<Circle> getCircleList() {
+    public ArrayList<BpmnCircle> getCircleList() {
         return circleList;
     }
 

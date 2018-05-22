@@ -17,8 +17,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.onbacomo.modelobjects.BpmnArrow;
-import model.onbacomo.modelobjects.BpmnRectangle;
+import model.onbacomo.BpmnObject;
+import model.onbacomo.classes.BpmnCircle;
+import model.onbacomo.classes.BpmnClass;
+import model.onbacomo.relations.BpmnArrow;
+import model.onbacomo.classes.BpmnRectangle;
+import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -115,8 +119,7 @@ public class toolbar {
         opTree = propertyTree;
 
         // Rectangle
-        ArrayList<Rectangle> rectangleList = cmo.getRectangleList();
-        for (Rectangle rectangle : rectangleList) {
+        for (BpmnRectangle rectangle : cmo.getRectangleList()) {
             rectangle.setCursor(Cursor.HAND);
             rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
                 if (taskMapping.equals("default")) {
@@ -129,8 +132,7 @@ public class toolbar {
         }
 
         // Cicle
-        ArrayList<Circle> circleList = cmo.getCircleList();
-        for (Circle circle : circleList) {
+        for (BpmnCircle circle : cmo.getCircleList()) {
             circle.setCursor(Cursor.HAND);
 
             if (circle.getId().equals("StartEvent")) {
@@ -156,13 +158,10 @@ public class toolbar {
         }
 
         // Arrow
-        String[] arrowList = cmo.arrowList;
-        for (int i = 0; i < arrowList.length; i++) {
-            BpmnArrow ar = new BpmnArrow();
+        for (BpmnArrow arrow : cmo.getArrowList()) {
             Separator separator = new Separator();
-            BorderPane roots = ar.getBpmnArrow();
             separator.setPrefWidth(75);
-            roots.setOnMouseClicked((EventHandler<Event>) t -> {
+            arrow.getBpmnArrowPane().setOnMouseClicked((EventHandler<Event>) t -> {
                 if (objectPropertyMapping.equals("default")) {
                     HBox hbButtons = new HBox();
                     Label warning = new Label();
@@ -298,30 +297,28 @@ public class toolbar {
                     decline.setOnAction(e -> primaryStage.close());
                 }
             });
-
-            vbox.getChildren().addAll(roots);
-
+            addChildrenAndSeperator(vbox, arrow);
         }
         root.getChildren().add(vbox);
         jfxPanel.setScene(scene);
 
     }
 
-    private void addChildrenAndSeperator(VBox vbox, Shape shape) {
+    private void addChildrenAndSeperator(VBox vbox, BpmnObject bpmnObject) {
         Separator separator = new Separator();
         separator.setPrefWidth(75);
-        vbox.getChildren().add(shape);
+        vbox.getChildren().add(bpmnObject);
         vbox.getChildren().add(separator);
     }
 
-    private void showCicleWithNameView(String title, Circle circle, String mapping,String objecttype, String taskname) {
+    private void showCicleWithNameView(String title, BpmnCircle circle, String mapping,String objecttype, String taskname) {
         Stage primaryStage = new Stage();
         primaryStage.setTitle(title);
         TextField textfield = new TextField();
         Label taskName = new Label(taskname);
         Label textcontent = new Label();
         HBox hbButtons = new HBox();
-        StackPane root16 = new StackPane();
+        StackPane root = new StackPane();
         Button accept = new Button("Accept");
         Button decline = new Button("Cancel");
         accept.setOnAction(e -> {
@@ -336,7 +333,7 @@ public class toolbar {
                 cir.setCenterY(circle.getCenterY());
                 cir.setCenterX(circle.getCenterX());
                 cir.setRadius(circle.getRadius());
-                Pane root15 = PaneManager.getInstance().getPane();
+                Pane rootPane = PaneManager.getInstance().getPane();
                 Text text = new Text(textfield.getText());
                 StackPane stack = new StackPane();
                 VBox vb = new VBox();
@@ -345,7 +342,7 @@ public class toolbar {
                 stack.setOnMousePressed(onMousePressedEventHandler);
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(vb);
-                root15.getChildren().add(stack);
+                rootPane.getChildren().add(stack);
                 stack.setId(circle.getId() + ":" + textfield.getText());
                 objectType = objecttype;
                 createIndividual(textfield.getText(), mapping);
@@ -359,8 +356,8 @@ public class toolbar {
         hbButtons.setSpacing(10);
         hbButtons.getChildren().addAll(accept, decline);
         layout.getChildren().addAll(taskName, textcontent, textfield, hbButtons);
-        root16.getChildren().add(layout);
-        primaryStage.setScene(new Scene(root16, 700, 200));
+        root.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root, 700, 200));
         primaryStage.show();
     }
 
@@ -370,7 +367,7 @@ public class toolbar {
         warning.setTextFill(Color.RED);
         Stage primaryStage = new Stage();
         primaryStage.setTitle(title);
-        StackPane root16 = new StackPane();
+        StackPane root = new StackPane();
         Button accept = new Button("Accept");
         Button decline = new Button("Cancel");
         VBox layout = new VBox();
@@ -379,12 +376,12 @@ public class toolbar {
         hbButtons.setSpacing(10);
         hbButtons.getChildren().addAll(accept, decline);
         layout.getChildren().addAll(warning, tree, hbButtons);
-        root16.getChildren().add(layout);
-        primaryStage.setScene(new Scene(root16, 700, 500));
+        root.getChildren().add(layout);
+        primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.show();
         }
 
-    private void showRectangleWithNameView(Rectangle aRectangleList) {
+    private void showRectangleWithNameView(BpmnRectangle aRectangleList) {
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Add Task");
         TextField textfield = new TextField();

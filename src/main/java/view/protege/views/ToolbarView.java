@@ -9,8 +9,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import model.onbacomo.objects.classGraphRep;
-import model.onbacomo.objects.relationClassGraphRep;
+import model.onbacomo.classes.BpmnClass;
+import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.protege.editor.owl.model.entity.OWLEntityCreationException;
@@ -135,10 +135,10 @@ public class ToolbarView extends AbstractOWLViewComponent {
         add(jfxPanel, BorderLayout.CENTER);
         createGraphRepObjects go = new createGraphRepObjects();
         go.createObjects(fXMLFile);
-        relationClassGraphRep[] relationClassList = go.getRelationClassList();
-        classGraphRep[] classList = go.getClassList();
+        BpmnRelation[] relationList = go.getRelationList();
+        BpmnClass[] classList = go.getClassList();
         createModelObjects cmo = new createModelObjects();
-        cmo.createObjects(classList, relationClassList);
+        cmo.createObjects(classList, relationList);
 
         Platform.runLater(() -> {
             toolbar bar = new toolbar();

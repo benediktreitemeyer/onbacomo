@@ -1,86 +1,88 @@
 package controller.onbacomo;
 
-import model.onbacomo.objects.classGraphRep;
-import model.onbacomo.objects.relationClassGraphRep;
+import model.onbacomo.classes.BpmnClass;
+import model.onbacomo.relations.BpmnRelation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class createGraphRepObjects {
-    private classGraphRep[] classList;
-    private relationClassGraphRep[] relationClassList;
+    private BpmnClass[] classList;
+    private BpmnRelation[] relationList;
 
     public void createObjects(File fXMLFile) {
 
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXMLFile);
-            doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("onbacomo:graphrep");
-            classList = new classGraphRep[nList.getLength()];
-            relationClassList = new relationClassGraphRep[nList.getLength()];
+            NodeList nList = getNodeList(fXMLFile);
+            classList = new BpmnClass[nList.getLength()];
+            relationList = new BpmnRelation[nList.getLength()];
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                classGraphRep cgr = new classGraphRep();
-                relationClassGraphRep rcgr = new relationClassGraphRep();
+
+                BpmnClass bpmnClass = new BpmnClass();
+                BpmnRelation bpmnRelation = new BpmnRelation();
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    String[] segs = eElement.getTextContent().split(Pattern.quote(";"));
-                    Node parent = eElement.getParentNode();
-                    Element pa = (Element) parent;
+                    Element element = (Element) nNode;
+                    String[] segs = element.getTextContent().split(Pattern.quote(";"));
+                    Node nodeParent = element.getParentNode();
+                    Element elementParent = (Element) nodeParent;
 
-                    if (parent.getNodeName().equals("owl:Class")) {
-                        String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
+                    if (nodeParent.getNodeName().equals("owl:Class")) {
+                        //TODO: Weiter auf Rectangle oder Circle prüfen ?
+                        String[] getName = elementParent.getAttribute("rdf:about").split(Pattern.quote("#"));
 
                         for (String seg : segs) {
-                            cgr.setName(getName[1]);
+                            bpmnClass.setName(getName[1]);
                             String[] getValue = seg.split(Pattern.quote(":"));
                             switch (getValue[0]) {
                                 case "Shape":
-                                    cgr.setShape(getValue[1]);
+                                    bpmnClass.setShape(getValue[1]);
                                     break;
                                 case "Color":
-                                    cgr.setColor(getValue[1]);
+                                    bpmnClass.setColor(getValue[1]);
                                     break;
                                 case "Stroke":
-                                    cgr.setStrokeWidth(Double.parseDouble(getValue[1]));
+                                    bpmnClass.setStrokeWidth(Double.parseDouble(getValue[1]));
                                     break;
                             }
                         }
                     }
 
-                    if (parent.getNodeName().equals("owl:ObjectProperty")) {
-                        String[] name = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
+                    if (nodeParent.getNodeName().equals("owl:ObjectProperty")) {
+                        //TODO: Wird untere Zeile noch benötigt ?
+                        String[] name = elementParent.getAttribute("rdf:about").split(Pattern.quote("#"));
                         for (String seg : segs) {
-                            rcgr.setName(name[1]);
                             String[] getValue = seg.split(Pattern.quote(":"));
                             switch (getValue[0]){
-                                case "Shape":
-                                    break;
-                                case "Color":
+                                case "Type":
+                                    bpmnRelation.setType(getValue[1]);
                                     break;
                                 case "Direction":
-                                    rcgr.setDirection(getValue[1]);
+                                    bpmnRelation.setDirection(getValue[1]);
                                     break;
                                 case "StartClass":
+                                    bpmnRelation.setStartClass(getValue[1]);
                                     break;
                                 case "EndClass":
+                                    bpmnRelation.setEndClass(getValue[1]);
                                     break;
                             }
                         }
                     }
                 }
-                classList[temp] = cgr;
-                relationClassList[temp] = rcgr;
+                classList[temp] = bpmnClass;
+                relationList[temp] = bpmnRelation;
             }
 
         } catch (Exception e) {
@@ -88,11 +90,19 @@ public class createGraphRepObjects {
         }
     }
 
-    public classGraphRep[] getClassList() {
+    private NodeList getNodeList(File fXMLFile) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(fXMLFile);
+        doc.getDocumentElement().normalize();
+        return doc.getElementsByTagName("onbacomo:graphrep");
+    }
+
+    public BpmnClass[] getClassList() {
         return classList;
     }
-    public relationClassGraphRep[] getRelationClassList() {
-        return relationClassList;
+    public BpmnRelation[] getRelationList() {
+        return relationList;
     }
 
 }
