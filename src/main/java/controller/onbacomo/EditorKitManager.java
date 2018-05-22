@@ -16,6 +16,7 @@ public class EditorKitManager {
     public OWLEditorKit getEditorKit() {
         return ek;
     }
+
     public void setEditorKit(OWLEditorKit oek) {
         EditorKitManager.ek = oek;
     }

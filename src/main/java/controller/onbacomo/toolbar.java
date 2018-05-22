@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import model.onbacomo.classes.BpmnCircle;
 import model.onbacomo.classes.BpmnRectangle;
 import model.onbacomo.relations.BpmnArrow;
-import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -44,10 +43,6 @@ public class toolbar {
     private String startElement, endElement, objectType, taskMapping, startEventMapping, endEventMapping, objectPropertyMapping;
     private Line ls, le;
     private Polygon p;
-    private Boolean edgeExists;
-    private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
-    private IRI ontIRI;
-
     private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
@@ -77,34 +72,37 @@ public class toolbar {
     };
     private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
-                @Override
-                public void handle(MouseEvent t) {
-                    double offsetX = t.getSceneX() - orgSceneX;
-                    double offsetY = t.getSceneY() - orgSceneY;
-                    double newTranslateX = orgTranslateX + offsetX;
-                    double newTranslateY = orgTranslateY + offsetY;
+        @Override
+        public void handle(MouseEvent t) {
+            double offsetX = t.getSceneX() - orgSceneX;
+            double offsetY = t.getSceneY() - orgSceneY;
+            double newTranslateX = orgTranslateX + offsetX;
+            double newTranslateY = orgTranslateY + offsetY;
 
-                    ((StackPane) (t.getSource())).setTranslateX(newTranslateX);
-                    ((StackPane) (t.getSource())).setTranslateY(newTranslateY);
-                    if (ls != null) {
-                        if (((StackPane) (t.getSource())).getId().startsWith("Task")) {
-                            ls.setStartX(newTranslateX + 75 * 1.5);
-                            ls.setStartY(newTranslateY + (37.5 * 1.5) / 2);
-                        } else {
-                            ls.setStartX(newTranslateX + 50);
-                            ls.setStartY(newTranslateY + (37.5 * 1.5) / 2);
-                        }
-                    }
-                    if (le != null) {
-                        le.setEndX(newTranslateX - 5);
-                        le.setEndY(newTranslateY + (37.5 * 1.5) / 2);
-                    }
-                    if (p != null) {
-                        newTranslateY = newTranslateY + (37.5 * 1.5) / 2;
-                        p.getPoints().setAll(newTranslateX - 5, newTranslateY + 5, newTranslateX - 5, newTranslateY - 5, newTranslateX, newTranslateY);
-                    }
+            ((StackPane) (t.getSource())).setTranslateX(newTranslateX);
+            ((StackPane) (t.getSource())).setTranslateY(newTranslateY);
+            if (ls != null) {
+                if (((StackPane) (t.getSource())).getId().startsWith("Task")) {
+                    ls.setStartX(newTranslateX + 75 * 1.5);
+                    ls.setStartY(newTranslateY + (37.5 * 1.5) / 2);
+                } else {
+                    ls.setStartX(newTranslateX + 50);
+                    ls.setStartY(newTranslateY + (37.5 * 1.5) / 2);
                 }
-            };
+            }
+            if (le != null) {
+                le.setEndX(newTranslateX - 5);
+                le.setEndY(newTranslateY + (37.5 * 1.5) / 2);
+            }
+            if (p != null) {
+                newTranslateY = newTranslateY + (37.5 * 1.5) / 2;
+                p.getPoints().setAll(newTranslateX - 5, newTranslateY + 5, newTranslateX - 5, newTranslateY - 5, newTranslateX, newTranslateY);
+            }
+        }
+    };
+    private Boolean edgeExists;
+    private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
+    private IRI ontIRI;
 
     public toolbar() {
         taskMapping = "default";
@@ -310,7 +308,7 @@ public class toolbar {
     }
 
 
-    private void showCicleWithNameView(String title, BpmnCircle circle, String mapping,String objecttype, String taskname) {
+    private void showCicleWithNameView(String title, BpmnCircle circle, String mapping, String objecttype, String taskname) {
         Stage primaryStage = new Stage();
         primaryStage.setTitle(title);
         TextField textfield = new TextField();
@@ -360,7 +358,7 @@ public class toolbar {
         primaryStage.show();
     }
 
-    private void showCicleDefaultView(String title,String mapping) {
+    private void showCicleDefaultView(String title, String mapping) {
         HBox hbButtons = new HBox();
         Label warning = new Label();
         warning.setTextFill(Color.RED);

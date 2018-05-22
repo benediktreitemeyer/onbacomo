@@ -48,7 +48,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         startEvents = new ArrayList<>();
     }
 
-    private void update(){
+    private void update() {
         //TODO: BUG: NullpointerException falls keine Onthologie ausgewählt und danach eine ausgeählt in Zeile: rootItem.getChildren().clear();
         if (!rootItem.getChildren().isEmpty()) {
             rootItem.getChildren().clear();
@@ -71,7 +71,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
         rootItem.getChildren().add(endEvent);
     }
 
-    private void addAsLeav(ArrayList<String> s, TreeItem<String> treeItem){
+    private void addAsLeav(ArrayList<String> s, TreeItem<String> treeItem) {
         if (s != null) {
             for (String content : s) {
                 TreeItem<String> leaf = new TreeItem<>(content, new ImageView(instanceIcon));
@@ -79,6 +79,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
             }
         }
     }
+
     private void splitAndAdd() {
         for (OWLNamedIndividual a : getOWLEditorKit().getModelManager().getActiveOntology().getIndividualsInSignature()) {
             IRI iri = a.getIRI();
@@ -86,12 +87,12 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
             for (OWLAnnotationAssertionAxiom b : getOWLEditorKit().getModelManager().getActiveOntology().getAnnotationAssertionAxioms(iri)) {
                 String[] segs = b.getProperty().toString().split(Pattern.quote("#"));
                 segs = segs[1].split(Pattern.quote(">"));
-                switch (segs[0]){
+                switch (segs[0]) {
                     case "bpmn:task":
                         String nameTask[] = sIRI.split(Pattern.quote("#"));
                         tasks.add(nameTask[1]);
                         break;
-                    case  "bpmn:startevent":
+                    case "bpmn:startevent":
                         String nameStartEvent[] = sIRI.split(Pattern.quote("#"));
                         startEvents.add(nameStartEvent[1]);
                         break;

@@ -6,7 +6,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
-public class ontologyChooser extends JFileChooser{
+public class ontologyChooser extends JFileChooser {
     private final String OntologyLocation;
     private final File fXMLFile;
 
@@ -24,6 +24,7 @@ public class ontologyChooser extends JFileChooser{
     public String getOntologyLocation() {
         return OntologyLocation;
     }
+
     public File getFile() {
         return fXMLFile;
     }

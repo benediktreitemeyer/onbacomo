@@ -7,13 +7,12 @@ import javafx.scene.shape.Polygon;
 
 public class BpmnArrow extends BpmnRelation {
 
-    private final Polygon arrow;
     private BorderPane roots;
 
     public BpmnArrow(String startClass, String endClass, String direction) {
         roots = new BorderPane();
         this.setLine(new Line(10.0, 10.0, 75.0, 10.0));
-        arrow = new Polygon(75.0, 15.0, 75.0, 5.0, 80.0, 10.0);
+        Polygon arrow = new Polygon(75.0, 15.0, 75.0, 5.0, 80.0, 10.0);
         roots.getChildren().add(this.getLine());
         roots.getChildren().add(arrow);
         roots.setPrefWidth(100.0);

@@ -22,8 +22,9 @@ public class createModelObjects {
         for (Shape aClassList : classList) {
             if (aClassList.getId().equals("Rectangle")) {
                 BpmnRectangle rectangle = new BpmnRectangle();
-                rectangleList.add(rectangle); }
-                if (aClassList.getId().equals("Circle")) {
+                rectangleList.add(rectangle);
+            }
+            if (aClassList.getId().equals("Circle")) {
                 BpmnCircle circle = new BpmnCircle();
                 circleList.add(circle);
             }
@@ -40,9 +41,11 @@ public class createModelObjects {
     public ArrayList<BpmnArrow> getArrowList() {
         return arrowList;
     }
+
     public ArrayList<BpmnRectangle> getRectangleList() {
         return rectangleList;
     }
+
     public ArrayList<BpmnCircle> getCircleList() {
         return circleList;
     }

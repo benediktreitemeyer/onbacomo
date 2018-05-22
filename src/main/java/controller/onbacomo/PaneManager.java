@@ -16,6 +16,7 @@ public class PaneManager {
     public Pane getPane() {
         return pane;
     }
+
     public void setPane(Pane pane) {
         PaneManager.pane = pane;
     }

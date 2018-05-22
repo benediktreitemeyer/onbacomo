@@ -49,14 +49,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private IRI ontIRI;
     private OWLEditorKit eKit;
     private String classIRI, location;
-    private TreeView<String> tree, opTree;
-    private File fXMLFile;
-
-
-    public ToolbarView() {
-        classIRI = "model/onbacomo/bpmn";
-    }
-
     /**
      * Listener for Ontology Changes, if Ontology is changed = new initilisation (maybe new method, when loading of toolbar from annotations is implemented)
      */
@@ -67,6 +59,12 @@ public class ToolbarView extends AbstractOWLViewComponent {
             e.printStackTrace();
         }
     };
+    private TreeView<String> tree, opTree;
+    private File fXMLFile;
+
+    public ToolbarView() {
+        classIRI = "model/onbacomo/bpmn";
+    }
 
     /**
      * Initialises the ToolbarView (method performed when starting the Plugin)
@@ -80,8 +78,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     }
 
     /**
-     * @throws OWLEntityCreationException
-     *          Throws an OWLEntityCreationException
+     * @throws OWLEntityCreationException Throws an OWLEntityCreationException
      */
     private void getIRI() throws OWLEntityCreationException {
         if (getOWLEditorKit().getModelManager().getActiveOntology().getClassesInSignature().isEmpty()) {
@@ -94,8 +91,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     }
 
     /**
-     * @throws OWLEntityCreationException
-     *          Throws a OWLEntityCreationException
+     * @throws OWLEntityCreationException Throws a OWLEntityCreationException
      */
     private void checkForModellingToolClass() throws OWLEntityCreationException {
         boolean onbacomoIRI = false;
@@ -243,7 +239,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             String path;
             if (segs.length > 0) {
                 segs = annotations.split(Pattern.quote("#"));
-                if (segs[segs.length-1].equals("onbacomo:path>")) {
+                if (segs[segs.length - 1].equals("onbacomo:path>")) {
                     segs = annotations.split(Pattern.quote("\""));
                     path = segs[1];
                     fXMLFile = new File(path);
@@ -297,7 +293,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
 
     }
 
-    private void getOwlClassParents(TreeItem<String> treeItem, String iri){
+    private void getOwlClassParents(TreeItem<String> treeItem, String iri) {
         String classIRI = iri + treeItem.getValue();
         OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
         for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
@@ -306,7 +302,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         }
     }
 
-    private void splitAndAdd(TreeItem<String> treeItem, String[] segs){
+    private void splitAndAdd(TreeItem<String> treeItem, String[] segs) {
         segs = segs[1].split(Pattern.quote(">"));
         TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(propertyIcon));
         treeItem.getChildren().add(child);
