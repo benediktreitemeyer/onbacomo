@@ -91,6 +91,9 @@ public class createGraphRepObjects {
                         for (String seg : segs) {
                             String[] getValue = seg.split(Pattern.quote(":"));
                             switch (getValue[0]) {
+                                case "Shape":
+                                    bpmnRelation.setShape(getValue[1]);
+                                    break;
                                 case "Type":
                                     bpmnRelation.setType(getValue[1]);
                                     break;

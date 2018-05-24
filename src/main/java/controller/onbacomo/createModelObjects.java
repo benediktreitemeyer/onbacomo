@@ -29,8 +29,7 @@ public class createModelObjects {
         }
 
         for (BpmnRelation aRelationList : relationList) {
-            //TODO: Hier sollte am Ende nicht Solid sondern Arrow stehen (verbesserung der Abfrage Type)
-            if (aRelationList.getType().equals("Solid")) {
+            if (aRelationList.getShape().equals("Arrow")) {
                 BpmnArrow arrow = new BpmnArrow(aRelationList.getStartClass(), aRelationList.getEndClass(), aRelationList.getDirection());
                 arrowList.add(arrow);
             }

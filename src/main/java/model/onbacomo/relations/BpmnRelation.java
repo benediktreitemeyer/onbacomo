@@ -4,7 +4,7 @@ import javafx.scene.shape.Line;
 
 public class BpmnRelation{
     private Line line;
-    private String name, startClass, endClass, type, direction;
+    private String name, startClass, endClass, type, direction, shape;
 
     public void setName(String name) {
         this.name = name;
@@ -48,5 +48,13 @@ public class BpmnRelation{
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public void setShape(String shape) {
+        this.shape = shape;
+    }
+
+    public String getShape() {
+        return shape;
     }
 }
