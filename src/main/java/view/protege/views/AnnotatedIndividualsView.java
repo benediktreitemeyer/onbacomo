@@ -1,6 +1,5 @@
 package view.protege.views;
 
-import controller.onbacomo.IndividualsTreeManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
@@ -27,14 +26,10 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private static final long serialVersionUID = 1505057428784011282L;
     private final Logger logger = LoggerFactory.getLogger(AnnotatedIndividualsView.class);
-
+    private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
     private ArrayList<String> tasks, endEvents, startEvents;
     private TreeView<String> tree;
     private TreeItem<String> rootItem;
-    private JFXPanel panel;
-    private Group root;
-    private Scene scene;
-    private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
 
     private final OWLOntologyChangeListener ontChangeListener = changes -> {
         try {
@@ -54,55 +49,60 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
     }
 
     private void update() {
-        rootItem.getChildren().clear();
+        //TODO: BUG: NullpointerException falls keine Onthologie ausgewählt und danach eine ausgeählt in Zeile: rootItem.getChildren().clear();
+        if (!rootItem.getChildren().isEmpty()) {
+            rootItem.getChildren().clear();
+        }
+
+        splitAndAdd();
+
+        TreeItem<String> task = new TreeItem<>("Tasks");
+        addAsLeav(tasks, task);
+
+        TreeItem<String> endEvent = new TreeItem<>("EndEvents");
+        addAsLeav(endEvents, endEvent);
+
+        TreeItem<String> startEvent = new TreeItem<>("StartEvents");
+        addAsLeav(startEvents, startEvent);
+
+        tree = new TreeView<>(rootItem);
+        rootItem.getChildren().add(task);
+        rootItem.getChildren().add(startEvent);
+        rootItem.getChildren().add(endEvent);
+    }
+
+    private void addAsLeav(ArrayList<String> s, TreeItem<String> treeItem) {
+        if (s != null) {
+            for (String content : s) {
+                TreeItem<String> leaf = new TreeItem<>(content, new ImageView(instanceIcon));
+                treeItem.getChildren().add(leaf);
+            }
+        }
+    }
+
+    private void splitAndAdd() {
         for (OWLNamedIndividual a : getOWLEditorKit().getModelManager().getActiveOntology().getIndividualsInSignature()) {
             IRI iri = a.getIRI();
             String sIRI = iri.toString();
             for (OWLAnnotationAssertionAxiom b : getOWLEditorKit().getModelManager().getActiveOntology().getAnnotationAssertionAxioms(iri)) {
                 String[] segs = b.getProperty().toString().split(Pattern.quote("#"));
                 segs = segs[1].split(Pattern.quote(">"));
-                if (segs[0].equals("bpmn:task")) {
-                    String name[] = sIRI.split(Pattern.quote("#"));
-                    tasks.add(name[1]);
+                switch (segs[0]) {
+                    case "bpmn:task":
+                        String nameTask[] = sIRI.split(Pattern.quote("#"));
+                        tasks.add(nameTask[1]);
+                        break;
+                    case "bpmn:startevent":
+                        String nameStartEvent[] = sIRI.split(Pattern.quote("#"));
+                        startEvents.add(nameStartEvent[1]);
+                        break;
+                    case "bpmn:endevent":
+                        String nameEndEvent[] = sIRI.split(Pattern.quote("#"));
+                        endEvents.add(nameEndEvent[1]);
+                        break;
                 }
-                if (segs[0].equals("bpmn:startevent")) {
-                    String name[] = sIRI.split(Pattern.quote("#"));
-                    startEvents.add(name[1]);
-                }
-                if (segs[0].equals("bpmn:endevent")) {
-                    String name[] = sIRI.split(Pattern.quote("#"));
-                    endEvents.add(name[1]);
-                }
             }
         }
-
-        TreeItem<String> task = new TreeItem<>("Tasks");
-        if (tasks != null) {
-            for (String task1 : tasks) {
-                TreeItem<String> leaf = new TreeItem<>(task1, new ImageView(instanceIcon));
-                task.getChildren().add(leaf);
-            }
-        }
-
-        TreeItem<String> endEvent = new TreeItem<>("EndEvents");
-        if (endEvents != null) {
-            for (String endEvent1 : endEvents) {
-                TreeItem<String> leaf = new TreeItem<>(endEvent1, new ImageView(instanceIcon));
-                endEvent.getChildren().add(leaf);
-            }
-        }
-
-        TreeItem<String> startEvent = new TreeItem<>("StartEvents");
-        if (startEvents != null) {
-            for (String startEvent1 : startEvents) {
-                TreeItem<String> leaf = new TreeItem<>(startEvent1, new ImageView(instanceIcon));
-                startEvent.getChildren().add(leaf);
-            }
-        }
-        tree = new TreeView<>(rootItem);
-        rootItem.getChildren().add(task);
-        rootItem.getChildren().add(startEvent);
-        rootItem.getChildren().add(endEvent);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
     }
 
     private void start() {
-        SwingUtilities.invokeLater(() -> initAIGUI());
+        SwingUtilities.invokeLater(this::initAIGUI);
     }
 
     private void initAIGUI() {
@@ -125,65 +125,27 @@ public class AnnotatedIndividualsView extends AbstractOWLViewComponent {
 
     private void initAIPanel(JFXPanel jfxPanel) {
         createTree();
-        panel = jfxPanel;
-        root = new Group();
-        scene = new Scene(root, 500, 500, Color.WHITE);
-        panel.setScene(scene);
+        Group root = new Group();
+        Scene scene = new Scene(root, 500, 500, Color.WHITE);
+        jfxPanel.setScene(scene);
         root.getChildren().add(tree);
-        add(panel, BorderLayout.CENTER);
+        add(jfxPanel, BorderLayout.CENTER);
     }
 
     private void createTree() {
-        for (OWLNamedIndividual a : getOWLEditorKit().getModelManager().getActiveOntology().getIndividualsInSignature()) {
-            IRI iri = a.getIRI();
-            String sIRI = iri.toString();
-            for (OWLAnnotationAssertionAxiom b : getOWLEditorKit().getModelManager().getActiveOntology().getAnnotationAssertionAxioms(iri)) {
-                String[] segs = b.getProperty().toString().split(Pattern.quote("#"));
-                segs = segs[1].split(Pattern.quote(">"));
-                if (segs[0].equals("bpmn:task")) {
-                    String name[] = sIRI.split(Pattern.quote("#"));
-                    tasks.add(name[1]);
-                }
-
-                if (segs[0].equals("bpmn:startevent")) {
-                    String name[] = sIRI.split(Pattern.quote("#"));
-                    startEvents.add(name[1]);
-                }
-
-                if (segs[0].equals("bpmn:endevent")) {
-                    String name[] = sIRI.split(Pattern.quote("#"));
-                    endEvents.add(name[1]);
-                }
-            }
-        }
-
+        splitAndAdd();
         rootItem = new TreeItem<>("Individuals");
         rootItem.setExpanded(true);
         TreeItem<String> task = new TreeItem<>("Tasks");
-        if (tasks != null) {
-            for (String task1 : tasks) {
-                TreeItem<String> leaf = new TreeItem<String>(task1, new ImageView(instanceIcon));
-                task.getChildren().add(leaf);
-            }
-        }
+        addAsLeav(tasks, task);
 
         TreeItem<String> endEvent = new TreeItem<>("EndEvents");
-        if (endEvents != null) {
-            for (String endEvent1 : endEvents) {
-                TreeItem<String> leaf = new TreeItem<String>(endEvent1, new ImageView(instanceIcon));
-                endEvent.getChildren().add(leaf);
-            }
-        }
+        addAsLeav(endEvents, endEvent);
 
         TreeItem<String> startEvent = new TreeItem<>("StartEvents");
-        if (startEvents != null) {
-            for (String startEvent1 : startEvents) {
-                TreeItem<String> leaf = new TreeItem<String>(startEvent1, new ImageView(instanceIcon));
-                startEvent.getChildren().add(leaf);
-            }
-        }
+        addAsLeav(startEvents, startEvent);
+
         tree = new TreeView<>(rootItem);
-        IndividualsTreeManager.getInstance().setTree(tree);
         rootItem.getChildren().add(task);
         rootItem.getChildren().add(startEvent);
         rootItem.getChildren().add(endEvent);

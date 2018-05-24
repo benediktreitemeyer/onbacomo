@@ -1,99 +1,115 @@
 package controller.onbacomo;
 
-import model.onbacomo.objects.classGraphRep;
-import model.onbacomo.objects.relationClassGraphRep;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
+import model.onbacomo.classes.BpmnCircle;
+import model.onbacomo.classes.BpmnRectangle;
+import model.onbacomo.relations.BpmnRelation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
+import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 public class createGraphRepObjects {
-    private classGraphRep[] classList;
-    private relationClassGraphRep[] relationClassList;
-    private String[] startClasses;
-    private String[] endClasses;
+    private LinkedList<Shape> classList;
+    private LinkedList<BpmnRelation> relationList;
 
     public void createObjects(File fXMLFile) {
-
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXMLFile);
-            doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("onbacomo:graphrep");
-            classList = new classGraphRep[nList.getLength()];
-            relationClassList = new relationClassGraphRep[nList.getLength()];
+            NodeList nList = getNodeList(fXMLFile);
+            classList = new LinkedList<>();
+            relationList = new LinkedList<>();
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                classGraphRep cgr = new classGraphRep();
-                relationClassGraphRep rcgr = new relationClassGraphRep();
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    String[] segs = eElement.getTextContent().split(Pattern.quote(";"));
-                    Node parent = eElement.getParentNode();
-                    Element pa = (Element) parent;
+                    Element element = (Element) nNode;
+                    String[] segs = element.getTextContent().split(Pattern.quote(";"));
+                    Node nodeParent = element.getParentNode();
+                    Element elementParent = (Element) nodeParent;
 
-                    if (parent.getNodeName().equals("owl:Class")) {
-                        String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
-                        String name = getName[1];
+                    if (nodeParent.getNodeName().equals("owl:Class")) {
+                        String[] name = elementParent.getAttribute("rdf:about").split(Pattern.quote("#"));
+
+                        BpmnCircle bpmnCircle = new BpmnCircle();
+                        BpmnRectangle bpmnRectangle = new BpmnRectangle();
+                        boolean addCircle = true;
 
                         for (String seg : segs) {
-                            cgr.name = name;
                             String[] getValue = seg.split(Pattern.quote(":"));
-
-                            if (getValue[0].equals("Shape")) {
-                                cgr.shape = getValue[1];
+                            switch (getValue[0]) {
+                                case "Shape":
+                                    if (getValue[1].equals("Circle")) {
+                                        bpmnCircle.setId(getValue[1]);
+                                        addCircle = true;
+                                    } else if (getValue[1].equals("Rectangle")) {
+                                        bpmnRectangle.setId(getValue[1]);
+                                        addCircle = false;
+                                    }
+                                    break;
+                                case "Color":
+                                    if (getValue[1].equals("ALICEBLUE")) {
+                                        bpmnCircle.setFill(Color.ALICEBLUE);
+                                        bpmnRectangle.setFill(Color.ALICEBLUE);
+                                    } else if (getValue[1].equals("YELLOW")) {
+                                        bpmnCircle.setFill(Color.YELLOW);
+                                        bpmnRectangle.setFill(Color.YELLOW);
+                                    }
+                                    break;
+                                case "Stroke":
+                                    bpmnCircle.setStrokeWidth(Double.parseDouble(getValue[1]));
+                                    bpmnCircle.setRadius(bpmnCircle.getRadius()-(Double.parseDouble(getValue[1])/2));
+                                    bpmnRectangle.setStrokeWidth(Double.parseDouble(getValue[1]));
+                                    break;
                             }
+                        }
 
-                            if (getValue[0].equals("Color")) {
-                                cgr.color = getValue[1];
-                            }
-
-                            if (getValue[0].equals("Stroke")) {
-                                cgr.strokeWidth = Double.parseDouble(getValue[1]);
-                            }
+                        if (addCircle) {
+                            bpmnCircle.setName(name[1]);
+                            classList.add(bpmnCircle);
+                        } else {
+                            bpmnRectangle.setName(name[1]);
+                            classList.add(bpmnRectangle);
                         }
                     }
 
-                    if (parent.getNodeName().equals("owl:ObjectProperty")) {
-                        String[] getName = pa.getAttribute("rdf:about").split(Pattern.quote("#"));
-                        String name = getName[1];
-
+                    if (nodeParent.getNodeName().equals("owl:ObjectProperty")) {
+                        String[] name = elementParent.getAttribute("rdf:about").split(Pattern.quote("#"));
+                        BpmnRelation bpmnRelation = new BpmnRelation();
+                        bpmnRelation.setName(name[1]);
                         for (String seg : segs) {
-                            rcgr.name = name;
                             String[] getValue = seg.split(Pattern.quote(":"));
-                            if (getValue[0].equals("Shape")) {
-                                rcgr.shape = getValue[1];
-                            }
-
-                            if (getValue[0].equals("Color")) {
-                                rcgr.color = getValue[1];
-
-                            }
-
-                            if (getValue[0].equals("Direction")) {
-                                rcgr.direction = getValue[1];
-                            }
-
-                            if (getValue[0].equals("StartClass")) {
-                                startClasses = getValue[1].split(Pattern.quote(","));//Startklassen
-                            }
-
-                            if (getValue[0].equals("EndClass")) {
-                                endClasses = getValue[1].split(Pattern.quote(","));//Endklassen
+                            switch (getValue[0]) {
+                                case "Shape":
+                                    bpmnRelation.setShape(getValue[1]);
+                                    break;
+                                case "Type":
+                                    bpmnRelation.setType(getValue[1]);
+                                    break;
+                                case "Direction":
+                                    bpmnRelation.setDirection(getValue[1]);
+                                    break;
+                                case "StartClass":
+                                    bpmnRelation.setStartClass(getValue[1]);
+                                    break;
+                                case "EndClass":
+                                    bpmnRelation.setEndClass(getValue[1]);
+                                    break;
                             }
                         }
+                        relationList.add(bpmnRelation);
                     }
                 }
-                classList[temp] = cgr;
-                relationClassList[temp] = rcgr;
             }
 
         } catch (Exception e) {
@@ -101,20 +117,21 @@ public class createGraphRepObjects {
         }
     }
 
-    public classGraphRep[] getClassList() {
+    private NodeList getNodeList(File fXMLFile) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(fXMLFile);
+        doc.getDocumentElement().normalize();
+        return doc.getElementsByTagName("onbacomo:graphrep");
+    }
+
+    public LinkedList<Shape> getClassList() {
         return classList;
     }
 
-    public relationClassGraphRep[] getRelationClassList() {
-        return relationClassList;
+    public LinkedList<BpmnRelation> getRelationList() {
+        return relationList;
     }
 
-    public String[] getStartClasses() {
-        return startClasses;
-    }
-
-    public String[] getEndClasses() {
-        return endClasses;
-    }
 }
 

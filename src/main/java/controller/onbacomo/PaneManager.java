@@ -6,10 +6,6 @@ public class PaneManager {
     private static PaneManager instance;
     private static Pane pane;
 
-    private PaneManager() {
-
-    }
-
     public synchronized static PaneManager getInstance() {
         if (instance == null) {
             instance = new PaneManager();

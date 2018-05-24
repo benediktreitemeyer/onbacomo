@@ -25,8 +25,6 @@ public class CanvasView extends AbstractOWLViewComponent {
     private static final Logger logger = LoggerFactory.getLogger(CanvasView.class);
 
 
-    private JFXPanel jfxPanel;
-
     @Override
     public void initialiseOWLView() {
         logger.info("Initializing Canvas view");
@@ -36,9 +34,7 @@ public class CanvasView extends AbstractOWLViewComponent {
 
     private void initGUI() {
         setLayout(new BorderLayout());
-        jfxPanel = new JFXPanel();
-        //TODO: Gibt es einen bestimmten Grund für Manfred oder ist das eher ein Platzhalter ?
-        jfxPanel.setName("Manfred");
+        JFXPanel jfxPanel = new JFXPanel();
         jfxPanel.setBorder(BorderFactory.createTitledBorder("Canvas"));
         add(jfxPanel, BorderLayout.CENTER);
         Platform.runLater(() -> initJFXPanel(jfxPanel));

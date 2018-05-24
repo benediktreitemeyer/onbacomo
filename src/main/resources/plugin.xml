@@ -3,38 +3,38 @@
 
 <plugin>
 
-	<!-- Tabs -->
-	<extension id="OnbaCoMoTab" point="org.protege.editor.core.application.WorkspaceTab">
-		<label value="OnbaCoMo"/>
-		<class value="view.protege.tab.Tab"/>
-		<index value="x"/>
-		<editorKitId value="OWLEditorKit"/>
-		<defaultViewConfigFileName value="viewconfig.xml"/>
-		<protegeDefaultTab value="true"/>
-   </extension>
+    <!-- Tabs -->
+    <extension id="OnbaCoMoTab" point="org.protege.editor.core.application.WorkspaceTab">
+        <label value="OnbaCoMo"/>
+        <class value="view.protege.tab.Tab"/>
+        <index value="x"/>
+        <editorKitId value="OWLEditorKit"/>
+        <defaultViewConfigFileName value="viewconfig.xml"/>
+        <protegeDefaultTab value="true"/>
+    </extension>
 
-	<!-- Toolbar -->
-	<extension id="Toolbar.view"
-			   point="org.protege.editor.core.application.ViewComponent">
-		<label value="Toolbar"/>
-		<class value="view.protege.views.ToolbarView"/>
-		<headerColor value="@org.protege.ontologycolor"/>
-		<category value="@org.protege.ontologycategory"/>
-	</extension>
-	<!-- Canvas -->
-	<extension id="Canvas.view"
-			   point="org.protege.editor.core.application.ViewComponent">
-		<label value="Canvas"/>
-		<class value="view.protege.views.CanvasView"/>
-		<headerColor value="@org.protege.ontologycolor"/>
-		<category value="@org.protege.ontologycategory"/>
-	</extension>
-	<!-- Annotated Individuals -->
-	<extension id="AnnotatedIndividuals.view"
-			   point="org.protege.editor.core.application.ViewComponent">
-		<label value="Annotated Individuals"/>
-		<class value="view.protege.views.AnnotatedIndividualsView"/>
-		<headerColor value="@org.protege.ontologycolor"/>
-		<category value="@org.protege.ontologycategory"/>
-	</extension>
+    <!-- Toolbar -->
+    <extension id="Toolbar.view"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="Toolbar"/>
+        <class value="view.protege.views.ToolbarView"/>
+        <headerColor value="@org.protege.ontologycolor"/>
+        <category value="@org.protege.ontologycategory"/>
+    </extension>
+    <!-- Canvas -->
+    <extension id="Canvas.view"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="Canvas"/>
+        <class value="view.protege.views.CanvasView"/>
+        <headerColor value="@org.protege.ontologycolor"/>
+        <category value="@org.protege.ontologycategory"/>
+    </extension>
+    <!-- Annotated Individuals -->
+    <extension id="AnnotatedIndividuals.view"
+               point="org.protege.editor.core.application.ViewComponent">
+        <label value="Annotated Individuals"/>
+        <class value="view.protege.views.AnnotatedIndividualsView"/>
+        <headerColor value="@org.protege.ontologycolor"/>
+        <category value="@org.protege.ontologycategory"/>
+    </extension>
 </plugin>
