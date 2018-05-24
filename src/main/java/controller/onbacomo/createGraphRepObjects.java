@@ -75,7 +75,6 @@ public class createGraphRepObjects {
                         }
 
                         if (addCircle) {
-                            //TODO Name = endEvent, StartEvent
                             bpmnCircle.setName(name[1]);
                             classList.add(bpmnCircle);
                         } else {
