@@ -23,7 +23,6 @@ import javafx.stage.Stage;
 import model.onbacomo.classes.BpmnCircle;
 import model.onbacomo.classes.BpmnRectangle;
 import model.onbacomo.relations.BpmnArrow;
-import model.onbacomo.relations.BpmnRelation;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
@@ -41,6 +40,7 @@ public class toolbar {
     private String startElement, endElement, objectType, taskMapping, startEventMapping, endEventMapping, objectPropertyMapping;
     private Line ls, le;
     private Polygon p;
+
     private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
@@ -68,6 +68,7 @@ public class toolbar {
             }
         }
     };
+
     private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
         @Override
@@ -119,18 +120,31 @@ public class toolbar {
         opTree = propertyTree;
 
         // Rectangle
-        for (BpmnRectangle rectangle : cmo.getRectangleList()) {
-            rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
-                if (taskMapping.equals("default")) {
-                    showRectangleDefaultView();
+        initializeRectangle(cmo, vbox);
+        // Cicle
+        initializeCircle(cmo, vbox);
+        // Arrow
+        initializeArrow(cmo, vbox);
+
+        root.getChildren().add(vbox);
+        jfxPanel.setScene(scene);
+
+    }
+
+    private void initializeArrow(createModelObjects cmo, VBox vbox) {
+        for (BpmnArrow arrow : cmo.getArrowList()) {
+            arrow.getBpmnArrow().setOnMouseClicked((EventHandler<Event>) t -> {
+                if (objectPropertyMapping.equals("default")) {
+                    showArrowDefaultView();
                 } else {
-                    showRectangleWithNameView(rectangle);
+                    showArrowWithNameView();
                 }
             });
-            addChildrenAndSeperator(vbox, rectangle);
+            addChildrenAndSeperator(vbox, arrow.getBpmnArrow());
         }
+    }
 
-        // Cicle
+    private void initializeCircle(createModelObjects cmo, VBox vbox) {
         for (BpmnCircle circle : cmo.getCircleList()) {
             if (circle.getId().equals("StartEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
@@ -153,22 +167,19 @@ public class toolbar {
 
             addChildrenAndSeperator(vbox, circle);
         }
+    }
 
-        // Arrow
-        for (BpmnArrow arrow : cmo.getArrowList()) {
-            arrow.getBpmnArrowPane().setOnMouseClicked((EventHandler<Event>) t -> {
-                if (objectPropertyMapping.equals("default")) {
-                    showArrowDefaultView();
+    private void initializeRectangle(createModelObjects cmo, VBox vbox) {
+        for (BpmnRectangle rectangle : cmo.getRectangleList()) {
+            rectangle.setOnMouseClicked((EventHandler<Event>) t -> {
+                if (taskMapping.equals("default")) {
+                    showRectangleDefaultView();
                 } else {
-                    showArrowWithNameView();
+                    showRectangleWithNameView(rectangle);
                 }
             });
-
-            addChildrenAndSeperator(vbox, arrow.getBpmnArrowPane());
+            addChildrenAndSeperator(vbox, rectangle);
         }
-        root.getChildren().add(vbox);
-        jfxPanel.setScene(scene);
-
     }
 
     private void showArrowWithNameView() {
@@ -258,7 +269,7 @@ public class toolbar {
     }
 
     private void settextAndFillRed(Label warningStartElement, String text) {
-        warningStartElement.setText("text");
+        warningStartElement.setText(text);
         warningStartElement.setTextFill(Color.RED);
     }
 

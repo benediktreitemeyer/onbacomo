@@ -21,17 +21,15 @@ public class createModelObjects {
 
         for (Shape aClassList : classList) {
             if (aClassList.getId().equals("Rectangle")) {
-                BpmnRectangle rectangle = new BpmnRectangle();
-                rectangleList.add(rectangle);
+                rectangleList.add((BpmnRectangle) aClassList);
             }
             if (aClassList.getId().equals("Circle")) {
-                BpmnCircle circle = new BpmnCircle();
-                circleList.add(circle);
+                circleList.add((BpmnCircle) aClassList);
             }
         }
 
         for (BpmnRelation aRelationList : relationList) {
-            //TODO: Hier sollte am Ende nicht Solid sondern Arrow stehen
+            //TODO: Hier sollte am Ende nicht Solid sondern Arrow stehen (verbesserung der Abfrage Type)
             if (aRelationList.getType().equals("Solid")) {
                 BpmnArrow arrow = new BpmnArrow(aRelationList.getStartClass(), aRelationList.getEndClass(), aRelationList.getDirection());
                 arrowList.add(arrow);

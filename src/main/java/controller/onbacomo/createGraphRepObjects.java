@@ -50,37 +50,26 @@ public class createGraphRepObjects {
                             switch (getValue[0]) {
                                 case "Shape":
                                     if (getValue[1].equals("Circle")) {
-                                        //
-                                        System.out.println("Circle setID: " + getValue[1]);
-                                        //
                                         bpmnCircle.setId(getValue[1]);
                                         addCircle = true;
 
                                     } else if (getValue[1].equals("Rectangle")) {
-                                        //
-                                        System.out.println("Rectangle setID: " + getValue[1]);
-                                        //
                                         bpmnRectangle.setId(getValue[1]);
                                         addCircle = false;
                                     }
                                     break;
                                 case "Color":
                                     if (getValue[1].equals("ALICEBLUE")) {
-                                        //
-                                        System.out.println("Color: ALICEBLUE");
-                                        //
                                         bpmnCircle.setFill(Color.ALICEBLUE);
                                         bpmnRectangle.setFill(Color.ALICEBLUE);
                                     } else if (getValue[1].equals("YELLOW")) {
-                                        //
-                                        System.out.println("Color: YELLOW");
-                                        //
                                         bpmnCircle.setFill(Color.YELLOW);
                                         bpmnRectangle.setFill(Color.YELLOW);
                                     }
                                     break;
                                 case "Stroke":
                                     bpmnCircle.setStrokeWidth(Double.parseDouble(getValue[1]));
+                                    bpmnCircle.setRadius(bpmnCircle.getRadius()-(Double.parseDouble(getValue[1])/2));
                                     bpmnRectangle.setStrokeWidth(Double.parseDouble(getValue[1]));
                                     break;
                             }
@@ -103,27 +92,15 @@ public class createGraphRepObjects {
                             String[] getValue = seg.split(Pattern.quote(":"));
                             switch (getValue[0]) {
                                 case "Type":
-                                    //
-                                    System.out.println("Relation type: " + getValue[1]);
-                                    //
                                     bpmnRelation.setType(getValue[1]);
                                     break;
                                 case "Direction":
-                                    //
-                                    System.out.println("Relation direction: " + getValue[1]);
-                                    //
                                     bpmnRelation.setDirection(getValue[1]);
                                     break;
                                 case "StartClass":
-                                    //
-                                    System.out.println("Relation startClass: " + getValue[1]);
-                                    //
                                     bpmnRelation.setStartClass(getValue[1]);
                                     break;
                                 case "EndClass":
-                                    //
-                                    System.out.println("Relation endClass: " + getValue[1]);
-                                    //
                                     bpmnRelation.setEndClass(getValue[1]);
                                     break;
                             }
