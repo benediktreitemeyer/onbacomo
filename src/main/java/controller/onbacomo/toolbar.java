@@ -4,6 +4,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -146,7 +147,7 @@ public class toolbar {
 
     private void initializeCircle(createModelObjects cmo, VBox vbox) {
         for (BpmnCircle circle : cmo.getCircleList()) {
-            if (circle.getId().equals("StartEvent")) {
+            if (circle.getName().equals("StartEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (startEventMapping.equals("default")) {
                         showCicleDefaultView("Start Event to OWL-Class mapping", "startEventMapping");
@@ -155,7 +156,7 @@ public class toolbar {
                     }
                 });
 
-            } else if (circle.getId().equals("EndEvent")) {
+            } else if (circle.getName().equals("EndEvent")) {
                 circle.setOnMouseClicked((EventHandler<Event>) t -> {
                     if (endEventMapping.equals("default")) {
                         showCicleDefaultView("End Event to OWL-Class mapping", "endEventMapping");
@@ -343,9 +344,11 @@ public class toolbar {
                 cir.setCenterX(circle.getCenterX());
                 cir.setRadius(circle.getRadius());
                 Pane rootPane = PaneManager.getInstance().getPane();
-                Text text = new Text(textfield.getText());
+                Label text = new Label(textfield.getText());
+                text.setAlignment(Pos.CENTER);
                 StackPane stack = new StackPane();
                 VBox vb = new VBox();
+                vb.setAlignment(Pos.CENTER);
                 vb.getChildren().addAll(cir, text);
                 stack.setCursor(Cursor.HAND);
                 stack.setOnMousePressed(onMousePressedEventHandler);

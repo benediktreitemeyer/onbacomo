@@ -52,7 +52,6 @@ public class createGraphRepObjects {
                                     if (getValue[1].equals("Circle")) {
                                         bpmnCircle.setId(getValue[1]);
                                         addCircle = true;
-
                                     } else if (getValue[1].equals("Rectangle")) {
                                         bpmnRectangle.setId(getValue[1]);
                                         addCircle = false;
@@ -76,6 +75,7 @@ public class createGraphRepObjects {
                         }
 
                         if (addCircle) {
+                            //TODO Name = endEvent, StartEvent
                             bpmnCircle.setName(name[1]);
                             classList.add(bpmnCircle);
                         } else {
