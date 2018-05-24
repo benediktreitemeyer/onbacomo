@@ -316,8 +316,8 @@ public class toolbar {
         vbox.getChildren().add(separator);
     }
 
-    private void addChildrenWithoutSeperator(VBox vbox, Shape shape) {
-        vbox.getChildren().add(shape);
+    private void addChildrenWithoutSeperator(VBox vbox, BorderPane borderPane) {
+        vbox.getChildren().add(borderPane);
     }
 
     private void showCicleWithNameView(String title, BpmnCircle circle, String mapping, String objecttype, String taskname) {
