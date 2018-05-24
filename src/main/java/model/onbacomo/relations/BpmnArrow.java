@@ -18,7 +18,7 @@ public class BpmnArrow extends BpmnRelation {
         roots.setPrefWidth(100.0);
         roots.setPrefHeight(75.0);
         roots.setCursor(Cursor.HAND);
-        this.setType("Arrow");
+        this.setType("Solid");
         this.setStartClass(startClass);
         this.setEndClass(endClass);
         this.setDirection(direction);

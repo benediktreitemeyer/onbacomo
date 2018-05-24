@@ -140,7 +140,7 @@ public class toolbar {
                     showArrowWithNameView();
                 }
             });
-            addChildrenAndSeperator(vbox, arrow.getBpmnArrow());
+            addChildrenWithoutSeperator(vbox, arrow.getBpmnArrow());
         }
     }
 
@@ -315,13 +315,10 @@ public class toolbar {
         vbox.getChildren().add(shape);
         vbox.getChildren().add(separator);
     }
-    private void addChildrenAndSeperator(VBox vbox, BorderPane borderPane) {
-        Separator separator = new Separator();
-        separator.setPrefWidth(75);
-        vbox.getChildren().add(borderPane);
-        vbox.getChildren().add(separator);
-    }
 
+    private void addChildrenWithoutSeperator(VBox vbox, Shape shape) {
+        vbox.getChildren().add(shape);
+    }
 
     private void showCicleWithNameView(String title, BpmnCircle circle, String mapping, String objecttype, String taskname) {
         Stage primaryStage = new Stage();
