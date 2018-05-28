@@ -344,7 +344,18 @@ public class toolbar {
                 cir.setCenterX(circle.getCenterX());
                 cir.setRadius(circle.getRadius());
                 Pane rootPane = PaneManager.getInstance().getPane();
-                Label text = new Label(textfield.getText());
+
+                // Text ohne Leerzeichen aber mit Unterstrichen
+                String[] textArray = textfield.getText().split(" ");
+                String textWithoutWhitespaces = "";
+                for (String text : textArray) {
+                    textWithoutWhitespaces += text;
+                    if (text != textArray[textArray.length-1]) {
+                        textWithoutWhitespaces += "_";
+                    }
+                }
+
+                Label text = new Label(textWithoutWhitespaces);
                 text.setAlignment(Pos.CENTER);
                 StackPane stack = new StackPane();
                 VBox vb = new VBox();
@@ -355,9 +366,9 @@ public class toolbar {
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(vb);
                 rootPane.getChildren().add(stack);
-                stack.setId(circle.getId() + ":" + textfield.getText());
+                stack.setId(circle.getId() + ":" + textWithoutWhitespaces);
                 objectType = objecttype;
-                createIndividual(textfield.getText(), mapping);
+                createIndividual(textWithoutWhitespaces, mapping);
                 primaryStage.close();
             }
         });
@@ -418,16 +429,27 @@ public class toolbar {
                 rect.setArcWidth(aRectangleList.getArcWidth());
                 rect.setArcHeight(aRectangleList.getArcHeight());
                 Pane root = PaneManager.getInstance().getPane();
-                Text text = new Text(textfield.getText());
+
+                // Text ohne Leerzeichen aber mit Unterstrichen
+                String[] textArray = textfield.getText().split(" ");
+                String textWithoutWhitespaces = "";
+                for (String text : textArray) {
+                    textWithoutWhitespaces += text;
+                    if (text != textArray[textArray.length-1]) {
+                        textWithoutWhitespaces += "_";
+                    }
+                }
+
+                Text text = new Text(textWithoutWhitespaces);
                 StackPane stack = new StackPane();
                 stack.setCursor(Cursor.HAND);
                 stack.setOnMousePressed(onMousePressedEventHandler);
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(rect, text);
                 root.getChildren().add(stack);
-                stack.setId(aRectangleList.getId() + ":" + textfield.getText());
+                stack.setId(aRectangleList.getId() + ":" + textWithoutWhitespaces);
                 objectType = "Task";
-                createIndividual(textfield.getText(), taskMapping);
+                createIndividual(textWithoutWhitespaces, taskMapping);
                 primaryStage.close();
             }
         });
