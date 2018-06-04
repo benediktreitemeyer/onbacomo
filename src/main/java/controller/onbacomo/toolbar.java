@@ -336,15 +336,29 @@ public class toolbar {
                 textcontent.setText("Please insert a name!");
                 textcontent.setTextFill(Color.RED);
             } else {
-                Circle cir = new Circle();
+                BpmnCircle cir = new BpmnCircle();
                 cir.setStroke(circle.getStroke());
                 cir.setStrokeWidth(circle.getStrokeWidth());
                 cir.setFill(circle.getFill());
                 cir.setCenterY(circle.getCenterY());
                 cir.setCenterX(circle.getCenterX());
                 cir.setRadius(circle.getRadius());
+                cir.setType(objecttype);
+                System.out.println("Objecttype: " + objecttype);
+
                 Pane rootPane = PaneManager.getInstance().getPane();
-                Label text = new Label(textfield.getText());
+
+                // Text ohne Leerzeichen aber mit Unterstrichen
+                String[] textArray = textfield.getText().split(" ");
+                String textWithoutWhitespaces = "";
+                for (String text : textArray) {
+                    textWithoutWhitespaces += text;
+                    if (text != textArray[textArray.length-1]) {
+                        textWithoutWhitespaces += "_";
+                    }
+                }
+
+                Label text = new Label(textWithoutWhitespaces);
                 text.setAlignment(Pos.CENTER);
                 StackPane stack = new StackPane();
                 VBox vb = new VBox();
@@ -355,9 +369,9 @@ public class toolbar {
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(vb);
                 rootPane.getChildren().add(stack);
-                stack.setId(circle.getId() + ":" + textfield.getText());
+                stack.setId(cir.getType() + ":" + textWithoutWhitespaces);
                 objectType = objecttype;
-                createIndividual(textfield.getText(), mapping);
+                createIndividual(textWithoutWhitespaces, mapping);
                 primaryStage.close();
             }
         });
@@ -417,17 +431,30 @@ public class toolbar {
                 rect.setWidth(aRectangleList.getWidth() * 1.5);
                 rect.setArcWidth(aRectangleList.getArcWidth());
                 rect.setArcHeight(aRectangleList.getArcHeight());
+                rect.setType("Task");
                 Pane root = PaneManager.getInstance().getPane();
-                Text text = new Text(textfield.getText());
+
+                // Text ohne Leerzeichen aber mit Unterstrichen
+                String[] textArray = textfield.getText().split(" ");
+                String textWithoutWhitespaces = "";
+                for (String text : textArray) {
+                    textWithoutWhitespaces += text;
+                    if (text != textArray[textArray.length-1]) {
+                        textWithoutWhitespaces += "_";
+                    }
+                }
+
+                Text text = new Text(textWithoutWhitespaces);
                 StackPane stack = new StackPane();
                 stack.setCursor(Cursor.HAND);
                 stack.setOnMousePressed(onMousePressedEventHandler);
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(rect, text);
                 root.getChildren().add(stack);
-                stack.setId(aRectangleList.getId() + ":" + textfield.getText());
+                stack.setId(rect.getType() + ":" + textWithoutWhitespaces);
+                System.out.println("InitializeRectangle: " + stack.getId());
                 objectType = "Task";
-                createIndividual(textfield.getText(), taskMapping);
+                createIndividual(textWithoutWhitespaces, taskMapping);
                 primaryStage.close();
             }
         });
@@ -553,9 +580,8 @@ public class toolbar {
             changes.addAll(Collections.emptyList());
             ek.getOWLModelManager().applyChanges(changes);
             OWLNamedIndividual ind = set.getOWLEntity();
-            IRI indIRI = ind.getIRI();
             createType(ind, ek, classIRIs);
-            createAnnotation(indIRI, ek, ontIRI);
+            createAnnotation(ind.getIRI(), ek, ontIRI);
         } catch (Exception e) {
             e.printStackTrace();
         }

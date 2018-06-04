@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class BpmnRectangle extends Rectangle {
-    private String name;
+    private String name, type;
 
     public BpmnRectangle() {
         this.setX(50);
@@ -18,6 +18,14 @@ public class BpmnRectangle extends Rectangle {
         this.setStroke(Color.BLACK);
         this.setId("Rectangle");
         this.setCursor(Cursor.HAND);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setName(String name) {
