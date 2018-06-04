@@ -555,6 +555,10 @@ public class toolbar {
     }
 
     private void createIndividual(String shortName, String mapping) {
+        //TODO: syso entfernen
+        System.out.println("CreateIndividuals aufgerufen");
+        System.out.println("Parameter mapping = " + mapping);
+        System.out.println("Parameter shortName = " + shortName);
         try {
             OWLEditorKit ek = EditorKitManager.getInstance().getEditorKit();
 
@@ -575,9 +579,8 @@ public class toolbar {
             changes.addAll(Collections.emptyList());
             ek.getOWLModelManager().applyChanges(changes);
             OWLNamedIndividual ind = set.getOWLEntity();
-            IRI indIRI = ind.getIRI();
             createType(ind, ek, classIRIs);
-            createAnnotation(indIRI, ek, ontIRI);
+            createAnnotation(ind.getIRI(), ek, ontIRI);
         } catch (Exception e) {
             e.printStackTrace();
         }
