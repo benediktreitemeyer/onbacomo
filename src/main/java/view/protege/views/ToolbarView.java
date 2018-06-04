@@ -266,7 +266,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
                 if (parent.isOWLThing()) {
                     String[] segs = a.toString().split(Pattern.quote(iri));
                     //TODO: BUG: 1 (Beim Speichern von Protege kommt es zu einer IndexOutOfBounce Exception)
-                    splitAndAdd(rootItem, segs);
+                    splitAndAdd(rootItem, segs, "class");
                 }
             }
         }
@@ -297,14 +297,20 @@ public class ToolbarView extends AbstractOWLViewComponent {
         OWLClass father = getOWLEditorKit().getOWLModelManager().getOWLDataFactory().getOWLClass(IRI.create(classIRI));
         for (OWLClass children : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getChildren(father)) {
             String[] segs = children.toString().split(Pattern.quote(iri));
-            splitAndAdd(treeItem, segs);
+            splitAndAdd(treeItem, segs, "class");
         }
     }
 
-    private void splitAndAdd(TreeItem<String> treeItem, String[] segs) {
+    private void splitAndAdd(TreeItem<String> treeItem, String[] segs, String type) {
         segs = segs[1].split(Pattern.quote(">"));
-        TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(propertyIcon));
-        treeItem.getChildren().add(child);
+        if (type.equalsIgnoreCase("property")){
+            TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(propertyIcon));
+            treeItem.getChildren().add(child);
+        }else if (type.equalsIgnoreCase("class")){
+            TreeItem<String> child = new TreeItem<>(segs[0], new ImageView(classIcon));
+            treeItem.getChildren().add(child);
+        }
+
     }
 
     private void createObjectPropertyTree() {
@@ -321,7 +327,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
             for (OWLObjectProperty parent : getOWLEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLObjectPropertyHierarchyProvider().getParents(a)) {
                 if (parent.isOWLTopObjectProperty()) {
                     String[] segs = a.toString().split(Pattern.quote(iri));
-                    splitAndAdd(opRootItem, segs);
+                    splitAndAdd(opRootItem, segs, "property");
                 }
             }
         }

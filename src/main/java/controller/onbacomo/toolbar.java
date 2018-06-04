@@ -336,13 +336,16 @@ public class toolbar {
                 textcontent.setText("Please insert a name!");
                 textcontent.setTextFill(Color.RED);
             } else {
-                Circle cir = new Circle();
+                BpmnCircle cir = new BpmnCircle();
                 cir.setStroke(circle.getStroke());
                 cir.setStrokeWidth(circle.getStrokeWidth());
                 cir.setFill(circle.getFill());
                 cir.setCenterY(circle.getCenterY());
                 cir.setCenterX(circle.getCenterX());
                 cir.setRadius(circle.getRadius());
+                cir.setType(objecttype);
+                System.out.println("Objecttype: " + objecttype);
+
                 Pane rootPane = PaneManager.getInstance().getPane();
 
                 // Text ohne Leerzeichen aber mit Unterstrichen
@@ -366,7 +369,7 @@ public class toolbar {
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(vb);
                 rootPane.getChildren().add(stack);
-                stack.setId(circle.getId() + ":" + textWithoutWhitespaces);
+                stack.setId(cir.getType() + ":" + textWithoutWhitespaces);
                 objectType = objecttype;
                 createIndividual(textWithoutWhitespaces, mapping);
                 primaryStage.close();
@@ -428,6 +431,7 @@ public class toolbar {
                 rect.setWidth(aRectangleList.getWidth() * 1.5);
                 rect.setArcWidth(aRectangleList.getArcWidth());
                 rect.setArcHeight(aRectangleList.getArcHeight());
+                rect.setType("Task");
                 Pane root = PaneManager.getInstance().getPane();
 
                 // Text ohne Leerzeichen aber mit Unterstrichen
@@ -447,7 +451,8 @@ public class toolbar {
                 stack.setOnMouseDragged(onMouseDraggedEventHandler);
                 stack.getChildren().addAll(rect, text);
                 root.getChildren().add(stack);
-                stack.setId(aRectangleList.getId() + ":" + textWithoutWhitespaces);
+                stack.setId(rect.getType() + ":" + textWithoutWhitespaces);
+                System.out.println("InitializeRectangle: " + stack.getId());
                 objectType = "Task";
                 createIndividual(textWithoutWhitespaces, taskMapping);
                 primaryStage.close();
@@ -555,10 +560,6 @@ public class toolbar {
     }
 
     private void createIndividual(String shortName, String mapping) {
-        //TODO: syso entfernen
-        System.out.println("CreateIndividuals aufgerufen");
-        System.out.println("Parameter mapping = " + mapping);
-        System.out.println("Parameter shortName = " + shortName);
         try {
             OWLEditorKit ek = EditorKitManager.getInstance().getEditorKit();
 

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class BpmnCircle extends Circle {
-    private String name;
+    private String name, type;
 
     public BpmnCircle() {
         this.setFill(Color.BLUE);
@@ -18,11 +18,19 @@ public class BpmnCircle extends Circle {
         this.setCursor(Cursor.HAND);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
