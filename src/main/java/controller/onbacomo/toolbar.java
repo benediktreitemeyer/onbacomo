@@ -28,17 +28,19 @@ import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.entity.OWLEntityCreationSet;
 import org.semanticweb.owlapi.model.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
+import javax.swing.*;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class toolbar {
 
+    private List<BorderPane> arrowList = new LinkedList<>();
     private final Image instanceIcon = new Image(getClass().getResourceAsStream("/instanceIcon.gif"));
     private double startX, startY, endX, endY, orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
     private String startElement, endElement, objectType, taskMapping, startEventMapping, endEventMapping, objectPropertyMapping;
+    private Boolean edgeExists;
+    private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
+    private IRI ontIRI;
     private Line ls, le;
     private Polygon p;
 
@@ -100,9 +102,6 @@ public class toolbar {
             }
         }
     };
-    private Boolean edgeExists;
-    private TreeView<String> tree, opTree, StartElementTree, EndElementTree;
-    private IRI ontIRI;
 
     public toolbar() {
         taskMapping = "default";
@@ -189,7 +188,7 @@ public class toolbar {
         createEndElementTree();
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Edge Creation");
-        StackPane root = new StackPane();
+        StackPane stackPane = new StackPane();
         VBox layoutStartElement = new VBox();
         Button accept = new Button("Accept");
         Label selectStartElement = new Label("Select the start element:");
@@ -202,8 +201,8 @@ public class toolbar {
         layoutEndElement.getChildren().addAll(selectEndElement, warningEndElement, EndElementTree, decline);
         hbBackground.setSpacing(10);
         hbBackground.getChildren().addAll(layoutStartElement, layoutEndElement);
-        root.getChildren().add(hbBackground);
-        primaryStage.setScene(new Scene(root, 550, 500));
+        stackPane.getChildren().add(hbBackground);
+        primaryStage.setScene(new Scene(stackPane, 550, 500));
         primaryStage.show();
         accept.setOnAction(e -> {
             try {
@@ -223,9 +222,9 @@ public class toolbar {
                                     settextAndFillRed(warningEndElement, "Select different Elements!");
                                     settextAndFillRed(warningStartElement, "Select different Elements!");
                                 } else {
-                                    Pane root1 = PaneManager.getInstance().getPane();
+                                    Pane pane = PaneManager.getInstance().getPane();
                                     edgeExists = false;
-                                    for (Node x : root1.getChildren()) {
+                                    for (Node x : pane.getChildren()) {
                                         if (x.getId().startsWith("li:from:" + startElement) && x.getId().endsWith(endElement + ";")) {
                                             settextAndFillRed(warningEndElement, "Select different Elements!");
                                             settextAndFillRed(warningStartElement, "Edge already exists:");
@@ -233,7 +232,7 @@ public class toolbar {
                                         }
                                     }
                                     if (!edgeExists) {
-                                        for (Node y : root1.getChildren()) {
+                                        for (Node y : pane.getChildren()) {
                                             if (y.getId().endsWith(startElement)) {
                                                 if (y.getId().startsWith("Task")) {
                                                     startX = y.getTranslateX() + 75 * 1.5;
@@ -248,11 +247,21 @@ public class toolbar {
                                                 endY = y.getTranslateY() + (37.5 * 1.5) / 2;
                                             }
                                         }
+                                        /*
+                                        TODO: ersatz ? (was ist mit setID
+                                        BpmnArrow arrow = new BpmnArrow(startElement, endElement, "ONE");
+                                        arrow.setPolygon(new Polygon(endX - 5, endY + 5, endX - 5, endY - 5, endX, endY));
+                                        arrow.setLine(new Line(startX, startY, endX - 5, endY));
+                                        arrowList.add(arrow.getBpmnArrow());
+                                        pane.getChildren().add(arrow);
+                                        */
+
+
                                         Polygon po = new Polygon(endX - 5, endY + 5, endX - 5, endY - 5, endX, endY);
                                         Line li = new Line(startX, startY, endX - 5, endY);
                                         li.setId("li:from:" + startElement + ";to:" + endElement + ";");
                                         po.setId("po:from:" + startElement + ";to:" + endElement + ";");
-                                        root1.getChildren().addAll(li, po);
+                                        pane.getChildren().addAll(li, po);
                                         createObjectPropertyAssertion(startElement, endElement);
                                         primaryStage.close();
                                     }

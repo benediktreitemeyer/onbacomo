@@ -1,8 +1,9 @@
 package model.onbacomo.relations;
 
+import javafx.scene.Node;
 import javafx.scene.shape.Line;
 
-public class BpmnRelation{
+public class BpmnRelation extends Node {
     private Line line;
     private String name, startClass, endClass, type, direction, shape;
 
