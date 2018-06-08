@@ -64,12 +64,15 @@ public class toolbar {
                 for (Node n : root.getChildren()) {
                     if (n.getId().startsWith("li:from:" + segs[1])) {
                         ls = (Line) n;
+                        System.out.println("1 = " +segs[1]);
                     }
                     if (n.getId().endsWith(segs[1] + ";") && n.getId().startsWith("li")) {
                         le = (Line) n;
+                        System.out.println("2 = " +segs[1]);
                     }
                     if (n.getId().endsWith(segs[1] + ";") && n.getId().startsWith("po")) {
                         p = (Polygon) n;
+                        System.out.println("3 = " +segs[1]);
                     }
                 }
             }
@@ -77,10 +80,10 @@ public class toolbar {
         }
     };
 
-    private final EventHandler<MouseDragEvent> onMouseDraggedEventHandler = new EventHandler<MouseDragEvent>() {
+    private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
         @Override
-        public void handle(MouseDragEvent event) {
+        public void handle(MouseEvent event) {
             double offsetX = event.getSceneX() - orgSceneX;
             double offsetY = event.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
@@ -252,21 +255,29 @@ public class toolbar {
                                                 endY = y.getTranslateY() + (37.5 * 1.5) / 2;
                                             }
                                         }
+
                                         /*
-                                        TODO: ersatz ? (was ist mit setID
+                                        //TODO:
                                         BpmnArrow arrow = new BpmnArrow(startElement, endElement, "ONE");
                                         arrow.setPolygon(new Polygon(endX - 5, endY + 5, endX - 5, endY - 5, endX, endY));
                                         arrow.setLine(new Line(startX, startY, endX - 5, endY));
                                         arrowList.add(arrow.getBpmnArrow());
-                                        pane.getChildren().add(arrow);
+                                        pane.getChildren().add(arrow.getBpmnArrow());
                                         */
 
-
+                                        ///*
                                         Polygon po = new Polygon(endX - 5, endY + 5, endX - 5, endY - 5, endX, endY);
                                         Line li = new Line(startX, startY, endX - 5, endY);
                                         li.setId("li:from:" + startElement + ";to:" + endElement + ";");
+                                        System.out.println("SetId = " + "li:from:" + startElement + ";to:" + endElement + ";");
                                         po.setId("po:from:" + startElement + ";to:" + endElement + ";");
+                                        System.out.println("SetId = " + "po:from:" + startElement + ";to:" + endElement + ";");
+                                        System.out.println("StartElement = " + startElement + "\n EndElement = " + endElement);
                                         pane.getChildren().addAll(li, po);
+                                        //*/
+
+
+
                                         createObjectPropertyAssertion(startElement, endElement);
                                         primaryStage.close();
                                     }
@@ -358,7 +369,6 @@ public class toolbar {
                 cir.setCenterX(circle.getCenterX());
                 cir.setRadius(circle.getRadius());
                 cir.setType(objecttype);
-                System.out.println("Objecttype: " + objecttype);
 
                 Pane rootPane = PaneManager.getInstance().getPane();
 
@@ -466,7 +476,6 @@ public class toolbar {
                 stack.getChildren().addAll(rect, text);
                 root.getChildren().add(stack);
                 stack.setId(rect.getType() + ":" + textWithoutWhitespaces);
-                System.out.println("InitializeRectangle: " + stack.getId());
                 objectType = "Task";
                 createIndividual(textWithoutWhitespaces, taskMapping);
                 primaryStage.close();
