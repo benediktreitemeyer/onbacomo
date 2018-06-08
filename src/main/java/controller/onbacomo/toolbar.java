@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -47,44 +49,47 @@ public class toolbar {
     private final EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
-            ls = null;
-            le = null;
-            p = null;
-            orgSceneX = t.getSceneX();
-            orgSceneY = t.getSceneY();
-            orgTranslateX = ((StackPane) (t.getSource())).getTranslateX();
-            orgTranslateY = ((StackPane) (t.getSource())).getTranslateY();
-            ((StackPane) (t.getSource())).getId();
-            String[] segs = ((StackPane) (t.getSource())).getId().split(Pattern.quote(":"));
-            Pane root = PaneManager.getInstance().getPane();
+            if (t.getButton().equals(MouseButton.PRIMARY)){
+                ls = null;
+                le = null;
+                p = null;
+                orgSceneX = t.getSceneX();
+                orgSceneY = t.getSceneY();
+                orgTranslateX = ((StackPane) (t.getSource())).getTranslateX();
+                orgTranslateY = ((StackPane) (t.getSource())).getTranslateY();
+                ((StackPane) (t.getSource())).getId();
+                String[] segs = ((StackPane) (t.getSource())).getId().split(Pattern.quote(":"));
+                Pane root = PaneManager.getInstance().getPane();
 
-            for (Node n : root.getChildren()) {
-                if (n.getId().startsWith("li:from:" + segs[1])) {
-                    ls = (Line) n;
-                }
-                if (n.getId().endsWith(segs[1] + ";") && n.getId().startsWith("li")) {
-                    le = (Line) n;
-                }
-                if (n.getId().endsWith(segs[1] + ";") && n.getId().startsWith("po")) {
-                    p = (Polygon) n;
+                for (Node n : root.getChildren()) {
+                    if (n.getId().startsWith("li:from:" + segs[1])) {
+                        ls = (Line) n;
+                    }
+                    if (n.getId().endsWith(segs[1] + ";") && n.getId().startsWith("li")) {
+                        le = (Line) n;
+                    }
+                    if (n.getId().endsWith(segs[1] + ";") && n.getId().startsWith("po")) {
+                        p = (Polygon) n;
+                    }
                 }
             }
+
         }
     };
 
-    private final EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
+    private final EventHandler<MouseDragEvent> onMouseDraggedEventHandler = new EventHandler<MouseDragEvent>() {
 
         @Override
-        public void handle(MouseEvent t) {
-            double offsetX = t.getSceneX() - orgSceneX;
-            double offsetY = t.getSceneY() - orgSceneY;
+        public void handle(MouseDragEvent event) {
+            double offsetX = event.getSceneX() - orgSceneX;
+            double offsetY = event.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
 
-            ((StackPane) (t.getSource())).setTranslateX(newTranslateX);
-            ((StackPane) (t.getSource())).setTranslateY(newTranslateY);
+            ((StackPane) (event.getSource())).setTranslateX(newTranslateX);
+            ((StackPane) (event.getSource())).setTranslateY(newTranslateY);
             if (ls != null) {
-                if (((StackPane) (t.getSource())).getId().startsWith("Task")) {
+                if (((StackPane) (event.getSource())).getId().startsWith("Task")) {
                     ls.setStartX(newTranslateX + 75 * 1.5);
                     ls.setStartY(newTranslateY + (37.5 * 1.5) / 2);
                 } else {
