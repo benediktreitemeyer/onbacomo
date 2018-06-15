@@ -1,4 +1,4 @@
 package controller.modelingontology;
 
-public class ModelingOntologyImporter {
+public class ModelingOntologyImporter implements ImportModelingOntology, ModelingOntologyFactory{
 }

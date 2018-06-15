@@ -1,4 +1,4 @@
-package model.modelobjects;
+package model.modelobjects.Shape;
 
 public class Circle extends OnbacomoShape {
 }

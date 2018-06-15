@@ -1,4 +1,4 @@
 package model.modelobjects.Color;
 
-public class Red {
+public class Red extends OnbacomoColor {
 }

@@ -1,4 +1,5 @@
 package model.modelobjects.Color;
 
-public class OnbacomoColor {
+public class OnbacomoColor  {
+
 }

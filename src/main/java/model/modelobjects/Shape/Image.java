@@ -1,6 +1,4 @@
-package model.modelobjects;
-
-import javafx.scene.shape.Shape;
+package model.modelobjects.Shape;
 
 public class Image extends OnbacomoShape {
 }

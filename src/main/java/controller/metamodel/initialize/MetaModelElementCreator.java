@@ -1,4 +1,4 @@
 package controller.metamodel.initialize;
 
-public class MetaModelElementCreator {
+public class MetaModelElementCreator implements MetaModelCreator {
 }

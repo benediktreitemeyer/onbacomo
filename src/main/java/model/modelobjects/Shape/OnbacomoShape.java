@@ -1,4 +1,4 @@
-package model.modelobjects;
+package model.modelobjects.Shape;
 
 import javafx.scene.shape.Shape;
 
