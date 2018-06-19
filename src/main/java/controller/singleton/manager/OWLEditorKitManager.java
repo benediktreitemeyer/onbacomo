@@ -1,6 +1,5 @@
 package controller.singleton.manager;
 
-import org.protege.editor.core.editorkit.EditorKitManager;
 import org.protege.editor.owl.OWLEditorKit;
 
 public class OWLEditorKitManager {
