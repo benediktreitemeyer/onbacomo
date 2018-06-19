@@ -29,12 +29,4 @@
         <headerColor value="@org.protege.ontologycolor"/>
         <category value="@org.protege.ontologycategory"/>
     </extension>
-    <!-- Annotated Individuals -->
-    <extension id="AnnotatedIndividuals.view"
-               point="org.protege.editor.core.application.ViewComponent">
-        <label value="Annotated Individuals"/>
-        <class value="view.protege.views.AnnotatedIndividualsView"/>
-        <headerColor value="@org.protege.ontologycolor"/>
-        <category value="@org.protege.ontologycategory"/>
-    </extension>
 </plugin>
