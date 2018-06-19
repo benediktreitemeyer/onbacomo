@@ -1,4 +1,4 @@
-package view.toolbar.Import;
+package view.choosers;
 
 public class ModelingOntologyChooser {
 }
