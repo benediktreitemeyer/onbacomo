@@ -3,7 +3,7 @@
     <VSNode splits="0.05677083333333334 0.7380208333333333">
         <CNode>
             <Component label="Ontology Modelling Tool Toolbar">
-                <Property id="pluginId" value="Toolbar.view"/>
+                <Property id="pluginId" value="ToolbarView"/>
             </Component>
         </CNode>
         <CNode>

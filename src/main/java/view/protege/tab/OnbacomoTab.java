@@ -1,4 +1,4 @@
-package view.tab;
+package view.protege.tab;
 
 import org.protege.editor.owl.ui.OWLWorkspaceViewsTab;
 import org.slf4j.Logger;

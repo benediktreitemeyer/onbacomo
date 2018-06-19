@@ -6,7 +6,7 @@
     <!-- Tabs -->
     <extension id="OnbaCoMoTab" point="org.protege.editor.core.application.WorkspaceTab">
         <label value="OnbaCoMo"/>
-        <class value="view.protege.tab.Tab"/>
+        <class value="view.protege.tab.OnbacomoTab"/>
         <index value="x"/>
         <editorKitId value="OWLEditorKit"/>
         <defaultViewConfigFileName value="viewconfig.xml"/>

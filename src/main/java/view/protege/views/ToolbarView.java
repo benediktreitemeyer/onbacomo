@@ -1,4 +1,4 @@
-package view.toolbar;
+package view.protege.views;
 
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.slf4j.Logger;
