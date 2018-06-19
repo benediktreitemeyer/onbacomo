@@ -1,4 +1,4 @@
-package view.modeling;
+package view.dialogs;
 
 public class ModelingDialog {
 }

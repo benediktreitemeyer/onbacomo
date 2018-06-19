@@ -1,4 +1,4 @@
-package view.modeling.mapping;
+package view.dialogs;
 
 public class OWLPropertyMappingDialog extends MappingDialog {
 }
