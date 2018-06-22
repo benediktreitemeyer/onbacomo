@@ -1,4 +1,4 @@
 package model.metamodel;
 
-public class Class extends MetaModelType {
+public class Class extends MetaModelElement {
 }
