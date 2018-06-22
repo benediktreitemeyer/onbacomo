@@ -37,7 +37,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private void initializeGui(){
         setLayout(new BorderLayout());
         JFXPanel jfxPanel = new JFXPanel();
-        jfxPanel.setBorder(BorderFactory.createTitledBorder("Canvas"));
+        jfxPanel.setBorder(BorderFactory.createTitledBorder(""));
         add(jfxPanel, BorderLayout.CENTER);
         Platform.runLater(() -> initJFXPanel(jfxPanel));
     }
