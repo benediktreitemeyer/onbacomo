@@ -1,5 +1,7 @@
 package view.choosers;
 
-public class ModelingOntologyWebResourceChooser {
+import javax.swing.*;
+
+public class ModelingOntologyWebResourceChooser extends JFileChooser {
     //TODO: ModelingOntologyWebResourceChooser
 }

@@ -1,14 +1,6 @@
 package view.protege.views;
 
-import java.awt.BorderLayout;
-
-import javax.swing.BorderFactory;
-import javax.swing.SwingUtilities;
-
-import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import controller.singleton.manager.OWLEditorKitManager;
 import controller.singleton.manager.PaneManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -19,6 +11,13 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import view.choosers.ModelingOntologyChooser;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class ToolbarView extends AbstractOWLViewComponent {
     private static final long serialVersionUID = 1505057428784011280L;
@@ -27,13 +26,22 @@ public class ToolbarView extends AbstractOWLViewComponent {
     @Override
     protected void initialiseOWLView() throws Exception {
         logger.info("Initializing toolbar view");
+        OWLEditorKitManager.getInstance().setEditorKit(getOWLEditorKit());
         // TODO: initialiseOWLView -> ToolbarView
         // getIRI();
         // eKit = getOWLEditorKit();
         // eKit.getOWLModelManager().addOntologyChangeListener(ontChangeListener);
         SwingUtilities.invokeLater(this::initializeGui);
+        ModelingOntologyChooser modelingOntologyChooser = new ModelingOntologyChooser();
         logger.info("Toolbar view initialized");
     }
+
+    @Override
+    protected void disposeOWLView() {
+        // TODO: disposeOWLView -> ToolbarView
+        logger.info("Toolbar view disposed");
+    }
+
     private void initializeGui(){
         setLayout(new BorderLayout());
         JFXPanel jfxPanel = new JFXPanel();
@@ -50,9 +58,5 @@ public class ToolbarView extends AbstractOWLViewComponent {
         root.setId("root");
     }
 
-    @Override
-    protected void disposeOWLView() {
-        // TODO: disposeOWLView -> ToolbarView
-        logger.info("Toolbar view disposed");
-    }
+
 }
