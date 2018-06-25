@@ -12,40 +12,43 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ModelingOntologyChooser{
-    private File fXMLFile;
+public final class ModelingOntologyChooser{
 
-    public ModelingOntologyChooser() {
-        VBox vBox = new VBox();
+
+    public static void showModelingOntologyChooser(){
+        VBox vBox = new VBox(7);
         vBox.setAlignment(Pos.CENTER);
 
-        HBox line1 = new HBox();
-        line1.setAlignment(Pos.CENTER);
+        HBox line1 = new HBox(4);
+        Label abstand1 = new Label("1234567890");
+        abstand1.setVisible(false);
         RadioButton radioButtonFile = new RadioButton();
         Label labelFile = new Label("Select ontology from file");
 
 
-        HBox line2 = new HBox();
-        line2.setAlignment(Pos.CENTER);
+        HBox line2 = new HBox(4);
+        Label abstand2 = new Label("1234567890");
+        abstand2.setVisible(false);
         RadioButton radioButtonWeb = new RadioButton();
         Label labelWeb = new Label("Select ontology from web");
 
 
-        HBox line3 = new HBox();
+        HBox line3 = new HBox(4);
         line3.setAlignment(Pos.CENTER);
         Button accept = new Button("Accept");
         Button cancel = new Button("Cancel");
 
 
-        line1.getChildren().addAll(radioButtonFile, labelFile);
-        line2.getChildren().addAll(radioButtonWeb, labelWeb);
+
+        line1.getChildren().addAll(abstand1, radioButtonFile, labelFile);
+        line2.getChildren().addAll(abstand2, radioButtonWeb, labelWeb);
         line3.getChildren().addAll(accept, cancel);
         vBox.getChildren().addAll(line1, line2, line3);
 
 
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Choose ontolgy from: ");
-        primaryStage.setScene(new Scene(vBox, 550, 500));
+        primaryStage.setScene(new Scene(vBox, 300, 100));
         primaryStage.show();
 
 
@@ -60,6 +63,7 @@ public class ModelingOntologyChooser{
         });
         accept.setOnAction(event -> {
             primaryStage.close();
+            File fXMLFile = null;
             if (radioButtonFile.isSelected()){
                 ModelingOntologyFileChooser.showFileChooser();
                 fXMLFile = ModelingOntologyFileChooser.getFxmlFile();
@@ -74,10 +78,5 @@ public class ModelingOntologyChooser{
         cancel.setOnAction(event -> {
             primaryStage.close();
         });
-
-    }
-
-    public File getFile() {
-        return fXMLFile;
     }
 }

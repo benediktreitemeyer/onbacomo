@@ -28,9 +28,6 @@ public class ToolbarView extends AbstractOWLViewComponent {
         logger.info("Initializing toolbar view");
         OWLEditorKitManager.getInstance().setEditorKit(getOWLEditorKit());
         // TODO: initialiseOWLView -> ToolbarView
-        // getIRI();
-        // eKit = getOWLEditorKit();
-        // eKit.getOWLModelManager().addOntologyChangeListener(ontChangeListener);
         SwingUtilities.invokeLater(this::initializeGui);
 
         logger.info("Toolbar view initialized");
@@ -56,7 +53,8 @@ public class ToolbarView extends AbstractOWLViewComponent {
         Scene scene = new Scene(root, 75, 500, Color.WHITE);
         jfxPanel.setScene(scene);
         root.setId("root");
-        ModelingOntologyChooser modelingOntologyChooser = new ModelingOntologyChooser();
+        ModelingOntologyChooser.showModelingOntologyChooser();
+
     }
 
 
