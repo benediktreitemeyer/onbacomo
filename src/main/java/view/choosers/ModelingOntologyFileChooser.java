@@ -7,9 +7,10 @@ import java.awt.*;
 import java.io.File;
 
 public class ModelingOntologyFileChooser{
-    private static File fxmlFile;
 
-    public static void showFileChooser(){
+
+    public static File showFileChooser(){
+        File fxmlFile = null;
         JFileChooser jFileChooser = new JFileChooser();
         jFileChooser.setSize(700, 500);
         jFileChooser.setPreferredSize(new Dimension(700, 500));
@@ -22,10 +23,6 @@ public class ModelingOntologyFileChooser{
         if (jFileChooser.getSelectedFile() != null){
             fxmlFile = new File(jFileChooser.getSelectedFile().getAbsolutePath());
         }
-    }
-
-    public static File getFxmlFile(){
         return fxmlFile;
     }
-
 }

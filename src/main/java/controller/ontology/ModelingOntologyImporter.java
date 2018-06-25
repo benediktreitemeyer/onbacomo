@@ -17,7 +17,7 @@ public final class ModelingOntologyImporter{
         owlManager = OWLManager.createOWLOntologyManager();
         try {
             owlOntology  = owlManager.loadOntologyFromOntologyDocument(fXMLFile);
-            ModelingOntology.setOntology(owlOntology);
+            ModelingOntology.getInstance().setOntology(owlOntology);
         } catch (OWLOntologyCreationException e) {
             System.out.println("Keine valide FXML geladen");
             e.printStackTrace();

@@ -49,7 +49,7 @@ public final class ModelingOntologyChooser{
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Choose ontolgy from: ");
         primaryStage.setScene(new Scene(vBox, 300, 100));
-        primaryStage.show();
+
 
 
         //Eventhandler
@@ -65,8 +65,7 @@ public final class ModelingOntologyChooser{
             primaryStage.close();
             File fXMLFile = null;
             if (radioButtonFile.isSelected()){
-                ModelingOntologyFileChooser.showFileChooser();
-                fXMLFile = ModelingOntologyFileChooser.getFxmlFile();
+                fXMLFile = ModelingOntologyFileChooser.showFileChooser();
             }else {
                 //TODO: WebChooser
             }
@@ -75,8 +74,8 @@ public final class ModelingOntologyChooser{
             }
 
         });
-        cancel.setOnAction(event -> {
-            primaryStage.close();
-        });
+        cancel.setOnAction(event -> primaryStage.close());
+
+        primaryStage.showAndWait();
     }
 }

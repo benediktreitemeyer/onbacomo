@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import view.choosers.ModelingLanguageChooser;
 import view.choosers.ModelingOntologyChooser;
 
 import javax.swing.*;
@@ -54,7 +55,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         jfxPanel.setScene(scene);
         root.setId("root");
         ModelingOntologyChooser.showModelingOntologyChooser();
-
+        ModelingLanguageChooser.showModelingLanguageChooser();
     }
 
 
