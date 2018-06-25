@@ -58,13 +58,14 @@ public class ModelingOntologyChooser{
             radioButtonFile.setSelected(false);
         });
         accept.setOnAction(event -> {
+            primaryStage.close();
             if (radioButtonFile.isSelected()){
                 ModelingOntologyFileChooser fileChooser = new ModelingOntologyFileChooser();
                 fXMLFile = fileChooser.getFxmlFile();
             }else {
                 //TODO: WebChooser
             }
-            primaryStage.close();
+
         });
         cancel.setOnAction(event -> {
             primaryStage.close();

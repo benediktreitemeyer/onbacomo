@@ -7,7 +7,6 @@ import java.awt.*;
 import java.io.File;
 
 public class ModelingOntologyFileChooser extends JFileChooser {
-    private String modelingOntologyPath;
     private File fxmlFile;
 
     public ModelingOntologyFileChooser() {
@@ -20,10 +19,6 @@ public class ModelingOntologyFileChooser extends JFileChooser {
         this.showOpenDialog(null);
 
         fxmlFile = new File(this.getSelectedFile().getAbsolutePath());
-    }
-
-    public String getModelingOntologyPath(){
-        return modelingOntologyPath;
     }
 
     public File getFxmlFile(){
