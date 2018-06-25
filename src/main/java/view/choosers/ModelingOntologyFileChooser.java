@@ -6,22 +6,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
-public class ModelingOntologyFileChooser extends JFileChooser {
-    private File fxmlFile;
+public class ModelingOntologyFileChooser{
+    private static File fxmlFile;
 
-    public ModelingOntologyFileChooser() {
-        this.setSize(700, 500);
-        this.setPreferredSize(new Dimension(700, 500));
+    public static void showFileChooser(){
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setSize(700, 500);
+        jFileChooser.setPreferredSize(new Dimension(700, 500));
 
         FileFilter filter = new FileNameExtensionFilter(".owl", "owl");
-        this.addChoosableFileFilter(filter);
+        jFileChooser.addChoosableFileFilter(filter);
 
-        this.showOpenDialog(null);
+        jFileChooser.showOpenDialog(null);
 
-        fxmlFile = new File(this.getSelectedFile().getAbsolutePath());
+        if (jFileChooser.getSelectedFile() != null){
+            fxmlFile = new File(jFileChooser.getSelectedFile().getAbsolutePath());
+        }
     }
 
-    public File getFxmlFile(){
+    public static File getFxmlFile(){
         return fxmlFile;
     }
 

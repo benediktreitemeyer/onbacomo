@@ -1,5 +1,6 @@
 package view.choosers;
 
+import controller.ontology.ModelingOntologyImporter;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -60,10 +61,13 @@ public class ModelingOntologyChooser{
         accept.setOnAction(event -> {
             primaryStage.close();
             if (radioButtonFile.isSelected()){
-                ModelingOntologyFileChooser fileChooser = new ModelingOntologyFileChooser();
-                fXMLFile = fileChooser.getFxmlFile();
+                ModelingOntologyFileChooser.showFileChooser();
+                fXMLFile = ModelingOntologyFileChooser.getFxmlFile();
             }else {
                 //TODO: WebChooser
+            }
+            if (fXMLFile != null) {
+                ModelingOntologyImporter.loadOntology(fXMLFile);
             }
 
         });
