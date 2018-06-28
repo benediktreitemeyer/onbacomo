@@ -1,6 +1,6 @@
 package controller.ontology;
 
-import model.ontology.ModelingOntology;
+import model.singleton.ModelingOntology;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;

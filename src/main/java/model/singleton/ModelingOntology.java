@@ -1,4 +1,4 @@
-package model.ontology;
+package model.singleton;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 

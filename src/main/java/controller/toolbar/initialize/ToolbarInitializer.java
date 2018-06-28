@@ -1,7 +1,7 @@
 package controller.toolbar.initialize;
 
 import com.google.common.collect.Multimap;
-import model.ontology.ModelingOntology;
+import model.singleton.ModelingOntology;
 import model.singleton.MMClassesManager;
 import model.singleton.MMRelationsManager;
 import org.semanticweb.owlapi.model.*;
@@ -59,7 +59,7 @@ public class ToolbarInitializer {
             relationDataPropertyAttributes = EntitySearcher.getDataPropertyValues(relationIndividual, ontology);
         }
 
-        
+
 
     }
 }
