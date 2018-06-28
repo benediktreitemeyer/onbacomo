@@ -1,4 +1,4 @@
-package controller.singleton.manager;
+package model.singleton;
 
 import org.protege.editor.owl.OWLEditorKit;
 

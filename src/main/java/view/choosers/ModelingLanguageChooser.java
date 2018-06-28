@@ -1,5 +1,6 @@
 package view.choosers;
 
+import controller.toolbar.initialize.ToolbarInitializer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -25,7 +26,7 @@ public final class ModelingLanguageChooser {
     public static void showModelingLanguageChooser(){
         OWLOntology ontology = ModelingOntology.getInstance().getOntology();
         String ontID = ontology.getOntologyID().getOntologyIRI().asSet().toString().replace("[", "").replace("]", "");
-        String type = "";
+        String type;
 
         Map<String, OWLNamedIndividual> individualStore = new HashMap<>();
 
@@ -33,10 +34,9 @@ public final class ModelingLanguageChooser {
         Set<OWLNamedIndividual> individuals = ontology.getIndividualsInSignature();
 
         for (OWLNamedIndividual individual: individuals) {
-            if (EntitySearcher.getTypes(individual, ontology).toString()
-                    .replace("[", "").replace("]", "").replace("<", "").replace(">", "")
-                    .equals(ontID + "#Modeltype")){
-                String individualName = individual.toString().replace("<", "").replace(">", "");
+            String typesString = EntitySearcher.getTypes(individual, ontology).toString();
+            if (typesString.substring(2,typesString.length()-2).equals(ontID + "#Modeltype")){
+                String individualName = individual.toString().substring(1, individual.toString().length()-1);
                 String[] splitArray = individualName.split("#");
                 type = splitArray[splitArray.length-1];
                 modelType.add(type);
@@ -65,11 +65,9 @@ public final class ModelingLanguageChooser {
         primaryStage.setScene(new Scene(vBox));
 
         // Eventhandler
-        String finalType = type;
         accept.setOnAction(event -> {
             primaryStage.close();
-            //TODO: Toolbar mit passender Sprache laden
-            System.out.println(individualStore.get(listView.getSelectionModel().getSelectedItem()));
+            ToolbarInitializer.loadToolbar(individualStore.get(listView.getSelectionModel().getSelectedItem()));
         });
         cancel.setOnAction(event -> primaryStage.close());
 

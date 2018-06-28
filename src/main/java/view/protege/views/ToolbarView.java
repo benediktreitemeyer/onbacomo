@@ -1,7 +1,7 @@
 package view.protege.views;
 
-import controller.singleton.manager.OWLEditorKitManager;
-import controller.singleton.manager.PaneManager;
+import model.singleton.OWLEditorKitManager;
+import model.singleton.PaneManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
