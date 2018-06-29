@@ -13,11 +13,8 @@ public class ToolbarInitializer {
 
     public static void loadToolbar(OWLNamedIndividual owlNamedIndividual){
         OWLOntology ontology = ModelingOntology.getInstance().getOntology();
-        String ontID = ontology.getOntologyID().getOntologyIRI().asSet().toString().replace("[", "").replace("]", "");
-
+        String ontID = ModelingOntology.getInstance().getOntID();
         Multimap<OWLObjectPropertyExpression, OWLIndividual> metaModelElements = EntitySearcher.getObjectPropertyValues(owlNamedIndividual, ontology);
-        //TODO: entfernen
-        System.out.println("metaModelElements: " + metaModelElements);
 
         //Split for Classes/Relations and add them to a List
         MMClassesManager.getInstance().setClassIndividuals(new LinkedHashSet<>());
@@ -26,8 +23,6 @@ public class ToolbarInitializer {
         LinkedHashSet<OWLIndividual> relationIndividuals = MMRelationsManager.getInstance().getRelationIndividuals();
 
         for (OWLObjectPropertyExpression key: metaModelElements.keys()) {
-            //TODO: entfernen
-            System.out.println("Key: " + key);
            if (key.toString().substring(1, key.toString().length()-1).equals(ontID + "#hasMMClass")){
                for (OWLIndividual individual :metaModelElements.get(key)) {
                    if (classIndividuals.contains(individual.toString())){
@@ -52,7 +47,8 @@ public class ToolbarInitializer {
             Multimap<OWLObjectPropertyExpression, OWLIndividual> classObjectPropertyAttributes = EntitySearcher.getObjectPropertyValues(classIndividual, ontology);
             Multimap<OWLDataPropertyExpression, OWLLiteral> classDataPropertyAttributes = EntitySearcher.getDataPropertyValues(classIndividual, ontology);
             for (OWLObjectPropertyExpression expression : classObjectPropertyAttributes.keys()) {
-                createElementInToolbar(expression, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
+                String type = classIndividual.toString().split("#")[1].substring(0, classIndividual.toString().split("#")[1].length()-1);
+                createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
             }
         }
 
@@ -61,16 +57,17 @@ public class ToolbarInitializer {
             Multimap<OWLObjectPropertyExpression, OWLIndividual> relationObjectPropertyAttributes = EntitySearcher.getObjectPropertyValues(relationIndividual, ontology);;
             Multimap<OWLDataPropertyExpression, OWLLiteral> relationDataPropertyAttributes = EntitySearcher.getDataPropertyValues(relationIndividual, ontology);
             for (OWLObjectPropertyExpression expression : relationObjectPropertyAttributes.keys()) {
-                createElementInToolbar(expression, relationObjectPropertyAttributes, relationDataPropertyAttributes, ontID);
+                String type = relationIndividual.toString().split("#")[1].substring(0, relationIndividual.toString().split("#")[1].length()-1);
+                createElementInToolbar(expression, type, relationObjectPropertyAttributes, relationDataPropertyAttributes, ontID);
             }
         }
     }
 
-    private static void createElementInToolbar(OWLObjectPropertyExpression shape, Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, String ontID){
+    private static void createElementInToolbar(OWLObjectPropertyExpression shape, String type,Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, String ontID){
         if (shape.toString().substring(1, shape.toString().length()-1).equals(ontID + "#hasShape")){
             String[] kindOfShape =  ObjectPropertyAttributes.get(shape).toString().split("#");
             kindOfShape[kindOfShape.length-1] = kindOfShape[kindOfShape.length-1].substring(0, kindOfShape[kindOfShape.length-1].length()-2);
-            ToolbarElementCreator.createElement(kindOfShape[kindOfShape.length-1], ObjectPropertyAttributes, DataPropertyAttributes);
+            ToolbarElementCreator.createElement(kindOfShape[kindOfShape.length-1], type, ObjectPropertyAttributes, DataPropertyAttributes);
         }
     }
 }

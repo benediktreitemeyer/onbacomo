@@ -14,10 +14,12 @@ public final class ModelingOntology {
         return instance;
     }
 
+    public String getOntID(){
+        return getOntology().getOntologyID().getOntologyIRI().asSet().toString().replace("[", "").replace("]", "");
+    }
     public OWLOntology getOntology() {
         return owlOntology;
     }
-
     public void setOntology(OWLOntology owlOntology) {
         ModelingOntology.owlOntology = owlOntology;
     }

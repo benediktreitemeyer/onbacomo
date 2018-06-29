@@ -49,7 +49,7 @@ public class CanvasView extends AbstractOWLViewComponent {
     private void initJFXPanel(JFXPanel jfxPanel) {
         Pane root = new Pane();
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        PaneManager.getInstance().setPane(root);
+        PaneManager.getInstance().setCanvasPane(root);
         Scene scene = new Scene(root, 75, 500, Color.WHITE);
         jfxPanel.setScene(scene);
         root.setId("root");

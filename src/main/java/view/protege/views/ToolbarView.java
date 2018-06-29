@@ -28,9 +28,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     protected void initialiseOWLView() throws Exception {
         logger.info("Initializing toolbar view");
         OWLEditorKitManager.getInstance().setEditorKit(getOWLEditorKit());
-        // TODO: initialiseOWLView -> ToolbarView
         SwingUtilities.invokeLater(this::initializeGui);
-
         logger.info("Toolbar view initialized");
     }
 
@@ -50,7 +48,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
     private void initJFXPanel(JFXPanel jfxPanel) {
         Pane root = new Pane();
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        PaneManager.getInstance().setPane(root);
+        PaneManager.getInstance().setTolbarPane(root);
         Scene scene = new Scene(root, 75, 500, Color.WHITE);
         jfxPanel.setScene(scene);
         root.setId("root");

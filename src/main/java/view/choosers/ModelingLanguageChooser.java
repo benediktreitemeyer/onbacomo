@@ -25,7 +25,7 @@ public final class ModelingLanguageChooser {
 
     public static void showModelingLanguageChooser(){
         OWLOntology ontology = ModelingOntology.getInstance().getOntology();
-        String ontID = ontology.getOntologyID().getOntologyIRI().asSet().toString().replace("[", "").replace("]", "");
+        String ontID = ModelingOntology.getInstance().getOntID();
         String type;
 
         Map<String, OWLNamedIndividual> individualStore = new HashMap<>();
