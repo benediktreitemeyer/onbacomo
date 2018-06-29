@@ -2,7 +2,6 @@ package model.modelobjects.Shape;
 
 import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
-import model.singleton.PaneManager;
 
 public class Circle extends OnbacomoShape {
     private javafx.scene.shape.Circle jfxCircle;
@@ -13,18 +12,17 @@ public class Circle extends OnbacomoShape {
         jfxCircle.setFill(Color.BLUE);
         jfxCircle.setCenterX(25.0);
         jfxCircle.setCenterY(25.0);
-        jfxCircle.setRadius(25.0);
+        jfxCircle.setRadius(37.5);
         jfxCircle.setStroke(Color.BLACK);
         jfxCircle.setStrokeWidth(1.0);
         jfxCircle.setId("Circle");
         jfxCircle.setCursor(Cursor.HAND);
     }
 
-    @Override
-    public void draw() {
-        PaneManager.getInstance().getToolbarPane().getChildren().add(jfxCircle);
+    public void setCircleStrokeWidth(double width){
+        getJFXCircle().setRadius(getJFXCircle().getRadius()-(width/2));
+        getJFXCircle().setStrokeWidth(width);
     }
-
     public javafx.scene.shape.Circle getJFXCircle() {
         return jfxCircle;
     }

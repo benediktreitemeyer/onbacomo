@@ -44,7 +44,8 @@ public class ToolbarView extends AbstractOWLViewComponent {
         Platform.runLater(() -> initJFXPanel(jfxPanel));
     }
     private void initJFXPanel(JFXPanel jfxPanel) {
-        VBox vBox = new VBox(10);
+        VBox vBox = new VBox(15);
+        vBox.setPadding(new Insets(15,0, 0,70));
         vBox.setPrefWidth(75);
         vBox.setPrefHeight(500);
         vBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));

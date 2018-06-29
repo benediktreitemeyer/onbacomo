@@ -6,8 +6,4 @@ public class Image extends OnbacomoShape {
         super(name, type);
     }
 
-    @Override
-    public void draw() {
-
-    }
 }

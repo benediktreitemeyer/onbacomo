@@ -1,11 +1,15 @@
 package controller.toolbar.initialize;
 
 import com.google.common.collect.Multimap;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
+import model.modelobjects.Shape.OnbacomoShape;
 import model.modelobjects.Shape.Rectangle;
 import model.singleton.ModelingOntology;
+import model.singleton.PaneManager;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -23,7 +27,7 @@ public class ToolbarElementCreator {
                       rectangle.getJFXRectangle().setFill(Color.valueOf(colorString));
                   }
               }
-              rectangle.draw();
+              draw(rectangle.getJFXRectangle());
               break;
           case "Circle":
               Circle circle = new Circle("", type);
@@ -40,10 +44,10 @@ public class ToolbarElementCreator {
               for (OWLDataPropertyExpression dataPropertyAttribute : DataPropertyAttributes.keys()) {
                   if (dataPropertyAttribute.toString().substring(1, dataPropertyAttribute.toString().length()-1).equals(ontID + "#StrokeWidth")){
                       String[] values = DataPropertyAttributes.get(dataPropertyAttribute).toString().split(String.valueOf('"'));
-                      circle.getJFXCircle().setStrokeWidth(Double.parseDouble(values[1]));
+                      circle.setCircleStrokeWidth(Double.parseDouble(values[1]));
                   }
               }
-              circle.draw();
+              draw(circle.getJFXCircle());
               break;
           case "Arrow":
               Arrow arrow = new Arrow("", type);
@@ -60,16 +64,19 @@ public class ToolbarElementCreator {
               }
               for (OWLDataPropertyExpression dataPropertyAttribute : DataPropertyAttributes.keys()) {
                   if (dataPropertyAttribute.toString().substring(1, dataPropertyAttribute.toString().length()-1).equals(ontID + "#Direction")){
-                      System.out.println(DataPropertyAttributes.get(dataPropertyAttribute));
                       String[] values = DataPropertyAttributes.get(dataPropertyAttribute).toString().split(String.valueOf('"'));
                       arrow.setDirection(Double.parseDouble(values[1]));
                   }
               }
-              arrow.draw();
+              draw(arrow.getJfxArrow());
               break;
           case "Image":
               // TODO: Arrow einfügen
               break;
-      }
+        }
+    }
+
+    private static void draw(Node shape){
+        PaneManager.getInstance().getToolbarPane().getChildren().add(shape);
     }
 }

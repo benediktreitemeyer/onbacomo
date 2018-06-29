@@ -1,15 +1,12 @@
 package model.modelobjects.Shape;
 
-public abstract class OnbacomoShape extends javafx.scene.shape.Shape {
+public class OnbacomoShape extends javafx.scene.shape.Shape {
     private String name, type;
 
     public OnbacomoShape(String name, String type) {
         this.name = name;
         this.type = type;
     }
-
-
-    public abstract void draw();
 
     public String getName() {
         return name;

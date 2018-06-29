@@ -2,7 +2,6 @@ package model.modelobjects.Shape;
 
 import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
-import model.singleton.PaneManager;
 
 public class Rectangle extends OnbacomoShape {
     javafx.scene.shape.Rectangle jfxRectangle;
@@ -22,15 +21,9 @@ public class Rectangle extends OnbacomoShape {
         jfxRectangle.setCursor(Cursor.HAND);
     }
 
-    @Override
-    public void draw() {
-        PaneManager.getInstance().getToolbarPane().getChildren().add(jfxRectangle);
-    }
-
     public javafx.scene.shape.Rectangle getJFXRectangle() {
         return jfxRectangle;
     }
-
     public void setJFXRectangle(javafx.scene.shape.Rectangle rectangle) {
         this.jfxRectangle = rectangle;
     }

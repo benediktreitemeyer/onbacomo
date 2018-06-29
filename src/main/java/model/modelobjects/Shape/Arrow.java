@@ -4,34 +4,27 @@ import javafx.scene.Cursor;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import model.singleton.PaneManager;
 
 public class Arrow extends OnbacomoShape {
     private Line line;
     private String  startClass, endClass, lineType;
     private double direction;
-    private BorderPane roots;
+    private BorderPane jfxArrow;
     private Polygon polygon;
     public Arrow(String name, String type) {
         super(name, type);
-        roots = new BorderPane();
-        this.setLine(new Line(0, 10, 75.0, 10.0));
-        this.setPolygon(new Polygon(75.0, 15.0, 75.0, 5.0, 80.0, 10.0));
-        roots.getChildren().add(getLine());
-        roots.getChildren().add(getPolygon());
-        roots.setPrefWidth(100.0);
-        roots.setPrefHeight(75.0);
-        roots.setCursor(Cursor.HAND);
+        jfxArrow = new BorderPane();
+        this.setLine(new Line(0, 10, 65.0, 10.0));
+        this.setPolygon(new Polygon(65.0, 15.0, 65.0, 5.0, 70.0, 10.0));
+        jfxArrow.getChildren().add(getLine());
+        jfxArrow.getChildren().add(getPolygon());
+        jfxArrow.setPrefWidth(100.0);
+        jfxArrow.setPrefHeight(75.0);
+        jfxArrow.setCursor(Cursor.HAND);
 
         this.setStartClass(startClass);
         this.setEndClass(endClass);
         this.setDirection(direction);
-    }
-
-    @Override
-    public void draw() {
-        // TODO: Startklassen , Endklassen und Direction beachten
-        PaneManager.getInstance().getToolbarPane().getChildren().add(roots);
     }
 
     public Line getLine() {
@@ -74,12 +67,12 @@ public class Arrow extends OnbacomoShape {
         this.lineType = lineType;
     }
 
-    public BorderPane getRoots() {
-        return roots;
+    public BorderPane getJfxArrow() {
+        return jfxArrow;
     }
 
-    public void setRoots(BorderPane roots) {
-        this.roots = roots;
+    public void setJFXArrow(BorderPane jfxArrow) {
+        this.jfxArrow = jfxArrow;
     }
 
     public Polygon getPolygon() {
