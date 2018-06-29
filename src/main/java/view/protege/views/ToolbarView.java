@@ -1,15 +1,13 @@
 package view.protege.views;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.*;
 import model.singleton.OWLEditorKitManager;
 import model.singleton.PaneManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.slf4j.Logger;
@@ -46,12 +44,15 @@ public class ToolbarView extends AbstractOWLViewComponent {
         Platform.runLater(() -> initJFXPanel(jfxPanel));
     }
     private void initJFXPanel(JFXPanel jfxPanel) {
-        Pane root = new Pane();
-        root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        PaneManager.getInstance().setTolbarPane(root);
-        Scene scene = new Scene(root, 75, 500, Color.WHITE);
+        VBox vBox = new VBox(10);
+        vBox.setPrefWidth(75);
+        vBox.setPrefHeight(500);
+        vBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        PaneManager.getInstance().setTolbarPane(vBox);
+        Scene scene = new Scene(vBox, vBox.getWidth(), vBox.getHeight(), Color.WHITE);
+        jfxPanel.setSize((int)scene.getWidth(),(int) scene.getHeight());
         jfxPanel.setScene(scene);
-        root.setId("root");
+        vBox.setId("root");
         ModelingOntologyChooser.showModelingOntologyChooser();
         ModelingLanguageChooser.showModelingLanguageChooser();
     }

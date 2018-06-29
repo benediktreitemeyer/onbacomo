@@ -5,33 +5,33 @@ import javafx.scene.paint.Color;
 import model.singleton.PaneManager;
 
 public class Rectangle extends OnbacomoShape {
-    javafx.scene.shape.Rectangle rectangle;
+    javafx.scene.shape.Rectangle jfxRectangle;
 
     public Rectangle(String name, String type) {
         super(name, type);
-        rectangle = new javafx.scene.shape.Rectangle();
-        rectangle.setX(50);
-        rectangle.setY(50);
-        rectangle.setWidth(75);
-        rectangle.setHeight(37.5);
-        rectangle.setFill(Color.BLUE);
-        rectangle.setArcWidth(10);
-        rectangle.setArcHeight(10);
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setId("Rectangle");
-        rectangle.setCursor(Cursor.HAND);
+        jfxRectangle = new javafx.scene.shape.Rectangle();
+        jfxRectangle.setX(50);
+        jfxRectangle.setY(50);
+        jfxRectangle.setWidth(75);
+        jfxRectangle.setHeight(37.5);
+        jfxRectangle.setFill(Color.BLUE);
+        jfxRectangle.setArcWidth(10);
+        jfxRectangle.setArcHeight(10);
+        jfxRectangle.setStroke(Color.BLACK);
+        jfxRectangle.setId("Rectangle");
+        jfxRectangle.setCursor(Cursor.HAND);
     }
 
     @Override
     public void draw() {
-        PaneManager.getInstance().getToolbarPane().getChildren().add(rectangle);
+        PaneManager.getInstance().getToolbarPane().getChildren().add(jfxRectangle);
     }
 
-    public javafx.scene.shape.Rectangle getRectangle() {
-        return rectangle;
+    public javafx.scene.shape.Rectangle getJFXRectangle() {
+        return jfxRectangle;
     }
 
-    public void setRectangle(javafx.scene.shape.Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public void setJFXRectangle(javafx.scene.shape.Rectangle rectangle) {
+        this.jfxRectangle = rectangle;
     }
 }

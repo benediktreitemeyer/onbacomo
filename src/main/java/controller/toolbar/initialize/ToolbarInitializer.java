@@ -25,7 +25,7 @@ public class ToolbarInitializer {
         for (OWLObjectPropertyExpression key: metaModelElements.keys()) {
            if (key.toString().substring(1, key.toString().length()-1).equals(ontID + "#hasMMClass")){
                for (OWLIndividual individual :metaModelElements.get(key)) {
-                   if (classIndividuals.contains(individual.toString())){
+                   if (classIndividuals.contains(individual)){
                        continue;
                    }else {
                        classIndividuals.add(individual);
@@ -33,7 +33,7 @@ public class ToolbarInitializer {
                }
            }else if (key.toString().substring(1, key.toString().length()-1).equals(ontID + "#hasRelationClass")){
                for (OWLIndividual individual :metaModelElements.get(key)) {
-                   if (relationIndividuals.contains(individual.toString())){
+                   if (relationIndividuals.contains(individual)){
                        continue;
                    }else {
                        relationIndividuals.add(individual);
@@ -65,9 +65,9 @@ public class ToolbarInitializer {
 
     private static void createElementInToolbar(OWLObjectPropertyExpression shape, String type,Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, String ontID){
         if (shape.toString().substring(1, shape.toString().length()-1).equals(ontID + "#hasShape")){
-            String[] kindOfShape =  ObjectPropertyAttributes.get(shape).toString().split("#");
-            kindOfShape[kindOfShape.length-1] = kindOfShape[kindOfShape.length-1].substring(0, kindOfShape[kindOfShape.length-1].length()-2);
-            ToolbarElementCreator.createElement(kindOfShape[kindOfShape.length-1], type, ObjectPropertyAttributes, DataPropertyAttributes);
+            String[] split =  ObjectPropertyAttributes.get(shape).toString().split("#");
+            String kindOfShape = split[split.length-1].substring(0, split[split.length-1].length()-2);
+            ToolbarElementCreator.createElement(kindOfShape, type, ObjectPropertyAttributes, DataPropertyAttributes);
         }
     }
 }

@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -66,8 +67,16 @@ public final class ModelingLanguageChooser {
 
         // Eventhandler
         accept.setOnAction(event -> {
-            primaryStage.close();
-            ToolbarInitializer.loadToolbar(individualStore.get(listView.getSelectionModel().getSelectedItem()));
+            if (listView.getSelectionModel().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("No modeling language selected.");
+                alert.setContentText("Please select a modeling language !");
+                alert.showAndWait();
+            }else {
+                primaryStage.close();
+                ToolbarInitializer.loadToolbar(individualStore.get(listView.getSelectionModel().getSelectedItem()));
+            }
         });
         cancel.setOnAction(event -> primaryStage.close());
 
