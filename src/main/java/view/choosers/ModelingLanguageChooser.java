@@ -53,8 +53,8 @@ public final class ModelingLanguageChooser {
 
         HBox buttons = new HBox(10);
         buttons.setAlignment(Pos.CENTER);
-        Button accept = new Button("accept");
-        Button cancel = new Button("cancel");
+        Button accept = new Button("Accept");
+        Button cancel = new Button("Cancel");
         buttons.getChildren().addAll(accept, cancel);
 
         Label space = new Label("");

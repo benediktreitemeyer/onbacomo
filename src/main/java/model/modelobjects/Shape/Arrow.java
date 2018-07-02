@@ -14,10 +14,9 @@ public class Arrow extends OnbacomoShape {
     public Arrow(String name, String type) {
         super(name, type);
         jfxArrow = new BorderPane();
-        this.setLine(new Line(0, 10, 65.0, 10.0));
-        this.setPolygon(new Polygon(65.0, 15.0, 65.0, 5.0, 70.0, 10.0));
-        jfxArrow.getChildren().add(getLine());
-        jfxArrow.getChildren().add(getPolygon());
+        this.setLine(new Line(14, 10, 81, 10));
+        this.setPolygon(new Polygon(81, 15.0, 81, 5.0, 86, 10.0));
+        jfxArrow.getChildren().addAll(getLine(), getPolygon());
         jfxArrow.setPrefWidth(100.0);
         jfxArrow.setPrefHeight(75.0);
         jfxArrow.setCursor(Cursor.HAND);

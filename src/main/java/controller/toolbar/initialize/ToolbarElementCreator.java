@@ -1,14 +1,16 @@
 package controller.toolbar.initialize;
 
 import com.google.common.collect.Multimap;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Line;
 import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
-import model.modelobjects.Shape.OnbacomoShape;
 import model.modelobjects.Shape.Rectangle;
 import model.singleton.ModelingOntology;
+import model.singleton.PaneControllerManager;
 import model.singleton.PaneManager;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -17,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 public class ToolbarElementCreator {
 	public static void createElement(String shape,String type, Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes){
-        String ontID = ModelingOntology.getInstance().getOntID();
+	    String ontID = ModelingOntology.getInstance().getOntID();
 	    switch (shape){
           case "Rectangle":
               Rectangle rectangle = new Rectangle("", type);
@@ -27,6 +29,8 @@ public class ToolbarElementCreator {
                       rectangle.getJFXRectangle().setFill(Color.valueOf(colorString));
                   }
               }
+              //TODO: DragAndDropRectangle
+              // PaneControllerManager.getInstance().getToolbarController().addRectangle(rectangle);
               draw(rectangle.getJFXRectangle());
               break;
           case "Circle":
@@ -71,12 +75,21 @@ public class ToolbarElementCreator {
               draw(arrow.getJfxArrow());
               break;
           case "Image":
-              // TODO: Arrow einfügen
+              // TODO: Image einfügen
               break;
         }
     }
 
+    public static void createPartingLine(){
+        Line partingLine = new Line();
+        partingLine.setEndX(PaneManager.getInstance().getToolbarPane().getWidth());
+	    PaneManager.getInstance().getToolbarPane().getChildren().add(partingLine);
+    }
+
     private static void draw(Node shape){
-        PaneManager.getInstance().getToolbarPane().getChildren().add(shape);
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+        hBox.getChildren().add(shape);
+        PaneManager.getInstance().getToolbarPane().getChildren().add(hBox);
     }
 }

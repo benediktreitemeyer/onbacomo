@@ -12,7 +12,7 @@ public class Circle extends OnbacomoShape {
         jfxCircle.setFill(Color.BLUE);
         jfxCircle.setCenterX(25.0);
         jfxCircle.setCenterY(25.0);
-        jfxCircle.setRadius(37.5);
+        jfxCircle.setRadius(18.75);
         jfxCircle.setStroke(Color.BLACK);
         jfxCircle.setStrokeWidth(1.0);
         jfxCircle.setId("Circle");

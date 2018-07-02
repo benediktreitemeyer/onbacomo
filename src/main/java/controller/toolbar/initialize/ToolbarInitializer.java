@@ -16,7 +16,7 @@ public class ToolbarInitializer {
         String ontID = ModelingOntology.getInstance().getOntID();
         Multimap<OWLObjectPropertyExpression, OWLIndividual> metaModelElements = EntitySearcher.getObjectPropertyValues(owlNamedIndividual, ontology);
 
-        //Split for Classes/Relations and add them to a List
+        //Split for Classes/Relations and addRectangle them to a List
         MMClassesManager.getInstance().setClassIndividuals(new LinkedHashSet<>());
         MMRelationsManager.getInstance().setRelationIndividuals(new LinkedHashSet<>());
         LinkedHashSet<OWLIndividual> classIndividuals = MMClassesManager.getInstance().getClassIndividuals();
@@ -48,7 +48,12 @@ public class ToolbarInitializer {
             Multimap<OWLDataPropertyExpression, OWLLiteral> classDataPropertyAttributes = EntitySearcher.getDataPropertyValues(classIndividual, ontology);
             for (OWLObjectPropertyExpression expression : classObjectPropertyAttributes.keys()) {
                 String type = classIndividual.toString().split("#")[1].substring(0, classIndividual.toString().split("#")[1].length()-1);
-                createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
+                if (classIndividuals.toArray()[classIndividuals.toArray().length - 1] == classIndividual){
+                    createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
+                    createPartingLineInToolbar(expression, ontID);
+                }else {
+                    createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
+                }
             }
         }
 
@@ -68,6 +73,12 @@ public class ToolbarInitializer {
             String[] split =  ObjectPropertyAttributes.get(shape).toString().split("#");
             String kindOfShape = split[split.length-1].substring(0, split[split.length-1].length()-2);
             ToolbarElementCreator.createElement(kindOfShape, type, ObjectPropertyAttributes, DataPropertyAttributes);
+        }
+    }
+
+    private static void createPartingLineInToolbar(OWLObjectPropertyExpression shape,  String ontID){
+        if (shape.toString().substring(1, shape.toString().length()-1).equals(ontID + "#hasShape")){
+            ToolbarElementCreator.createPartingLine();
         }
     }
 }
