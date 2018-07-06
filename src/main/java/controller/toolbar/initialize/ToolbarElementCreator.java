@@ -10,7 +10,6 @@ import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.Rectangle;
 import model.singleton.ModelingOntology;
-import model.singleton.PaneControllerManager;
 import model.singleton.PaneManager;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -75,7 +74,7 @@ public class ToolbarElementCreator {
               draw(arrow.getJfxArrow());
               break;
           case "Image":
-              // TODO: Image einfügen
+              // TODO: ToolbarElementCreator für Image
               break;
         }
     }
