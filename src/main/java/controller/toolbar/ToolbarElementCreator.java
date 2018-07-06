@@ -1,4 +1,4 @@
-package controller.toolbar.initialize;
+package controller.toolbar;
 
 import com.google.common.collect.Multimap;
 import javafx.geometry.Pos;
@@ -10,6 +10,7 @@ import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.Rectangle;
 import model.singleton.ModelingOntology;
+import model.singleton.PaneControllerManager;
 import model.singleton.PaneManager;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -17,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 public class ToolbarElementCreator {
-	public static void createElement(String shape,String type, Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes){
+	public static void createElement(String shape,String type, Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, boolean isClass){
 	    String ontID = ModelingOntology.getInstance().getOntID();
 	    switch (shape){
           case "Rectangle":
@@ -29,7 +30,7 @@ public class ToolbarElementCreator {
                   }
               }
               //TODO: DragAndDropRectangle
-              // PaneControllerManager.getInstance().getToolbarController().addRectangle(rectangle);
+              PaneControllerManager.getInstance().getToolbarController().addRectangle(rectangle, isClass);
               draw(rectangle.getJFXRectangle());
               break;
           case "Circle":

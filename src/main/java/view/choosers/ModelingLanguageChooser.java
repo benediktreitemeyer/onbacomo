@@ -1,6 +1,6 @@
 package view.choosers;
 
-import controller.toolbar.initialize.ToolbarInitializer;
+import controller.toolbar.ToolbarInitializer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

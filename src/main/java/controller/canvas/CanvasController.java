@@ -1,4 +1,4 @@
-package controller.canvas.initializer;
+package controller.canvas;
 
 import model.modelobjects.Shape.Rectangle;
 import model.singleton.PaneManager;

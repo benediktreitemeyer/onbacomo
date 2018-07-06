@@ -1,6 +1,8 @@
 package view.protege.views;
 
+import controller.canvas.CanvasController;
 import model.singleton.OWLEditorKitManager;
+import model.singleton.PaneControllerManager;
 import model.singleton.PaneManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -50,6 +52,7 @@ public class CanvasView extends AbstractOWLViewComponent {
         Pane root = new Pane();
         root.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         PaneManager.getInstance().setCanvasPane(root);
+        PaneControllerManager.getInstance().setCanvasController(new CanvasController());
         Scene scene = new Scene(root, 75, 500, Color.WHITE);
         jfxPanel.setScene(scene);
         root.setId("root");

@@ -1,8 +1,9 @@
 package view.protege.views;
 
-import javafx.geometry.Pos;
+import controller.toolbar.ToolbarController;
 import javafx.scene.layout.*;
 import model.singleton.OWLEditorKitManager;
+import model.singleton.PaneControllerManager;
 import model.singleton.PaneManager;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -50,6 +51,7 @@ public class ToolbarView extends AbstractOWLViewComponent {
         vBox.setPrefHeight(500);
         vBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         PaneManager.getInstance().setTolbarPane(vBox);
+        PaneControllerManager.getInstance().setTolbarController(new ToolbarController());
         Scene scene = new Scene(vBox, vBox.getWidth(), vBox.getHeight(), Color.WHITE);
         jfxPanel.setSize((int)scene.getWidth(),(int) scene.getHeight());
         jfxPanel.setScene(scene);

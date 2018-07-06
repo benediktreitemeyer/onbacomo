@@ -1,7 +1,7 @@
 package model.singleton;
 
-import controller.canvas.initializer.CanvasController;
-import controller.toolbar.initialize.ToolbarController;
+import controller.canvas.CanvasController;
+import controller.toolbar.ToolbarController;
 
 public class PaneControllerManager {
     private static PaneControllerManager instance;

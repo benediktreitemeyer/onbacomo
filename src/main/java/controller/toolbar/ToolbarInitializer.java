@@ -1,4 +1,4 @@
-package controller.toolbar.initialize;
+package controller.toolbar;
 
 import com.google.common.collect.Multimap;
 import model.singleton.MMClassesManager;
@@ -16,7 +16,7 @@ public class ToolbarInitializer {
         String ontID = ModelingOntology.getInstance().getOntID();
         Multimap<OWLObjectPropertyExpression, OWLIndividual> metaModelElements = EntitySearcher.getObjectPropertyValues(owlNamedIndividual, ontology);
 
-        //Split for Classes/Relations and addRectangle them to a List
+        //Split for Classes/Relations and addCircle them to a List
         MMClassesManager.getInstance().setClassIndividuals(new LinkedHashSet<>());
         MMRelationsManager.getInstance().setRelationIndividuals(new LinkedHashSet<>());
         LinkedHashSet<OWLIndividual> classIndividuals = MMClassesManager.getInstance().getClassIndividuals();
@@ -49,10 +49,10 @@ public class ToolbarInitializer {
             for (OWLObjectPropertyExpression expression : classObjectPropertyAttributes.keys()) {
                 String type = classIndividual.toString().split("#")[1].substring(0, classIndividual.toString().split("#")[1].length()-1);
                 if (classIndividuals.toArray()[classIndividuals.toArray().length - 1] == classIndividual){
-                    createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
+                    createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID, true);
                     createPartingLineInToolbar(expression, ontID);
                 }else {
-                    createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID);
+                    createElementInToolbar(expression, type, classObjectPropertyAttributes, classDataPropertyAttributes, ontID, true);
                 }
             }
         }
@@ -63,16 +63,16 @@ public class ToolbarInitializer {
             Multimap<OWLDataPropertyExpression, OWLLiteral> relationDataPropertyAttributes = EntitySearcher.getDataPropertyValues(relationIndividual, ontology);
             for (OWLObjectPropertyExpression expression : relationObjectPropertyAttributes.keys()) {
                 String type = relationIndividual.toString().split("#")[1].substring(0, relationIndividual.toString().split("#")[1].length()-1);
-                createElementInToolbar(expression, type, relationObjectPropertyAttributes, relationDataPropertyAttributes, ontID);
+                createElementInToolbar(expression, type, relationObjectPropertyAttributes, relationDataPropertyAttributes, ontID, false);
             }
         }
     }
 
-    private static void createElementInToolbar(OWLObjectPropertyExpression shape, String type,Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, String ontID){
+    private static void createElementInToolbar(OWLObjectPropertyExpression shape, String type,Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, String ontID, boolean isClass){
         if (shape.toString().substring(1, shape.toString().length()-1).equals(ontID + "#hasShape")){
             String[] split =  ObjectPropertyAttributes.get(shape).toString().split("#");
             String kindOfShape = split[split.length-1].substring(0, split[split.length-1].length()-2);
-            ToolbarElementCreator.createElement(kindOfShape, type, ObjectPropertyAttributes, DataPropertyAttributes);
+            ToolbarElementCreator.createElement(kindOfShape, type, ObjectPropertyAttributes, DataPropertyAttributes, isClass);
         }
     }
 
