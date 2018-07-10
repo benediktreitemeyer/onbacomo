@@ -27,6 +27,9 @@ public class OntologyTreeBuilder {
         for (TreeItem<String> classItem: treeView.getRoot().getChildren()){
             addChildrenToParents(ontology, classItem, classIcon, treeView);
         }
+
+        expandTreeView(treeView.getRoot(), false);
+        treeView.getRoot().setExpanded(true);
     }
 
     private static void addChildrenToParents(OWLOntology ontology, TreeItem<String> rootItem, Image classIcon, TreeView<String> treeView) {
@@ -37,12 +40,23 @@ public class OntologyTreeBuilder {
                     System.out.println("Child: " + child);
                     int rowOfParent = treeView.getRow(rootItem);
                     System.out.println("RowOfParents: " + rowOfParent);
+                    //treeView.getTreeItem(rowOfParent) fehler bei rowOfParent=6
                     TreeItem<String> parentTreeItem = treeView.getTreeItem(rowOfParent);
                     System.out.println("ParentTreeItem: " + parentTreeItem);
                     parentTreeItem.getChildren().add(child);
+                    parentTreeItem.setExpanded(true);
                     addChildrenToParents(ontology, child, classIcon, treeView);
 
                 }
+            }
+        }
+    }
+
+    private static void expandTreeView(TreeItem<?> item, boolean expand){
+        if(item != null && !item.isLeaf()){
+            item.setExpanded(expand);
+            for(TreeItem<?> child:item.getChildren()){
+                expandTreeView(child, expand);
             }
         }
     }
