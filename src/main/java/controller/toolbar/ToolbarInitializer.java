@@ -1,6 +1,7 @@
 package controller.toolbar;
 
 import com.google.common.collect.Multimap;
+import controller.ontology.OntologyStringBuilder;
 import model.singleton.MMClassesManager;
 import model.singleton.MMRelationsManager;
 import model.singleton.ModelingOntology;
@@ -23,7 +24,7 @@ public class ToolbarInitializer {
         LinkedHashSet<OWLIndividual> relationIndividuals = MMRelationsManager.getInstance().getRelationIndividuals();
 
         for (OWLObjectPropertyExpression key: metaModelElements.keys()) {
-           if (key.toString().substring(1, key.toString().length()-1).equals(ontID + "#hasMMClass")){
+           if (OntologyStringBuilder.getAttributeWithoutBraces(key).equals(ontID + "#hasMMClass")){
                for (OWLIndividual individual :metaModelElements.get(key)) {
                    if (classIndividuals.contains(individual)){
                        continue;
@@ -31,7 +32,7 @@ public class ToolbarInitializer {
                        classIndividuals.add(individual);
                    }
                }
-           }else if (key.toString().substring(1, key.toString().length()-1).equals(ontID + "#hasRelationClass")){
+           }else if (OntologyStringBuilder.getAttributeWithoutBraces(key).equals(ontID + "#hasRelationClass")){
                for (OWLIndividual individual :metaModelElements.get(key)) {
                    if (relationIndividuals.contains(individual)){
                        continue;
@@ -69,7 +70,7 @@ public class ToolbarInitializer {
     }
 
     private static void createElementInToolbar(OWLObjectPropertyExpression shape, String type,Multimap<OWLObjectPropertyExpression, OWLIndividual> ObjectPropertyAttributes, Multimap<OWLDataPropertyExpression, OWLLiteral> DataPropertyAttributes, String ontID, boolean isClass){
-        if (shape.toString().substring(1, shape.toString().length()-1).equals(ontID + "#hasShape")){
+        if (OntologyStringBuilder.getAttributeWithoutBraces(shape).equals(ontID + "#hasShape")){
             String[] split =  ObjectPropertyAttributes.get(shape).toString().split("#");
             String kindOfShape = split[split.length-1].substring(0, split[split.length-1].length()-2);
             ToolbarElementCreator.createElement(kindOfShape, type, ObjectPropertyAttributes, DataPropertyAttributes, isClass);
@@ -77,7 +78,7 @@ public class ToolbarInitializer {
     }
 
     private static void createPartingLineInToolbar(OWLObjectPropertyExpression shape,  String ontID){
-        if (shape.toString().substring(1, shape.toString().length()-1).equals(ontID + "#hasShape")){
+        if (OntologyStringBuilder.getAttributeWithoutBraces(shape).equals(ontID + "#hasShape")){
             ToolbarElementCreator.createPartingLine();
         }
     }

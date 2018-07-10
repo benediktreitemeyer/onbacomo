@@ -1,6 +1,7 @@
 package controller.toolbar;
 
 import com.google.common.collect.Multimap;
+import controller.ontology.OntologyStringBuilder;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -24,7 +25,7 @@ public class ToolbarElementCreator {
           case "Rectangle":
               Rectangle rectangle = new Rectangle("", type);
               for (OWLObjectPropertyExpression objectPropertyAttribute : ObjectPropertyAttributes.keys()) {
-                  if (objectPropertyAttribute.toString().substring(1, objectPropertyAttribute.toString().length()-1).equals(ontID + "#hasShapeColor")){
+                  if (OntologyStringBuilder.getAttributeWithoutBraces(objectPropertyAttribute).equals(ontID + "#hasShapeColor")){
                       String colorString = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
                       rectangle.getJFXRectangle().setFill(Color.valueOf(colorString));
                   }
@@ -36,7 +37,7 @@ public class ToolbarElementCreator {
           case "Circle":
               Circle circle = new Circle("", type);
               for (OWLObjectPropertyExpression objectPropertyAttribute : ObjectPropertyAttributes.keys()) {
-                  if (objectPropertyAttribute.toString().substring(1, objectPropertyAttribute.toString().length()-1).equals(ontID + "#hasShapeColor")){
+                  if (OntologyStringBuilder.getAttributeWithoutBraces(objectPropertyAttribute).equals(ontID + "#hasShapeColor")){
                       String colorString = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
                       circle.getJFXCircle().setFill(Color.valueOf(colorString));
                   }
@@ -46,7 +47,7 @@ public class ToolbarElementCreator {
                   }
               }
               for (OWLDataPropertyExpression dataPropertyAttribute : DataPropertyAttributes.keys()) {
-                  if (dataPropertyAttribute.toString().substring(1, dataPropertyAttribute.toString().length()-1).equals(ontID + "#StrokeWidth")){
+                  if (OntologyStringBuilder.getAttributeWithoutBraces(dataPropertyAttribute).equals(ontID + "#StrokeWidth")){
                       String[] values = DataPropertyAttributes.get(dataPropertyAttribute).toString().split(String.valueOf('"'));
                       circle.setCircleStrokeWidth(Double.parseDouble(values[1]));
                   }
@@ -56,18 +57,18 @@ public class ToolbarElementCreator {
           case "Arrow":
               Arrow arrow = new Arrow("", type);
               for (OWLObjectPropertyExpression objectPropertyAttribute : ObjectPropertyAttributes.keys()) {
-                  if (objectPropertyAttribute.toString().substring(1, objectPropertyAttribute.toString().length()-1).equals(ontID + "#hasShapeColor")){
+                  if (OntologyStringBuilder.getAttributeWithoutBraces(objectPropertyAttribute).equals(ontID + "#hasShapeColor")){
                       String colorString = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
                       arrow.getLine().setFill(Color.valueOf(colorString));
                       arrow.getPolygon().setFill(Color.valueOf(colorString));
                   }
-                  if (objectPropertyAttribute.toString().substring(1, objectPropertyAttribute.toString().length()-1).equals(ontID + "#hasLineType")){
+                  if (OntologyStringBuilder.getAttributeWithoutBraces(objectPropertyAttribute).equals(ontID + "#hasLineType")){
                       String lineType = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
                       arrow.setLineType(lineType);
                   }
               }
               for (OWLDataPropertyExpression dataPropertyAttribute : DataPropertyAttributes.keys()) {
-                  if (dataPropertyAttribute.toString().substring(1, dataPropertyAttribute.toString().length()-1).equals(ontID + "#Direction")){
+                  if (OntologyStringBuilder.getAttributeWithoutBraces(dataPropertyAttribute).equals(ontID + "#Direction")){
                       String[] values = DataPropertyAttributes.get(dataPropertyAttribute).toString().split(String.valueOf('"'));
                       arrow.setDirection(Double.parseDouble(values[1]));
                   }
