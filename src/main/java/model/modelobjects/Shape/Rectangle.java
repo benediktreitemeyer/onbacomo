@@ -9,8 +9,6 @@ public class Rectangle extends OnbacomoShape {
     public Rectangle(String name, String type) {
         super(name, type);
         jfxRectangle = new javafx.scene.shape.Rectangle();
-        jfxRectangle.setX(50);
-        jfxRectangle.setY(50);
         jfxRectangle.setWidth(75);
         jfxRectangle.setHeight(37.5);
         jfxRectangle.setFill(Color.BLUE);

@@ -10,8 +10,6 @@ public class Circle extends OnbacomoShape {
         super(name, type);
         jfxCircle = new javafx.scene.shape.Circle();
         jfxCircle.setFill(Color.BLUE);
-        jfxCircle.setCenterX(25.0);
-        jfxCircle.setCenterY(25.0);
         jfxCircle.setRadius(18.75);
         jfxCircle.setStroke(Color.BLACK);
         jfxCircle.setStrokeWidth(1.0);

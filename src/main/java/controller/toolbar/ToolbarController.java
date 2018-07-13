@@ -1,6 +1,9 @@
 package controller.toolbar;
 
-import model.modelobjects.Shape.*;
+import model.modelobjects.Shape.Arrow;
+import model.modelobjects.Shape.Circle;
+import model.modelobjects.Shape.Image;
+import model.modelobjects.Shape.Rectangle;
 import view.jfxviews.CreateElement;
 
 public class ToolbarController  {
@@ -8,7 +11,7 @@ public class ToolbarController  {
     public void addRectangle(Rectangle rectangle, boolean isClass){
         if (isClass){
             rectangle.getJFXRectangle().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(rectangle);
+                CreateElement.showCreateClassWindow(rectangle, "Rectangle");
             });
         }else {
             rectangle.getJFXRectangle().setOnMousePressed(e -> {
@@ -19,7 +22,7 @@ public class ToolbarController  {
     public void addCircle(Circle circle, boolean isClass){
         if (isClass){
             circle.getJFXCircle().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(circle);
+                CreateElement.showCreateClassWindow(circle, "Circle");
             });
         }else {
             circle.getJFXCircle().setOnMousePressed(e -> {
@@ -31,7 +34,7 @@ public class ToolbarController  {
     public void addArrow(Arrow arrow, boolean isClass){
         if (isClass){
             arrow.getJfxArrow().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(arrow);
+                CreateElement.showCreateClassWindow(arrow, "Arrow");
             });
         }else {
             arrow.getJfxArrow().setOnMousePressed(e -> {
@@ -43,7 +46,7 @@ public class ToolbarController  {
     public void addImage(Image image, boolean isClass){
         if (isClass){
             image.getJFXImage().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(image);
+                CreateElement.showCreateClassWindow(image, "Image");
             });
         }else {
             image.getJFXImage().setOnMousePressed(e -> {
