@@ -33,7 +33,7 @@ public class CanvasElementCreator {
                     draw(elements);
                     canvasPane.setCursor(Cursor.DEFAULT);
                     canvasPane.setOnMouseClicked(e ->{
-                        // on second and further clicks do nothing
+                        // on second and further clicks, do nothing
                     });
                 });
                 break;

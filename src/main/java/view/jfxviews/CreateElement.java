@@ -12,10 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.modelobjects.Shape.OnbacomoShape;
-import model.modelobjects.Shape.Rectangle;
 import model.singleton.DomainOntology;
 import model.singleton.OWLEditorKitManager;
-import model.singleton.PaneManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 
