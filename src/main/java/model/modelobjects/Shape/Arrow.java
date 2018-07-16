@@ -1,6 +1,8 @@
 package model.modelobjects.Shape;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -66,12 +68,32 @@ public class Arrow extends OnbacomoShape {
         this.lineType = lineType;
     }
 
-    public BorderPane getJfxArrow() {
+    @Override
+    public BorderPane getJfxRepresentation() {
         return jfxArrow;
     }
 
-    public void setJFXArrow(BorderPane jfxArrow) {
-        this.jfxArrow = jfxArrow;
+    @Override
+    public void setJfxRepresentation(Node shape) {
+        this.jfxArrow = (BorderPane) shape;
+    }
+
+    @Override
+    public Node getJfxRepresentationValues() {
+        BorderPane borderPane = new BorderPane();
+        Line valueLine = new Line(this.line.getStartX(), this.line.getStartY(), this.line.getEndX(), this.line.getEndX());
+        ObservableList<Double> polygonPointList = this.polygon.getPoints();
+        Polygon valuePolygon = new Polygon(polygonPointList.get(0), polygonPointList.get(1), polygonPointList.get(2), polygonPointList.get(3), polygonPointList.get(4), polygonPointList.get(5));
+        borderPane.getChildren().addAll(valueLine, valuePolygon);
+        borderPane.setPrefWidth(jfxArrow.getPrefWidth());
+        borderPane.setPrefHeight(jfxArrow.getPrefHeight());
+        borderPane.setCursor(jfxArrow.getCursor());
+
+        // TODO: überprüfen ob start-/end-klassen hier gebraucht werden
+        /*this.setStartClass(startClass);
+        this.setEndClass(endClass);
+        this.setDirection(direction);*/
+        return borderPane;
     }
 
     public Polygon getPolygon() {

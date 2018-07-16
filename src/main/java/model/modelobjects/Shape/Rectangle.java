@@ -1,6 +1,7 @@
 package model.modelobjects.Shape;
 
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 public class Rectangle extends OnbacomoShape {
@@ -18,11 +19,26 @@ public class Rectangle extends OnbacomoShape {
         jfxRectangle.setId("Rectangle");
         jfxRectangle.setCursor(Cursor.HAND);
     }
-
-    public javafx.scene.shape.Rectangle getJFXRectangle() {
+    @Override
+    public javafx.scene.shape.Rectangle getJfxRepresentation() {
         return jfxRectangle;
     }
-    public void setJFXRectangle(javafx.scene.shape.Rectangle rectangle) {
-        this.jfxRectangle = rectangle;
+    @Override
+    public void setJfxRepresentation(Node rectangle) {
+        this.jfxRectangle = (javafx.scene.shape.Rectangle) rectangle;
+    }
+
+    @Override
+    public Node getJfxRepresentationValues() {
+        javafx.scene.shape.Rectangle rectangle = new javafx.scene.shape.Rectangle();
+        rectangle.setWidth(jfxRectangle.getWidth());
+        rectangle.setHeight(jfxRectangle.getHeight());
+        rectangle.setFill(jfxRectangle.getFill());
+        rectangle.setArcWidth(jfxRectangle.getArcWidth());
+        rectangle.setArcHeight(jfxRectangle.getArcHeight());
+        rectangle.setStroke(jfxRectangle.getStroke());
+        rectangle.setId(jfxRectangle.getId());
+        rectangle.setCursor(jfxRectangle.getCursor());
+        return rectangle;
     }
 }

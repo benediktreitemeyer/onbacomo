@@ -4,56 +4,39 @@ import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.Image;
 import model.modelobjects.Shape.Rectangle;
-import view.jfxviews.CreateElement;
+import view.jfxviews.CreateElementView;
 
 public class ToolbarController  {
 
     public void addRectangle(Rectangle rectangle, boolean isClass){
         if (isClass){
-            rectangle.getJFXRectangle().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(rectangle, "Rectangle");
-            });
+            rectangle.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateClassWindow(rectangle, "Rectangle"));
         }else {
-            rectangle.getJFXRectangle().setOnMousePressed(e -> {
-                CreateElement.showCreateRelationWindow(rectangle);
-            });
+            rectangle.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateRelationWindow(rectangle, "Rectangle"));
         }
     }
     public void addCircle(Circle circle, boolean isClass){
         if (isClass){
-            circle.getJFXCircle().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(circle, "Circle");
-            });
+            circle.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateClassWindow(circle, "Circle"));
         }else {
-            circle.getJFXCircle().setOnMousePressed(e -> {
-                CreateElement.showCreateRelationWindow(circle);
-            });
+            circle.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateRelationWindow(circle, "Circle"));
         }
     }
 
     public void addArrow(Arrow arrow, boolean isClass){
         if (isClass){
-            arrow.getJfxArrow().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(arrow, "Arrow");
-            });
+            arrow.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateClassWindow(arrow, "Arrow"));
         }else {
-            arrow.getJfxArrow().setOnMousePressed(e -> {
-                CreateElement.showCreateRelationWindow(arrow);
-            });
+            arrow.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateRelationWindow(arrow, "Arrow"));
         }
     }
 
     public void addImage(Image image, boolean isClass){
         if (isClass){
-            image.getJFXImage().setOnMousePressed(e -> {
-                CreateElement.showCreateClassWindow(image, "Image");
-            });
+            image.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateClassWindow(image, "Image"));
         }else {
-            image.getJFXImage().setOnMousePressed(e -> {
-                CreateElement.showCreateRelationWindow(image);
-            });
+            image.getJfxRepresentation().setOnMousePressed(e -> CreateElementView.showCreateRelationWindow(image, "Image"));
 
         }
     }
-
 }

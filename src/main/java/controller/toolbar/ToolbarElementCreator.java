@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
+import model.modelobjects.Shape.Image;
 import model.modelobjects.Shape.Rectangle;
 import model.singleton.ModelingOntology;
 import model.singleton.PaneControllerManager;
@@ -27,23 +28,22 @@ public class ToolbarElementCreator {
               for (OWLObjectPropertyExpression objectPropertyAttribute : ObjectPropertyAttributes.keys()) {
                   if (OntologyStringBuilder.getAttributeWithoutBraces(objectPropertyAttribute).equals(ontID + "#hasShapeColor")){
                       String colorString = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
-                      rectangle.getJFXRectangle().setFill(Color.valueOf(colorString));
+                      rectangle.getJfxRepresentation().setFill(Color.valueOf(colorString));
                   }
               }
-              //TODO: DragAndDropRectangle
               PaneControllerManager.getInstance().getToolbarController().addRectangle(rectangle, isClass);
-              draw(rectangle.getJFXRectangle());
+              draw(rectangle.getJfxRepresentation());
               break;
           case "Circle":
               Circle circle = new Circle("", type);
               for (OWLObjectPropertyExpression objectPropertyAttribute : ObjectPropertyAttributes.keys()) {
                   if (OntologyStringBuilder.getAttributeWithoutBraces(objectPropertyAttribute).equals(ontID + "#hasShapeColor")){
                       String colorString = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
-                      circle.getJFXCircle().setFill(Color.valueOf(colorString));
+                      circle.getJfxRepresentation().setFill(Color.valueOf(colorString));
                   }
                   if (objectPropertyAttribute.toString().substring(1, objectPropertyAttribute.toString().length()-1).equals(ontID + "#hasStrokeColor")){
                       String colorString = ObjectPropertyAttributes.get(objectPropertyAttribute).toString().substring(ontID.length()+3, ObjectPropertyAttributes.get(objectPropertyAttribute).toString().length()-2);
-                      circle.getJFXCircle().setStroke(Color.valueOf(colorString));
+                      circle.getJfxRepresentation().setStroke(Color.valueOf(colorString));
                   }
               }
               for (OWLDataPropertyExpression dataPropertyAttribute : DataPropertyAttributes.keys()) {
@@ -52,7 +52,8 @@ public class ToolbarElementCreator {
                       circle.setCircleStrokeWidth(Double.parseDouble(values[1]));
                   }
               }
-              draw(circle.getJFXCircle());
+              PaneControllerManager.getInstance().getToolbarController().addCircle(circle, isClass);
+              draw(circle.getJfxRepresentation());
               break;
           case "Arrow":
               Arrow arrow = new Arrow("", type);
@@ -73,9 +74,13 @@ public class ToolbarElementCreator {
                       arrow.setDirection(Double.parseDouble(values[1]));
                   }
               }
-              draw(arrow.getJfxArrow());
+              PaneControllerManager.getInstance().getToolbarController().addArrow(arrow, isClass);
+              draw(arrow.getJfxRepresentation());
               break;
           case "Image":
+              Image image = new Image("", type);
+              PaneControllerManager.getInstance().getToolbarController().addImage(image, isClass);
+              draw(image.getJfxRepresentation());
               // TODO: ToolbarElementCreator für Image
               break;
         }

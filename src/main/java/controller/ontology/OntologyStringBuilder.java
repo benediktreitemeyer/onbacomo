@@ -1,9 +1,6 @@
 package controller.ontology;
 
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 public class OntologyStringBuilder {
     public static String getEntityFromOWLClass(OWLOntology ontology, OWLClass phrase){
@@ -14,7 +11,17 @@ public class OntologyStringBuilder {
         }else{
             toReturn = "";
         }
+        return toReturn;
+    }
 
+    public static String getEntityFromProperties(OWLOntology ontology, OWLProperty phrase){
+        String toReturn = phrase.toString();
+        String ontID = getOntId(ontology);
+        if (toReturn.length() >= ontID.length()+2){
+            toReturn = toReturn.substring(ontID.length()+2, toReturn.length()-1);
+        }else{
+            toReturn = "";
+        }
         return toReturn;
     }
 

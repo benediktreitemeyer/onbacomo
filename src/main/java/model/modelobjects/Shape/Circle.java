@@ -1,6 +1,7 @@
 package model.modelobjects.Shape;
 
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 public class Circle extends OnbacomoShape {
@@ -18,14 +19,27 @@ public class Circle extends OnbacomoShape {
     }
 
     public void setCircleStrokeWidth(double width){
-        getJFXCircle().setRadius(getJFXCircle().getRadius()-(width/2));
-        getJFXCircle().setStrokeWidth(width);
+        getJfxRepresentation().setRadius(getJfxRepresentation().getRadius()-(width/2));
+        getJfxRepresentation().setStrokeWidth(width);
     }
-    public javafx.scene.shape.Circle getJFXCircle() {
+    @Override
+    public javafx.scene.shape.Circle getJfxRepresentation() {
         return jfxCircle;
     }
+    @Override
+    public void setJfxRepresentation(Node jfxCircle) {
+        this.jfxCircle = (javafx.scene.shape.Circle) jfxCircle;
+    }
 
-    public void setJFXCircle(javafx.scene.shape.Circle jfxCircle) {
-        this.jfxCircle = jfxCircle;
+    @Override
+    public Node getJfxRepresentationValues() {
+        javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle();
+        circle.setFill(jfxCircle.getFill());
+        circle.setRadius(jfxCircle.getRadius());
+        circle.setStroke(jfxCircle.getStroke());
+        circle.setStrokeWidth(jfxCircle.getStrokeWidth());
+        circle.setId(jfxCircle.getId());
+        circle.setCursor(jfxCircle.getCursor());
+        return circle;
     }
 }
