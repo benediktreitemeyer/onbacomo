@@ -117,8 +117,8 @@ public class CreateElementView {
             HBox listViewBox = new HBox(20);
             ListView<String> startClasses = new ListView<>();
             ListView<String> endClasses = new ListView<>();
-            OntologyTreeBuilder.buildStartClassListView(ontology, startClasses);
-            OntologyTreeBuilder.buildEndClassListView(ontology, endClasses);
+            OntologyTreeBuilder.buildStartClassListView(startClasses);
+            // OntologyTreeBuilder.buildEndClassListView(endClasses);
             listViewBox.getChildren().addAll(startClasses, endClasses);
 
             HBox buttons = new HBox(40);

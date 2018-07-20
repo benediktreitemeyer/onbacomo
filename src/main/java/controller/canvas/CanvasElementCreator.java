@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.OnbacomoShape;
 import model.modelobjects.Shape.Rectangle;
+import model.singleton.MMClassesManager;
 import model.singleton.PaneManager;
 
 
@@ -32,6 +33,7 @@ public class CanvasElementCreator {
 
                     elements.getChildren().addAll(rectangle.getJfxRepresentation(), nameLabel);
                     CanvasController.enableDrag(elements);
+                    MMClassesManager.getInstance().addToStartClassesList(rectangle);
                     draw(elements);
                     canvasPane.setCursor(Cursor.DEFAULT);
                     canvasPane.setOnMouseClicked(e ->{
@@ -53,6 +55,7 @@ public class CanvasElementCreator {
 
                     elements.getChildren().addAll(circle.getJfxRepresentation(), nameLabel);
                     CanvasController.enableDrag(elements);
+                    // MMClassesManager.getInstance().addToStartClassesList(circle);
                     draw(elements);
                     canvasPane.setCursor(Cursor.DEFAULT);
                     canvasPane.setOnMouseClicked(e ->{

@@ -39,4 +39,8 @@ public class CanvasController {
             ((VBox) (e.getSource())).setTranslateY(newTranslateY);
         });
     }
+
+    private void setEventhandlerForProperties(Node shape){
+
+    }
 }

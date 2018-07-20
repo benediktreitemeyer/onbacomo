@@ -1,22 +1,16 @@
 package controller.ontology;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import model.modelobjects.Shape.OnbacomoShape;
+import model.singleton.MMClassesManager;
 import model.singleton.OWLEditorKitManager;
-import model.singleton.PaneManager;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLProperty;
-
-import java.util.LinkedList;
 
 public class OntologyTreeBuilder {
     public static void buildTreeView(OWLOntology ontology, TreeView<String> treeView, Image icon, boolean isClass){
@@ -25,7 +19,7 @@ public class OntologyTreeBuilder {
             for (OWLClass owlClass: ontology.getClassesInSignature()){
                 for (OWLClass parent : OWLEditorKitManager.getInstance().getEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getParents(owlClass)) {
                     if (parent.isOWLThing()){
-                        TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityFromOWLClass(ontology, owlClass), new ImageView(icon));
+                        TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityInList(ontology, owlClass.toString()), new ImageView(icon));
                         treeView.getRoot().getChildren().add(child);
                     }
                 }
@@ -39,7 +33,7 @@ public class OntologyTreeBuilder {
             for (OWLObjectProperty owlProperty: ontology.getObjectPropertiesInSignature()){
                 for (OWLObjectProperty parent : OWLEditorKitManager.getInstance().getEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLObjectPropertyHierarchyProvider().getParents(owlProperty)) {
                     if (parent.isTopEntity()){
-                        TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityFromProperties(ontology, owlProperty), new ImageView(icon));
+                        TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityInList(ontology, owlProperty.toString()), new ImageView(icon));
                         treeView.getRoot().getChildren().add(child);
                     }
                 }
@@ -53,27 +47,24 @@ public class OntologyTreeBuilder {
         treeView.getRoot().setExpanded(true);
     }
 
-    public static void buildStartClassListView(OWLOntology ontology, ListView<String> listView){
-        ObservableList<Node> elementList = PaneManager.getInstance().getCanvasPane().getChildren();
-        ObservableList<VBox> elementsAsVbox = null;
-        for (Node element: elementList){
-            elementsAsVbox.add((VBox)element);
-        }
-        ObservableList<OnbacomoShape> elementsAsOnbacomoShape = null;
-        for (VBox element: elementsAsVbox){
-            elementsAsOnbacomoShape.add((OnbacomoShape)element);
+    public static void buildStartClassListView(ListView<String> listView){
+        for (OnbacomoShape onbacomoClass: MMClassesManager.getInstance().getStartClassesList()){
+            listView.getItems().add(onbacomoClass.getName());
         }
     }
-    public static void buildEndClassListView(OWLOntology ontology, ListView<String> listView){
 
+    public static void buildEndClassListView(ListView<String> listView){
+        for (OnbacomoShape onbacomoClass: MMClassesManager.getInstance().getEndClassesList()){
+            listView.getItems().add(onbacomoClass.getName());
+        }
     }
 
 
     private static void addChildrenToParentsForClasses(OWLOntology ontology, TreeItem<String> rootItem, Image icon, TreeView<String> treeView) {
         for (OWLClass owlClass: ontology.getClassesInSignature()){
             for (OWLClass parent : OWLEditorKitManager.getInstance().getEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLClassHierarchyProvider().getParents(owlClass)) {
-                if (OntologyStringBuilder.getEntityFromOWLClass(ontology, parent).equals(rootItem.getValue())){
-                    TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityFromOWLClass(ontology, owlClass), new ImageView(icon));
+                if (OntologyStringBuilder.getEntityInList(ontology, parent.toString()).equals(rootItem.getValue())){
+                    TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityInList(ontology, owlClass.toString()), new ImageView(icon));
                     int rowOfParent = treeView.getRow(rootItem);
                     TreeItem<String> parentTreeItem = treeView.getTreeItem(rowOfParent);
                     parentTreeItem.getChildren().add(child);
@@ -87,8 +78,8 @@ public class OntologyTreeBuilder {
     private static void addChildrenToParentsForProperties(OWLOntology ontology, TreeItem<String> rootItem, Image icon, TreeView<String> treeView) {
         for (OWLObjectProperty owlProperty: ontology.getObjectPropertiesInSignature()){
             for (OWLObjectProperty parent : OWLEditorKitManager.getInstance().getEditorKit().getOWLModelManager().getOWLHierarchyManager().getOWLObjectPropertyHierarchyProvider().getParents(owlProperty)) {
-                if (OntologyStringBuilder.getEntityFromProperties(ontology, parent).equals(rootItem.getValue())){
-                    TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityFromProperties(ontology, owlProperty), new ImageView(icon));
+                if (OntologyStringBuilder.getEntityInList(ontology, parent.toString()).equals(rootItem.getValue())){
+                    TreeItem<String> child = new TreeItem(OntologyStringBuilder.getEntityInList(ontology, owlProperty.toString()), new ImageView(icon));
                     int rowOfParent = treeView.getRow(rootItem);
                     TreeItem<String> parentTreeItem = treeView.getTreeItem(rowOfParent);
                     parentTreeItem.getChildren().add(child);

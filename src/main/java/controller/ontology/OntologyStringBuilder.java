@@ -3,26 +3,22 @@ package controller.ontology;
 import org.semanticweb.owlapi.model.*;
 
 public class OntologyStringBuilder {
-    public static String getEntityFromOWLClass(OWLOntology ontology, OWLClass phrase){
-        String toReturn = phrase.toString();
+    public static String getEntityInList(OWLOntology ontology, String phrase){
         String ontID = getOntId(ontology);
-        if (toReturn.length() >= ontID.length()+2){
-            toReturn = toReturn.substring(ontID.length()+2, toReturn.length()-1);
+        if (phrase.length() >= ontID.length()+2){
+            return phrase.substring(ontID.length()+2, phrase.length()-1);
         }else{
-            toReturn = "";
+            return "";
         }
-        return toReturn;
     }
 
-    public static String getEntityFromProperties(OWLOntology ontology, OWLProperty phrase){
-        String toReturn = phrase.toString();
+    public static String getEntity(OWLOntology ontology, String phrase){
         String ontID = getOntId(ontology);
-        if (toReturn.length() >= ontID.length()+2){
-            toReturn = toReturn.substring(ontID.length()+2, toReturn.length()-1);
+        if (phrase.length() >= ontID.length()+2){
+            return phrase.substring(ontID.length()+1, phrase.length());
         }else{
-            toReturn = "";
+            return "";
         }
-        return toReturn;
     }
 
     public static String getAttributeWithoutBraces(OWLObjectPropertyExpression objectPropertyExpression){
