@@ -75,7 +75,7 @@ public class CreateElementView {
                     String name = nameTextField.getText();
                     name.replaceAll(" ", "_");
                     shape.setName(name);
-                    CanvasElementCreator.createElement(shape, name, type, classes.getSelectionModel().getSelectedItem().toString());
+                    CanvasElementCreator.createClassElement(shape, name, type, classes.getSelectionModel().getSelectedItem().toString());
                     primaryStage.close();
                 }
             });
@@ -148,7 +148,7 @@ public class CreateElementView {
                         alert.showAndWait();
                     }
                 } else {
-                    CanvasElementCreator.createElement(shape, "", type, objectProperties.getSelectionModel().getSelectedItem().toString());
+                    CanvasElementCreator.createRelationElement(shape, "", type, objectProperties.getSelectionModel().getSelectedItem().toString(), startClasses.getSelectionModel().getSelectedItem(), endClasses.getSelectionModel().getSelectedItem());
                     primaryStage.close();
                 }
             });

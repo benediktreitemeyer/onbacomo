@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 public class CanvasController {
 
     private static double orgSceneX, orgSceneY, orgTranslateX, orgTranslateY;
-    public static void enableDrag(VBox shape){
+    public static void enableDrag(Node shape){
         switch (shape.getId()){
             case "Rectangle":
                 setEventHandlerForClasses(shape);
@@ -15,6 +15,7 @@ public class CanvasController {
                 setEventHandlerForClasses(shape);
                 break;
             case "Arrow":
+                setEventhandlerForProperties(shape);
                 break;
             case "Image":
                 break;
@@ -40,7 +41,7 @@ public class CanvasController {
         });
     }
 
-    private void setEventhandlerForProperties(Node shape){
+    private static void setEventhandlerForProperties(Node shape){
 
     }
 }

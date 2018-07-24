@@ -88,11 +88,6 @@ public class Arrow extends OnbacomoShape {
         borderPane.setPrefWidth(jfxArrow.getPrefWidth());
         borderPane.setPrefHeight(jfxArrow.getPrefHeight());
         borderPane.setCursor(jfxArrow.getCursor());
-
-        // TODO: überprüfen ob start-/end-klassen hier gebraucht werden
-        /*this.setStartClass(startClass);
-        this.setEndClass(endClass);
-        this.setDirection(direction);*/
         return borderPane;
     }
 

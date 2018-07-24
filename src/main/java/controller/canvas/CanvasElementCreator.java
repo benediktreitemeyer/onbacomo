@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.OnbacomoShape;
 import model.modelobjects.Shape.Rectangle;
@@ -14,7 +15,7 @@ import model.singleton.PaneManager;
 
 
 public class CanvasElementCreator {
-    public static void createElement(OnbacomoShape shape, String name, String shapeType, String elementType){
+    public static void createClassElement(OnbacomoShape shape, String name, String shapeType, String elementType){
         Pane canvasPane = PaneManager.getInstance().getCanvasPane();
         canvasPane.setCursor(Cursor.CROSSHAIR);
 
@@ -77,13 +78,39 @@ public class CanvasElementCreator {
                     });
                 });
                 break;
-            case "Arrow":
+            case "Image":
+                break;
+        }
+    }
 
+    public static void createRelationElement(OnbacomoShape shape, String name, String shapeType, String elementType, String startClass, String endClass){
+        Pane canvasPane = PaneManager.getInstance().getCanvasPane();
+        // startClass und endClass strignnehmen und das passende Canvas Element raussuchen
+        for (Node n: canvasPane.getChildren()){
+            System.out.println("startClass: " + startClass);
+            System.out.println("endClass: " + endClass);
+            System.out.println("canvasChildrenID: " + n.getId());
+
+        }
+        switch (shapeType){
+            case "Arrow":
+//                elements.setLayoutX(event.getX());
+//                elements.setLayoutY(event.getY());
+
+                Arrow arrow = new Arrow(name, elementType);
+                arrow.setId(shapeType);
+                arrow.setJfxRepresentation(shape.getJfxRepresentationValues());
+//                arrow.getLine().setLayoutX();
+
+                CanvasController.enableDrag(arrow);
+
+                draw(arrow);
                 break;
             case "Image":
                 break;
         }
     }
+
     private static void draw(Node shape){
         PaneManager.getInstance().getCanvasPane().getChildren().add(shape);
     }
