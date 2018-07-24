@@ -3,6 +3,7 @@ package view.choosers;
 import controller.ontology.ModelingOntologyImporter;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -62,17 +63,24 @@ public final class ModelingOntologyChooser{
             radioButtonFile.setSelected(false);
         });
         accept.setOnAction(event -> {
-            primaryStage.close();
-            File fXMLFile = null;
-            if (radioButtonFile.isSelected()){
-                fXMLFile = ModelingOntologyFileChooser.showFileChooser();
+            if ((radioButtonFile.isSelected()==false) && (radioButtonWeb.isSelected()==false)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("No option selected");
+                alert.setContentText("Please select an option how the ontology should be loaded !");
+                alert.showAndWait();
             }else {
-                //TODO: WebChooser
+                primaryStage.close();
+                File fXMLFile = null;
+                if (radioButtonFile.isSelected()){
+                    fXMLFile = ModelingOntologyFileChooser.showFileChooser();
+                }else {
+                    //TODO: WebChooser
+                }
+                if (fXMLFile != null) {
+                    ModelingOntologyImporter.loadOntology(fXMLFile);
+                }
             }
-            if (fXMLFile != null) {
-                ModelingOntologyImporter.loadOntology(fXMLFile);
-            }
-
         });
         cancel.setOnAction(event -> primaryStage.close());
 

@@ -69,39 +69,32 @@ public class ToolbarInitializer {
             Multimap<OWLObjectPropertyExpression, OWLIndividual> relationObjectPropertyAttributes = EntitySearcher.getObjectPropertyValues(relationIndividual, ontology);
             Multimap<OWLDataPropertyExpression, OWLLiteral> relationDataPropertyAttributes = EntitySearcher.getDataPropertyValues(relationIndividual, ontology);
             for (OWLObjectPropertyExpression expression : relationObjectPropertyAttributes.keys()) {
-                System.out.println("Expresseion: " + expression);
-                System.out.println("get(expression): " + relationObjectPropertyAttributes.get(expression));
-                System.out.println("Keys: " + relationObjectPropertyAttributes.keys());
                 if (OntologyStringBuilder.getAttributeWithoutBraces(expression).equals(ontID + "#hasStartClass")){
-                    startClassIndividualList.add(OntologyStringBuilder.getEntity(ontology, relationObjectPropertyAttributes.get(expression).toArray()[0].toString()).substring(1, OntologyStringBuilder.getEntity(ontology, relationObjectPropertyAttributes.get(expression).toArray()[0].toString()).length()-1));
-                    System.out.println(OntologyStringBuilder.getEntity(ontology, relationObjectPropertyAttributes.get(expression).toArray()[0].toString()).substring(1, OntologyStringBuilder.getEntity(ontology, relationObjectPropertyAttributes.get(expression).toArray()[0].toString()).length()-1));
+                    for(OWLIndividual individual : relationObjectPropertyAttributes.get(expression)){
+                        startClassIndividualList.add(OntologyStringBuilder.getEntity(ontology, individual.toString()).substring(1, OntologyStringBuilder.getEntity(ontology, individual.toString()).length()-1));
+                    }
                 }
                 if (OntologyStringBuilder.getAttributeWithoutBraces(expression).equals(ontID + "#hasEndClass")){
-                    endClassIndividualList.add(OntologyStringBuilder.getEntity(ontology, relationObjectPropertyAttributes.get(expression).toArray()[0].toString()).substring(1, OntologyStringBuilder.getEntity(ontology, relationObjectPropertyAttributes.get(expression).toArray()[0].toString()).length()-1));
+                    for(OWLIndividual individual : relationObjectPropertyAttributes.get(expression)){
+                        endClassIndividualList.add(OntologyStringBuilder.getEntity(ontology, individual.toString()).substring(1, OntologyStringBuilder.getEntity(ontology, individual.toString()).length()-1));
+                    }
                 }
                 String type = relationIndividual.toString().split("#")[1].substring(0, relationIndividual.toString().split("#")[1].length()-1);
                 createElementInToolbar(expression, type, relationObjectPropertyAttributes, relationDataPropertyAttributes, ontID, false);
             }
         }
         // Add the types of Start- and EndClasses-Types to their lists
-        System.out.println("StartClassIndividualList: " + startClassIndividualList);
-        System.out.println("EndClassIndividualList: " + endClassIndividualList);
         for (OWLIndividual entity: classIndividuals){
             for (String startClassIndividual: startClassIndividualList){
                 if (OntologyStringBuilder.getEntity(ontology, entity.toStringID()).equals(startClassIndividual)){
-                    MMClassesManager.getInstance().addToStartClassTypeList(OntologyStringBuilder.getEntity(ontology, classIndividuals.toArray()[classIndividuals.size()-1 ].toString()));
+                    MMClassesManager.getInstance().addToStartClassTypeList(OntologyStringBuilder.getStringWithoutBraces(OntologyStringBuilder.getEntity(ontology, entity.toString())));
                 }
             }
             for (String endClassIndividual: endClassIndividualList){
-                // System.out.println("1: " + OntologyStringBuilder.getEntity(ontology, entity.toStringID()));
-                // System.out.println("2: " + endClassIndividual);
                 if (OntologyStringBuilder.getEntity(ontology, entity.toStringID()).equals(endClassIndividual)){
-                    MMClassesManager.getInstance().addToEndClassTypeList(OntologyStringBuilder.getEntity(ontology, classIndividuals.toArray()[classIndividuals.size()-1 ].toString()));
+                    MMClassesManager.getInstance().addToEndClassTypeList(OntologyStringBuilder.getStringWithoutBraces(OntologyStringBuilder.getEntity(ontology, entity.toString())));
                 }
             }
-            // System.out.println("1: " + OntologyStringBuilder.getEntity(ontology, entity.toStringID()));
-            // System.out.println("StartClassList: " +  MMClassesManager.getInstance().getStartClassesList());
-            // System.out.println("EndClassList: " +  MMClassesManager.getInstance().getEndClassTypeList());
         }
     }
 

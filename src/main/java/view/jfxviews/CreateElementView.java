@@ -118,7 +118,7 @@ public class CreateElementView {
             ListView<String> startClasses = new ListView<>();
             ListView<String> endClasses = new ListView<>();
             OntologyTreeBuilder.buildStartClassListView(startClasses);
-            // OntologyTreeBuilder.buildEndClassListView(endClasses);
+            OntologyTreeBuilder.buildEndClassListView(endClasses);
             listViewBox.getChildren().addAll(startClasses, endClasses);
 
             HBox buttons = new HBox(40);
@@ -133,7 +133,7 @@ public class CreateElementView {
 
             // Eventhandler
             accept.setOnAction(event -> {
-                if (objectProperties.getSelectionModel().isEmpty() || startClasses.getSelectionModel().isEmpty() || endClasses.getSelectionModel().isEmpty()) {
+                if (objectProperties.getSelectionModel().isEmpty() || startClasses.getSelectionModel().isEmpty() || endClasses.getSelectionModel().isEmpty() || objectProperties.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
                     if (objectProperties.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Information Dialog");

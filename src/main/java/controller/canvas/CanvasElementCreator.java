@@ -33,7 +33,14 @@ public class CanvasElementCreator {
 
                     elements.getChildren().addAll(rectangle.getJfxRepresentation(), nameLabel);
                     CanvasController.enableDrag(elements);
-                    MMClassesManager.getInstance().addToStartClassesList(rectangle);
+
+                    if (MMClassesManager.getStartClassTypeList().contains(shape.getType())){
+                        MMClassesManager.getInstance().addToStartClassesList(rectangle);
+                    }
+                    if (MMClassesManager.getEndClassTypeList().contains(shape.getType())){
+                        MMClassesManager.getInstance().addToEndClassesList(rectangle);
+                    }
+
                     draw(elements);
                     canvasPane.setCursor(Cursor.DEFAULT);
                     canvasPane.setOnMouseClicked(e ->{
@@ -55,7 +62,14 @@ public class CanvasElementCreator {
 
                     elements.getChildren().addAll(circle.getJfxRepresentation(), nameLabel);
                     CanvasController.enableDrag(elements);
-                    // MMClassesManager.getInstance().addToStartClassesList(circle);
+
+                    if (MMClassesManager.getStartClassTypeList().contains(shape.getType())){
+                        MMClassesManager.getInstance().addToStartClassesList(circle);
+                    }
+                    if (MMClassesManager.getEndClassTypeList().contains(shape.getType())){
+                        MMClassesManager.getInstance().addToEndClassesList(circle);
+                    }
+
                     draw(elements);
                     canvasPane.setCursor(Cursor.DEFAULT);
                     canvasPane.setOnMouseClicked(e ->{
@@ -64,6 +78,7 @@ public class CanvasElementCreator {
                 });
                 break;
             case "Arrow":
+
                 break;
             case "Image":
                 break;

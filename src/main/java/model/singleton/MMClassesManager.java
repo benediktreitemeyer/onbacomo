@@ -29,9 +29,15 @@ public class MMClassesManager {
     }
 
     public LinkedList<OnbacomoShape> getStartClassesList(){
+        if (startClassesList == null){
+            startClassesList = new LinkedList<>();
+        }
         return startClassesList;
     }
     public LinkedList<OnbacomoShape> getEndClassesList(){
+        if (endClassesList == null){
+            endClassesList = new LinkedList<>();
+        }
         return endClassesList;
     }
     public static LinkedList<String> getStartClassTypeList() {
@@ -44,7 +50,7 @@ public class MMClassesManager {
         if (endClassTypeList == null){
             endClassTypeList = new LinkedList<>();
         }
-        return startClassTypeList;
+        return endClassTypeList;
     }
 
     public void addToStartClassesList(OnbacomoShape onbacomoClass) {
