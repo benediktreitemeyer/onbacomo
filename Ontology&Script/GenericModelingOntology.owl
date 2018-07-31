@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/2017/10/onbacomo#"
+     xml:base="http://www.semanticweb.org/2017/10/onbacomo"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:onbacomo="http://www.semanticweb.org/2017/10/onbacomo#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/2017/10/onbacomo"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasEndClass -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasEndClass">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#hasStartClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasLineType -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasLineType"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasMMClass -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasMMClass">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Modeltype"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasRelationClass -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasRelationClass">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Modeltype"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Relation_class"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasShape -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasShape"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasShapeColor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasShapeColor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Relation_class"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasStartClass -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasStartClass">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#hasStrokeColor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#hasStrokeColor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Relation_class"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#isParentOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#isParentOf"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Direction -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Direction"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Hex -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Hex"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#RGB -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#RGB"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#StrokeWidth -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/2017/10/onbacomo#StrokeWidth"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Attribute -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Attribute"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Color -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Color">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Visual"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#LineType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#LineType">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Visual"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#MM_Class -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#MM_Class">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#hasShapeColor"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#hasStrokeColor"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#StrokeWidth"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2002/07/owl#rational"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Modeltype -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Modeltype"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Relation_class -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Relation_class"/>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Shape -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Shape">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Visual"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Visual -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Visual">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Attribute"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Aliceblue -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Aliceblue">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+        <Hex>#F0F8FF</Hex>
+        <RGB>240,248,255</RGB>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Arrow -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Arrow">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Shape"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#BPMN -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#BPMN">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Modeltype"/>
+        <hasMMClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#EndEvent"/>
+        <hasMMClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#StartEvent"/>
+        <hasMMClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Task"/>
+        <hasRelationClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Subsequent"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Black -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Black">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+        <Hex>#000000</Hex>
+        <RGB>0,0,0</RGB>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Blue -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Blue">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Circle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Circle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Shape"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#EndEvent -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#EndEvent">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <hasShape rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Circle"/>
+        <hasShapeColor rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Yellow"/>
+        <hasStrokeColor rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Black"/>
+        <StrokeWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#double">5.0</StrokeWidth>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Event -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Event">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <isParentOf rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#StartEvent"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Green -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Green">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Rectangle -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Rectangle">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Shape"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Solid -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Solid">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#LineType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#StartEvent -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#StartEvent">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <hasShape rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Circle"/>
+        <hasShapeColor rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Yellow"/>
+        <hasStrokeColor rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Black"/>
+        <StrokeWidth rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.0</StrokeWidth>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Subsequent -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Subsequent">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Relation_class"/>
+        <hasEndClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#EndEvent"/>
+        <hasEndClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Task"/>
+        <hasLineType rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Solid"/>
+        <hasShape rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Arrow"/>
+        <hasShapeColor rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Black"/>
+        <hasStartClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#StartEvent"/>
+        <hasStartClass rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Task"/>
+        <Direction rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</Direction>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Task -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Task">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#MM_Class"/>
+        <hasShape rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Rectangle"/>
+        <hasShapeColor rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Aliceblue"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#UML -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#UML">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Modeltype"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/2017/10/onbacomo#Yellow -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/2017/10/onbacomo#Yellow">
+        <rdf:type rdf:resource="http://www.semanticweb.org/2017/10/onbacomo#Color"/>
+        <Hex>#FFFF00</Hex>
+        <RGB>255,255,0</RGB>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

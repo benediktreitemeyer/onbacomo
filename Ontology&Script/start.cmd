@@ -1,0 +1,2 @@
+copy C:\Users\Moritz\Desktop\onbacomo\target\modelling.plugin-0.8.0-SNAPSHOT.jar C:\Users\Moritz\Desktop\Protege_5.2.0\plugins\modelling.plugin-0.8.0-SNAPSHOT.jar
+C:\Users\Moritz\Desktop\Protege_5.2.0\run

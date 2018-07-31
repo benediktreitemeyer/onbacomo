@@ -31,7 +31,6 @@ public class Arrow extends OnbacomoShape {
     public Line getLine() {
         return line;
     }
-
     public void setLine(Line line) {
         this.line = line;
     }
@@ -39,7 +38,6 @@ public class Arrow extends OnbacomoShape {
     public String getStartClass() {
         return startClass;
     }
-
     public void setStartClass(String startClass) {
         this.startClass = startClass;
     }
@@ -47,7 +45,6 @@ public class Arrow extends OnbacomoShape {
     public String getEndClass() {
         return endClass;
     }
-
     public void setEndClass(String endClass) {
         this.endClass = endClass;
     }
@@ -55,7 +52,6 @@ public class Arrow extends OnbacomoShape {
     public double getDirection() {
         return direction;
     }
-
     public void setDirection(double direction) {
         this.direction = direction;
     }
@@ -63,7 +59,6 @@ public class Arrow extends OnbacomoShape {
     public String getLineType() {
         return lineType;
     }
-
     public void setLineType(String lineType) {
         this.lineType = lineType;
     }
@@ -94,7 +89,6 @@ public class Arrow extends OnbacomoShape {
     public Polygon getPolygon() {
         return polygon;
     }
-
     public void setPolygon(Polygon polygon) {
         this.polygon = polygon;
     }

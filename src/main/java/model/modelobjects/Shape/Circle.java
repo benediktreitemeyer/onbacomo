@@ -40,6 +40,7 @@ public class Circle extends OnbacomoShape {
         circle.setStrokeWidth(jfxCircle.getStrokeWidth());
         circle.setId(jfxCircle.getId());
         circle.setCursor(jfxCircle.getCursor());
+        circle.setId(jfxCircle.getId());
         return circle;
     }
 }

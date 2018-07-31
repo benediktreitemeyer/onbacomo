@@ -95,7 +95,7 @@ public class CreateElementView {
             //TODO: Fehlermeldung Domain Ontology auswählen
             System.out.println("Ontology = Null");
         }else {
-            Image instanceIcon = new Image(CreateElementView.class.getResourceAsStream("/instanceIcon.gif"));
+            Image instanceIcon = new Image(CreateElementView.class.getResourceAsStream("/objectPropertyIcon.png"));
             Stage primaryStage = new Stage();
             primaryStage.setTitle("Create Element");
 
@@ -133,7 +133,7 @@ public class CreateElementView {
 
             // Eventhandler
             accept.setOnAction(event -> {
-                if (objectProperties.getSelectionModel().isEmpty() || startClasses.getSelectionModel().isEmpty() || endClasses.getSelectionModel().isEmpty() || objectProperties.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
+                if ((objectProperties.getSelectionModel() == null) || (startClasses.getSelectionModel() == null) || (endClasses.getSelectionModel() == null) || (objectProperties.getSelectionModel() == null)) {
                     if (objectProperties.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Information Dialog");

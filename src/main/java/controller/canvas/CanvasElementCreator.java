@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.OnbacomoShape;
@@ -85,26 +86,40 @@ public class CanvasElementCreator {
 
     public static void createRelationElement(OnbacomoShape shape, String name, String shapeType, String elementType, String startClass, String endClass){
         Pane canvasPane = PaneManager.getInstance().getCanvasPane();
-        // startClass und endClass strignnehmen und das passende Canvas Element raussuchen
-        for (Node n: canvasPane.getChildren()){
-            System.out.println("startClass: " + startClass);
-            System.out.println("endClass: " + endClass);
-            System.out.println("canvasChildrenID: " + n.getId());
+        OnbacomoShape startElement = null;
+        OnbacomoShape endElement = null;
 
+        for (OnbacomoShape startClasses : MMClassesManager.getInstance().getStartClassesList()) {
+            if (startClass.equals(startClasses.getName())){
+                startElement = startClasses;
+            }
         }
+        for (OnbacomoShape endClasses : MMClassesManager.getInstance().getEndClassesList()) {
+            if (endClass.equals(endClasses.getName())){
+                endElement = endClasses;
+            }
+        }
+
         switch (shapeType){
             case "Arrow":
 //                elements.setLayoutX(event.getX());
 //                elements.setLayoutY(event.getY());
 
                 Arrow arrow = new Arrow(name, elementType);
-                arrow.setId(shapeType);
                 arrow.setJfxRepresentation(shape.getJfxRepresentationValues());
-//                arrow.getLine().setLayoutX();
+                arrow.setId(shapeType);
 
-                CanvasController.enableDrag(arrow);
+                arrow.setLine(new Line(startElement.getLayoutY(), 10, endElement.getLayoutX(), 10));
+//
+//                CanvasController.enableDrag(arrow);
 
-                draw(arrow);
+                System.out.println("startElement.getLayoutY(): " + startElement.getLayoutY());
+                System.out.println("endElement.getLayoutX(): " + endElement.getLayoutX());
+                System.out.println("endElement.getScaleX(): " + endElement.getScaleX());
+                System.out.println("endElement.getScaleX(): " + endElement.getTranslateX());
+
+                draw(new Line(startElement.getLayoutY(), 10, endElement.getLayoutX(), 10));
+//                draw(arrow.getJfxRepresentation());
                 break;
             case "Image":
                 break;
