@@ -105,7 +105,7 @@ public class CanvasElementCreator {
                 endElement = endClasses;
             }
         }
-        // Suche des Onjekts auf der Canvas Pane über Name
+        // Suche des Objekte auf der Canvas Pane über Name
         for (Node canvasElement : canvasPane.getChildren()) {
             if (startElement.getName().equals(canvasElement.getId())){
                 startElement.getJfxRepresentation().setLayoutX(canvasElement.getLayoutX());
@@ -137,7 +137,7 @@ public class CanvasElementCreator {
                 polygonPoints.set(5, arrow.getLine().getEndY());
 
                 arrow.setPolygon(new Polygon(polygonPoints.get(0), polygonPoints.get(1),polygonPoints.get(2),polygonPoints.get(3),polygonPoints.get(4),polygonPoints.get(5)));
-//                CanvasController.enableDrag(arrow);
+                CanvasController.enableDrag(arrow);
 
                 draw(arrow.getJfxRepresentation());
                 break;
