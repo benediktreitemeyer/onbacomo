@@ -39,6 +39,8 @@ public class Rectangle extends OnbacomoShape {
         rectangle.setStroke(jfxRectangle.getStroke());
         rectangle.setId(jfxRectangle.getId());
         rectangle.setCursor(jfxRectangle.getCursor());
+        rectangle.setLayoutX(jfxRectangle.getLayoutX());
+        rectangle.setLayoutY(jfxRectangle.getLayoutY());
         return rectangle;
     }
 }

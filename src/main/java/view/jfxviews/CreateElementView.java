@@ -133,7 +133,7 @@ public class CreateElementView {
 
             // Eventhandler
             accept.setOnAction(event -> {
-                if ((objectProperties.getSelectionModel() == null) || (startClasses.getSelectionModel() == null) || (endClasses.getSelectionModel() == null) || (objectProperties.getSelectionModel() == null)) {
+                if (objectProperties.getSelectionModel().isEmpty() || startClasses.getSelectionModel().isEmpty() || endClasses.getSelectionModel().isEmpty() || objectProperties.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
                     if (objectProperties.getSelectionModel().getSelectedItem().getValue().equals("owl:topObjectProperty")) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Information Dialog");

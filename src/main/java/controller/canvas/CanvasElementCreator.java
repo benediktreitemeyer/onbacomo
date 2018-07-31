@@ -1,5 +1,7 @@
 package controller.canvas;
 
+import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -7,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import model.modelobjects.Shape.Arrow;
 import model.modelobjects.Shape.Circle;
 import model.modelobjects.Shape.OnbacomoShape;
@@ -35,6 +38,7 @@ public class CanvasElementCreator {
 
                     elements.getChildren().addAll(rectangle.getJfxRepresentation(), nameLabel);
                     CanvasController.enableDrag(elements);
+                    elements.setId(name);
 
                     if (MMClassesManager.getStartClassTypeList().contains(shape.getType())){
                         MMClassesManager.getInstance().addToStartClassesList(rectangle);
@@ -64,6 +68,7 @@ public class CanvasElementCreator {
 
                     elements.getChildren().addAll(circle.getJfxRepresentation(), nameLabel);
                     CanvasController.enableDrag(elements);
+                    elements.setId(name);
 
                     if (MMClassesManager.getStartClassTypeList().contains(shape.getType())){
                         MMClassesManager.getInstance().addToStartClassesList(circle);
@@ -89,6 +94,7 @@ public class CanvasElementCreator {
         OnbacomoShape startElement = null;
         OnbacomoShape endElement = null;
 
+
         for (OnbacomoShape startClasses : MMClassesManager.getInstance().getStartClassesList()) {
             if (startClass.equals(startClasses.getName())){
                 startElement = startClasses;
@@ -99,27 +105,41 @@ public class CanvasElementCreator {
                 endElement = endClasses;
             }
         }
+        // Suche des Onjekts auf der Canvas Pane über Name
+        for (Node canvasElement : canvasPane.getChildren()) {
+            if (startElement.getName().equals(canvasElement.getId())){
+                startElement.getJfxRepresentation().setLayoutX(canvasElement.getLayoutX());
+                startElement.getJfxRepresentation().setLayoutY(canvasElement.getLayoutY());
+            }
+            if (endElement.getName().equals(canvasElement.getId())){
+                endElement.getJfxRepresentation().setLayoutX(canvasElement.getLayoutX());
+                endElement.getJfxRepresentation().setLayoutY(canvasElement.getLayoutY());
+            }
+        }
 
         switch (shapeType){
             case "Arrow":
-//                elements.setLayoutX(event.getX());
-//                elements.setLayoutY(event.getY());
-
                 Arrow arrow = new Arrow(name, elementType);
-                arrow.setJfxRepresentation(shape.getJfxRepresentationValues());
                 arrow.setId(shapeType);
+                arrow.setStartClass(startElement.getName());
+                arrow.setEndClass(endElement.getName());
+                // startX, startY, endX, endY
+                arrow.setLine(new Line(startElement.getJfxRepresentation().getLayoutX() + startElement.getJfxRepresentation().getLayoutBounds().getWidth(), startElement.getJfxRepresentation().getLayoutY() + (startElement.getJfxRepresentation().getLayoutBounds().getHeight()/2), endElement.getJfxRepresentation().getLayoutX()-5, endElement.getJfxRepresentation().getLayoutY()+ (endElement.getJfxRepresentation().getLayoutBounds().getHeight()/2)));
 
-                arrow.setLine(new Line(startElement.getLayoutY(), 10, endElement.getLayoutX(), 10));
-//
+                ObservableList<Double> polygonPoints = arrow.getPolygon().getPoints();
+                // X-Values
+                polygonPoints.set(0, arrow.getLine().getEndX());
+                polygonPoints.set(2, arrow.getLine().getEndX());
+                polygonPoints.set(4, arrow.getLine().getEndX()+5);
+                // Y - Values
+                polygonPoints.set(1, arrow.getLine().getEndY()+5);
+                polygonPoints.set(3, arrow.getLine().getEndY()-5);
+                polygonPoints.set(5, arrow.getLine().getEndY());
+
+                arrow.setPolygon(new Polygon(polygonPoints.get(0), polygonPoints.get(1),polygonPoints.get(2),polygonPoints.get(3),polygonPoints.get(4),polygonPoints.get(5)));
 //                CanvasController.enableDrag(arrow);
 
-                System.out.println("startElement.getLayoutY(): " + startElement.getLayoutY());
-                System.out.println("endElement.getLayoutX(): " + endElement.getLayoutX());
-                System.out.println("endElement.getScaleX(): " + endElement.getScaleX());
-                System.out.println("endElement.getScaleX(): " + endElement.getTranslateX());
-
-                draw(new Line(startElement.getLayoutY(), 10, endElement.getLayoutX(), 10));
-//                draw(arrow.getJfxRepresentation());
+                draw(arrow.getJfxRepresentation());
                 break;
             case "Image":
                 break;

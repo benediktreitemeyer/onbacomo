@@ -41,6 +41,8 @@ public class Circle extends OnbacomoShape {
         circle.setId(jfxCircle.getId());
         circle.setCursor(jfxCircle.getCursor());
         circle.setId(jfxCircle.getId());
+        circle.setLayoutX(jfxCircle.getLayoutX());
+        circle.setLayoutY(jfxCircle.getLayoutY());
         return circle;
     }
 }

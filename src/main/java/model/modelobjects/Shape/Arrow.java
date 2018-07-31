@@ -33,6 +33,10 @@ public class Arrow extends OnbacomoShape {
     }
     public void setLine(Line line) {
         this.line = line;
+        if (!jfxArrow.getChildren().isEmpty()){
+            jfxArrow.getChildren().clear();
+            jfxArrow.getChildren().addAll(getLine(), getPolygon());
+        }
     }
 
     public String getStartClass() {
@@ -91,5 +95,9 @@ public class Arrow extends OnbacomoShape {
     }
     public void setPolygon(Polygon polygon) {
         this.polygon = polygon;
+        if (!jfxArrow.getChildren().isEmpty()){
+            jfxArrow.getChildren().clear();
+            jfxArrow.getChildren().addAll(getLine(), getPolygon());
+        }
     }
 }
